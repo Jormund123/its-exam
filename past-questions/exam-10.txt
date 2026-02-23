@@ -1,0 +1,323 @@
+Rheinische Friedrich-Wilhelms-Universität Bonn
+Master of Computer Science
+Semester: Winter Term
+Module Name: IT Security
+Module No: MA-INF 3236
+Examiner: Prof. Dr. Michael Meier
+To be filled out by the Student:
+Last Name:
+Given Name:
+Written Exam
+Exam Period: 2
+Date of Examination: 18.03.2024
+Matriculation Number:
+Case of Study
+Computer Science Cyber Security Secondary Subject ☐
+Other
+To be filled by the examiner:
+1 2 3 4 5 6 7 8 9 10 11 12 Σ
+10 10 10 10 10 10 10 10 10 10 10 10 120
+To be filled by the examiner:
+Grading:
+Grades: very good (1,0; 1,3) good (1,7; 2,0; 2,3) satisfactory (2,7; 3,0; 3,3) sufficient (3,7; 4,0) not sufficient (5,0)
+Date:
+Signature of Examiner
+Last Name:
+Exercise 1 (Side Channel Attacks, 5+5 points).
+Matriculation Number:
+a) In the Rowhammer attack, an attacker flips a bit at some memory address, without the computer
+noticing. Give two examples where flipping a single bit compromises the security of the system
+and describe how the security is compromised.
+b) Compared to brute forcing a cryptographic algorithm, what advantage do side channels provide?
+Give two examples of cryptographic algorithms, where side channels make the attacks feasible.
+Last Name: Matriculation Number:
+Exercise 2 (Secure Software Engineering, 4+6 points).
+a) Define the following terms and write down the name of the affected CIA-property:
+Tampering, Information Disclosure
+b) Name one abuse and one misuse case for the following scenario and define the affected CIAproperties: A company has set up a vending machine for softdrinks on the university campus,
+where the purchase process works as follows:
+(1) Hold your prepaid card on the machine.
+(2) Choose your drink.
+(3) Take the drink.
+(4) Payment amount is debited from your card.
+Last Name: Matriculation Number:
+Exercise 3 (Usable Security and Privacy, 4+6 points).
+a) Your colleagues are planning a survey study about peoples' attitudes towards clientside scanning,
+and have asked for your feedback. For the following questions in bold font below, apart from
+self-reporting bias, judge which questions are methodologically sound, and which are problematic
+enough, that you would recommend your colleagues to improve the question, before publishing
+and distributing their survey.
+At the beginning of the survey, your colleagues present a neutral definition of clientside scanning:
+„There is software that allows comprehensive automated searches for files relevant to criminal
+activities on devices such as smartphones or laptops. Law enforcement authorities are informed
+if the software finds suspicious material."
+If you judge a question or its answers to be problematic, briefly explain the problematic aspects.
+How much privacy do you think there is on the internet right now?
+There is much privacy
+There is some privacy
+There is not much privacy
+There is no privacy at all
+I do not know
+I would rather not say
+The question is...
+methodologically sound
+Explanation of problematic aspects:
+methodologically problematic
+How concerned are you about possible misuse of clientside scanning?
+Extremely concerned
+Highly concerned
+Very concerned
+Strongly concerned
+Moderately concerned
+The question is...
+methodologically sound
+Explanation of problematic aspects:
+methodologically problematic
+Would you approve or disapprove of clientside scanning to prosecute terrorism?
+I disapprove
+I somewhat disapprove
+I neither approve nor disapprove
+I somewhat approve
+I approve
+The question is...
+methodologically sound
+Explanation of problematic aspects:
+methodologically problematic
+Last Name: Matriculation Number:
+How privacy-preserving and crime-exposing do you think clientside scanning is?
+very privacy-preserving and crime-exposing
+moderately privacy-preserving and crime-exposing
+neutral
+somewhat privacy-preserving and crime-exposing
+not privacy-preserving and crime-exposing
+The question is...
+methodologically sound
+Explanation of problematic aspects:
+methodologically problematic
+b) Decide for each statement, whether it is true (T) or false (F) by marking it with the corresponding
+letter.
+_ Software developers are the root cause of most IT security problems.
+_ Using snowball sampling to recruit participants leads to an unbiased, random sample.
+_ Most software developers are not security experts.
+_ From an ethical point of view, study participants need to have sufficient information and
+understanding about a study, before deciding to take part in it.
+_ In the SOUPS-paper „Replication: No One Can Hack My Mind: Revisiting a Study on
+Expert and Non-Expert Security Practices and Advice" by Busse et. al., security experts
+recommend not sharing private information more frequently than non-experts do.
+_ In the SOUPS-paper „Replication: No One Can Hack My Mind: Revisiting a Study on
+Expert and Non-Expert Security Practices and Advice" by Busse et. al., security experts
+recommend using password managers more frequently than non-experts do.
+Last Name: Matriculation Number:
+Exercise 4 (Applied Binary Exploitation, 10 points). Given the following information, prepare the
+payload to overflow the local variable x to exploit a program with a ROP chain which calls libc's
+system("/bin/sh"). Write the bytes of the payload correctly into „Stack at Position 26
+and briefly explain each stack word on the right. The exploit should be designed for a littleendian x64 architecture with System V calling convention.
+Base Address of library: Ox7fff 4000 0000
+Gadget offsets:
+pop rdx; ret 0x1000
+mov rdi, rsp; ret -- Oxdead
+add rdi, rdx; ret -- 0x001e
+-- 0x01 00e8 system() offset
+system():
+rdi -- const char *command
+You can assume that the executed code is equivalent to the following Pseudo-C snippet and that there
+are no stack canaries active. However, the position of the stack is randomized, so you cannot
+use absolute stack addresses.
+1 void func() {
+2 unsigned long x = 42;
+3
+4
+6
+// Position 1
+read(stdin, &x, 8 * 16);
+8 // Position 2
+You may write a dash (-) instead of a 00.
+Address Stack at Position 1 comment Stack at Position 2 Your Explanation
+7fff ???? dc50 42--
+7fff ???? dc58 50 dd ff ff ff 7f -- saved rbp
+7fff ???? dc60 23 51 55 55 55 55 ret addr
+7fff ???? dc68
+7fff ???? dc70
+7fff ???? dc78
+7fff ???? dc80
+7fff ???? dc88
+7fff ???? dc90
+7fff ???? dc98
+7fff ???? dca0
+7fff ???? dca8
+7fff ???? dcb0
+7fff ???? dcb8
+7fff ???? dcc0
+7fff ???? dcc8
+Last Name: Matriculation Number:
+Exercise 5 (Malware Analysis, 2+3+2+3 points).
+a) Given the parts of a PDF file shown in the listing below, answer the following questions in at
+most one sentence each:
+i. What is the ID of the action that is executed when the PDF is opened?
+ii. What happens when the action is invoked?
+1 0 obj
+<<
+/Type /Catalog
+/Pages 20R
+/OpenAction 3 0 R
+><
+endobj
+20 obi
+/Type /Pages
+/Kids 8 0 R
+/Resources 4 0 R
+endobj
+30 obj
+<<
+>>
+/Type /Action
+/S/Launch
+/F ('/usr/bin/shutdown')
+endobj
+4 0 obj
+<<
+/Type /Action
+/S /JavaScript
+/F. ("console.log('Hello, world!');")
+>>
+b) In 2-3 sentences, describe one file-system-based anti-sandboxing technique discussed in the lecture, and why the underlying artifact is specific to sandboxes.
+Last Name: Matriculation Number:
+c) Name the obfuscation technique displayed in the listing below, and in one sentence each, explain
+the general concept of it, what it's used for, and why it works.
+void some func() {
+unsigned char e0 = 0x00;
+unsigned char e1 = 0x6f;
+unsigned char e2 = 0x6c;
+unsigned char e3 = 0x6c;
+unsigned char e4 = 0x65;
+unsigned char e5 = 0x68;
+거
+printf("%s", e5)B // prints "hello"
+d) Given the following diagram of communication between an infected client and a C&C server,
+explain the characteristic technique of this approach, and two advantages compared to the naive
+approach of directly communicating with the hardcoded IP 1.1.1.1.
+1111
+100.0.0.1 4.20.4.2
+zxcvb.com nmas.com
+110.0.0.1
+hjkl.com
+133.37.0.1
+yuiop.com
+gen(time.now()) zxcybn.com
+100.0.0.1
+zxcvbn.com
+Last Name: Matriculation Number:
+Exercise 6 (Security of Distributed Systems, 1+6+2+1 points).
+a) What is the purpose of the distributed ledger technology?
+b) Describe the six steps of a blockchain-based distributed ledger operation.
+c) Name two mechanisms to realize a n-of-m wallet for a distributed ledger.
+d) Briefly describe a mechanism to reduce the storage space of a Blockchain-based distributed
+ledger.
+Last Name: Matriculation Number:
+Exercise 7 (Fuzzing, 3+3+4 points).
+a) Name one property that whitebox testing and blackbox testing have in common and one property
+that is different between the two testing methods.
+b) Describe a method, presented in the lecture, that has been used to perform robustness testing
+on computers in the 1950s
+c) Match the excerpts of the command line commands related to fuzzing to the respective explanations, by inserting the correct numbers into the boxes on the left.
+Π -Lcalculation
+☐☐ -fsanitize=fuzzer
+-Icalculation
+CXX=afl-clang
+-1calculation
+☐ -fsanitize=address
+☐ -fsanitize=fuzzer-no-link
+CC=afl-clang
+1 Tell the compiler to generate a LibFuzzer executable
+2 Instrument an object for fuzzing
+3 Instrument an object for address sanitization
+4 Use afl-clang as the C++ compiler
+5 Use afl-clang as the C compiler
+6 Look for libraries in a folder named calculation
+7 Link against a library named calculation
+8 Look for headers in a folder named calculation
+Last Name: Matriculation Number:
+Exercise 8 (Domain-Specific Automated Software Testing, 3+3+2+2 points).
+a) Give a formal definition of a t-way test suite as discussed in the lecture.
+b) Explain an advantage and a disadvantage of combinatorial testing compared to domain-specific
+fuzzing in one sentence each.
+c) Define the property soundness for a test oracle.
+d) Consider differential testing of the X.509 certificate validation with a reduction function
+R(o)=f certificate is considered to be valid.
+else
+Prove that differential testing is not sound by giving a counter-example with a short explanation.
+Last Name:
+Exercise 9 (Device Identification, 3+3+4 points).
+Matriculation Number:
+a) Give an example for why utilizing device identification techniques can benefit an offensive actor
+as discussed in the lecture. In what way can the target device and/or its holder be compromised
+in your example?
+b) Assume you want to know, whether a target device is still sending and in range of your receiver.
+It is communicating to one specific receiver that is always accessible and responsive and does not
+move. Its communication is completely encrypted, however, so you have no access to the header
+or content of the sent packets.
+Explain a passive device identification technique presented in the lecture that you could be using
+in that scenario. Why does it work? What drawbacks does your suggested technique have?
+c) Explain the goal of MAC address randomization. Describe two different forms of MAC address
+randomization that can be found on modern smartphones and explain the differences. Explain,
+how these forms can be attacked using device identification techniques.
+Last Name: Matriculation Number:
+Exercise 10 (Supply Chain Attacks, 1+2+2+3+2 points).
+a) What is the Intrusion Kill Chain used for?
+b) Briefly explain one step (of your choosing) of the Intrusion Kill Chain. Name the step before
+and after.
+c) What is the idea behind Supply Chain Attacks?
+d) Name the main motivation for each Threat Actor type.
+e) Is scanning the target's public servers for open ports a suitable technique for footprinting? Why?
+Last Name: Matriculation Number:
+Exercise 11 (Topological Data Analysis, 2+3+3+2 рoints).
+a) Match the persistence diagrams to the captioned point clouds by writing the numbers in corresponding box. Briefly justify your answers.
+2D Figure Eight
+1
+-1.000.730.500.28002250500.75
+Filled Sphere
+2
+0.04
+0.02
+0.00
+-0.04
+100
+0.50
+0.25
+0.00
++-0.25
+-0.50
+Persistence Dlagram
+eirth
+Persistence Diagram
+Hollow Sphere
+Persistence Diagram
+3
+-1.00.730.590.23.000.25a.500.7500 -2aob
+Hollow Torus
+Persistence Diagram
+4
+−1.0.场5902.000.230.50 0.75100
+Dimension
+Dimension
+Dim
+Justification:
+Justification:
+Justification:
+Justification:
+Last Name: Matriculation Number:
+b) Given a topological space X define the concepts of homology as well as filtration. Given these
+two concepts, explain persistent homology.
+c) Consider the abstract simplicial complex K given by
+K = {0, {0},{1}, {2}, {3}, {4}, {5}, {0, 1}, {0,2}, {1,3}, {2,3}, {2,4},
+{3,4}, {3,5}, {4,5}, {2,3, 4}, {3, 4, 5}}.
+Draw its geometric realization. What are the homology groups of K?
+d) Given two homotopy equivalent topological spaces X and Y, how do their homology groups
+relate to each other? Briefly justify your answer.
+Last Name: Matriculation Number:
+Exercise 12 (Anonymization and Secure Multiparty Computation, 2+1+1+6 points).
+a) Define the marketer attacker model.
+b) Define k-anonymity.
+c) Describe the advantage of point-and-permute over the raw garbled circuits technique and how
+it is achieved.
+d) List the six steps needed to create a garbled circuit.

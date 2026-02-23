@@ -1,0 +1,20 @@
+IT Security 2025/2026
+Exercise Sheet 1
+– Flavius & Human Factors in Security and Privacy –
+Ben Swierzy, Lisa Geierhaas
+Publication: 16.10.2025
+Deadline: 21.10.2025 14:00
+Lightning Survey
+Part 1: Flavius
+Exercise 1 (Flavius Introduction, 1+1 points). This exercise helps you to get familiar with
+handing in your submissions via Flavius and Gitlab. Be aware that all your work needs to be
+pushed to the branch corresponding to the current sheet. Furthermore, all of your files for all
+tasks of a sheet need to be located inside the sheet’s folder (in this case flavius_hf).
+a) Create a file with the name this-is-simple.txt
+b) Check the pipeline output of the first task. Adjust the content of the file accordingly.
+Part 2: Practical Challenges in Human Factors in Security and Privacy
+Exercise 2 (Survey, 8 points). Take part in this survey: https://csbonn.qualtrics.com/jfe/
+form/SV_2fA8dqtSdaf7BC6
+At the beginning of the survey, you can set a pseudonym, so we can grant you points for
+completion. Write the pseudonym(s) of your group members into the file pseudonyms.txt.
+1

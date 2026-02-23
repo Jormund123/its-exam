@@ -1,0 +1,1185 @@
+IT SECURITY
+CYBER SECURITY OF
+DISTRIBUTED AND RESOURCE-
+LIMITED SYSTEMS
+THORSTEN AURISCH
+FRAUNHOFER FKIE, KOM
+ABOUT ME
+■ Studied physics at the University of Bonn
+■ Get PhD in Computer Science
+■ At Fraunhofer FKIE since 1998
+■ Research areas autonomous cyber security mechanisms, cyber resilience, key
+management
+■ Supervise labs, seminars and theses
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 2
+CONTENT
+■ Motivation
+■ Chapter 1: Confidentiality in distributed systems
+■ Chapter 2: Integrity, authenticity in distributed systems
+■ Chapter 3: Secure distributed documentation
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 3
+MOTIVATION
+■ This is a high-speed walk-through selected topics
+■ There is a full lecture on cyber security of distributed and resource-limited systems
+■ If you want to know more, visit the lecture
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 4
+MOTIVATION: SECURITY FOR TWO PARTIES
+START END
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 5
+JOIN
+06.11.2025 MOTIVATION: MEMBERSHIP OPERATIONS IN DISTRIBUTED
+SYSTEMS
+LEAVE
+EJECT
+MERGE
+PARTITION
+Lecture IT Security / University of Bonn / Thorsten Aurisch 6
+MOTIVATION: DISTRIBUTED SECURITY MECHANISMS
+■ There are good reasons to use distributed security mechanisms
+■ Secrets for security mechanism are too important to be kept by a single user
+■ Some users are not equipped with hardware to securely store secret keys
+■ A single point of failure is avoided if multiple users are involved
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 7
+CHAPTER 1: LEARNING OBJECTIVE
+■ We want to understand the protection mechanisms against eavesdropping
+Example:
+chat system
+u2
+u1
+u3
+0100100111100101
+0100100111100101
+0100100111100101
+0100100111100101
+0100100111100101
+0100100111100101
+01010101001100010100
+01010101001100010100
+01010101001100010100
+01010101001100010100
+01010101001100010100
+01010101001100010100
+10101001010001011100
+10101001010001011100
+10101001010001011100
+10101001010001011100
+10101001010001011100
+10101001010001011100
+10010010010010100101
+10010010010010100101
+10010010010010100101
+10010010010010100101
+10010010010010100101
+10010010010010100101
+10100100100100101001
+10100100100100101001
+10100100100100101001
+10100100100100101001
+10100100100100101001
+10100100100100101001
+10101001010100100101
+10101001010100100101
+10101001010100100101
+10101001010100100101
+10101001010100100101
+10101001010100100101
+10100101010010010100
+10100101010010010100
+10100101010010010100
+10100101010010010100
+10100101010010010100
+10100101010010010100
+10100010100100101001
+10100010100100101001
+10100010100100101001
+10100010100100101001
+10100010100100101001
+10100010100100101001
+01010010101001010010
+01010010101001010010
+01010010101001010010
+01010010101001010010
+01010010101001010010
+01010010101001010010
+00101010001010010101
+00101010001010010101
+00101010001010010101
+00101010001010010101
+00101010001010010101
+00101010001010010101
+10101001010100010111
+10101001010100010111
+10101001010100010111
+10101001010100010111
+10101001010100010111
+10101001010100010111
+11100101010010101001
+11100101010010101001
+11100101010010101001
+11100101010010101001
+11100101010010101001
+11100101010010101001
+10101001010010010011
+10101001010010010011
+10101001010010010011
+10101001010010010011
+10101001010010010011
+10101001010010010011
+10100100101001010111
+10100100101001010111
+10100100101001010111
+10100100101001010111
+10100100101001010111
+10100100101001010111
+u4
+u5
+[psaik]
+message m
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 8
+CHAPTER 1: CONFIDENTIALITY IS PROVIDED BY
+ENCRYPTION
+■ Confidentiality can be provided by encryption E(m,k) with a key k
+■ Example: IPsec is a security protocol that specifies how network traffic is encrypted
+■ IP Authentication Header (AH) defines a method for IP packet authentication
+■ IP Encapsulating Security Payload (ESP) defines a method for IP packet encryption
+(and payload authentication)
+■ However, a dynamic key is need to handle composition changes in the system
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 9
+CHAPTER 1: NEEDHAM-SCHROEDER PROTOCOL–
+DYNAMIC PAIRWISE KEYS (1)
+■ A dynamic key can be established for each user pair by the Needham-Schroeder protocol
+■ Example: Pairwise key k12 for the users u1 and u2 by a Group Controller (GC)
+■ u1 with ID1, u2 with ID2
+■ u1 and GC share k1,GC, u2 and GC share k2,GC
+nonce as replay
+attack protection
+1. u1 → GC: ID1, ID2, n1
+GC
+2. u1  GC: E({n1,k12,ID2,E({k12,ID1}, k2,GC)}, k1,GC)
+3. u1 → u2: E(ñ1, k12), E({k12,ID1}, k2,GC)
+4. u1  u2: E((ñ1-1,n2), k12)
+5. u1 → u2 : E((n2-1), k12)
+msg 3
+msg 4
+msg 5
+u1 u2
+ticket
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 10
+CHAPTER 1: NEEDHAM-SCHROEDER PROTOCOL–
+DYNAMIC PAIRWISE KEYS (2)
+■ Disadvantages of the Needham-Schroeder
+protocol
+■ The Group Controller is a single point of
+failure
+■ Handling of network separation and
+fusion is not supported
+■ Pairwise key establishment has a limited
+scalability
+GC
+msg 3
+msg 4
+msg 5
+u1 u2
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 11
+CHAPTER 1: SCALABLE SECURITY
+■ Using the Needham-Schroeder protocol
+means each user pair needs a key
+■ The number of pairwise keys in a
+distributed system of n users can be
+calculated with:
+10
+9
+#𝑘𝑒𝑦𝑠 = 𝑓 𝑛 =
+𝑛 ∙ 𝑛 − 1
+2
+8
+■ 10 users need 45 secret keys
+■ The number of key grows quadratically
+with number of users
+𝑓 𝑛 ∈ 𝑂(𝑛2) Big O notation to classify
+algorithms efficiency
+7
+6
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 1
+5
+2
+3
+4
+12
+CHAPTER 1: GROUP KEY FOR EFFICIENCY
+■ Efficient confidentiality in distributed
+systems can be achieved by a shared
+group key for the encryption E(m,k)
+of a security protocol
+■ The group key is only provided for
+authorized users
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 13
+CHAPTER 1: GROUP KEY SECURITY REQUIREMENTS
+JOIN LEAVE
+■ Only authorized users receive the group key (key secrecy)
+■ In dynamic groups key secrecy is guaranteed by altering the group key (rekeying)
+■ Authorized users can join the group but receive no old group key (forward secrecy)
+■ Users can leave the group but receive no new group key (backward secrecy)
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 14
+CHAPTER 1: DISTRIBUTED GROUP KEY MANAGEMENT FOR
+CONFIDENTIALITY
+■ Concept: Every user contributes to the session key for encryption
+■ The key establishment and update mechanisms are based
+on an iterative application of the Diffie-Hellman algorithm
+■ Advantages
+■ It is easier to trust many users than one GC
+■ The key establishment is done without a single point of failure
+■ The mechanisms can handle network partition and merge
+■ Disadvantages
+■ Difficult key establishment in networks with high packet losses
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 15
+CHAPTER 1: REFRESHER-
+“DISTRIBUTED” TWO PARTY KEY
+MANAGEMENT- DIFFIE-HELLMAN ALGORITHM (DH)
+group with multiplication
+■ Generating a shared secret key over public channels
+modulo p as the operation
+■ ℤ*
+p={1, ..., p – 1}, p = prime, g = generator of ℤ*
+p
+public DH key = blind key
+bk
+1
+k1 = secret key u1
+bk1 = gk1 mod p ≔ BK(k1) bk
+2
+u1 u2
+DH displayed as key tree
+k
+1k
+g
+2
+k2 = secret key u2
+bk2 = gk2 mod p :=BK(k2)
+k12 = gk2
+k1 mod p
+≔ DH bk2, k1
+k1
+k2
+k12 = gk1
+k2 mod p
+≔ DH bk1, k2
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 16
+CHAPTER 1: TREE-BASED GROUP DIFFIE-HELLMAN
+(TGDH) PROTOCOL– BASIS
+■ Every user ui generate keys ki / blind keys bki according to the DH algorithm,
+■ All users are arranged in a tree and assign the generate keys to the leaves of the tree
+■ Every user ui knows the blind keys of all other tree nodes
+■ Root key calculation by an iterative application of the Diffie-Hellman algorithm
+k0,0
+k0,0 = bk1,0
+k1,1 mod p ≔ DH bk1,0, k1,1
+Root key is used
+for application
+data encryption
+bk1,0 k1,1
+k1,1 = bk2,3
+k2,2 mod p ≔ DH bk2,3, k2,2
+bk2,0 bk2,1 bk2,3
+k2,2
+u1 u2
+u3 u4
+Root key calculation of u3 by
+applying the DH algorithm twice
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 17
+CHAPTER 1: TGDH – HANDLING MEMBERSHIP
+OPERATIONS
+■ A sponsor is selected for handling the membership operation
+■ JOIN: The sponsor is the user whose leaf is split
+■ LEAVE: The sponsor is the user who is the sibling in the key tree
+sponsor
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 18
+0.
+1.
+CHAPTER 1: TGDH –
+JOIN (1)
+Group ui i{1,2,3,4,5,6,7}
+JOIN u8 with k3,7 , bk3,7
+New sponsor u7
+JoinRequest
+Update
+u7 all blind keys
+k0,0
+bk1,0
+k1,1
+bk2,1 bk2,2 k2,3
+bk2,0
+bk3,0 bk3,1 bk3,4
+bk3,2
+bk3,3 bk3,5
+JOIN
+bk3,7
+u7
+u1 u2 u3 u4 u5 u6
+k̃0,0
+k̃0,0= DH(bk1,0, k̃1,1)
+u8
+u7: Group key calculation
+k̃2,3= DH(bk3,7, k2,3), kb̃2,3= BK(k̃2,3)
+k̃1,1= DH(bk2,2, k̃2,3), kb̃1,1= BK(k̃1,1)
+k̃0,0= DH(bk1,0, k̃1,1)
+bk1,0
+k̃1,1
+k̃1,1= DH(bk2,2, k̃2,3)
+bk2,1 bk2,2 k̃2,3
+bk2,0
+bk3,0 bk3,1 bk3,4
+bk3,2
+bk3,3 bk3,5 k3,6
+k̃2,3= DH(bk3,7, k2,3)
+bk3,7
+u1 u2 u3 u4 u5 u6 u7 u8
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 19
+CHAPTER 1: TGDH – JOIN (2)
+k̃0,0= DH(bk̃1,1, k1,0,)
+k̃0,0
+2. Update
+u7
+bk̃1,1 bk̃2,3
+k1,0
+bk̃1,1
+3.
+u1, ... ,
+u6
+e.g. u1: Group key calculation
+Receive bk̃1,1
+k̃0,0= DH(bk̃1,1, k1,0)
+k2,0
+bk2,1 bk2,2 bk̃2,3
+k3,0 bk3,1 bk3,4
+bk3,2
+bk3,3 bk3,5 bk3,6
+bk3,7
+u1 u2 u3 u4 u5 u6 u7 u8
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 20
+CHAPTER 1: TGDH –
+LEAVE (1)
+k0,0
+k0,0
+k1,0
+bk1,0
+bk1,1
+k1,1
+0.
+1.
+Group ui i{1,2,3,4,5,6,7,8}
+LEAVE u8
+New sponsor u7
+LeaveRequest
+bk2,0
+bk2,0
+k2,1 bk2,2
+bk2,1 bk2,2
+bk3,0 bk3,1 bk3,4
+bk3,2
+k3,3 bk3,5
+bk3,0 bk3,1 bk3,4
+bk3,2
+bk3,3 bk3,5
+u1 u2 u3 u4 u5 u6
+bk2,3
+k2,3
+bk3,6
+k3,6
+bk3,7
+bk3,7
+u7 u8
+Leave
+Leave
+̃
+k
+0,0
+k̃0,0= DH(bk1,0, k̃1,1)
+u7
+u8
+u7: Group key calculation
+Refresh k̃2,3,
+bk̃2,3
+k̃1,1= DH(bk2,2, k̃2,3), kb̃1,1= BK(k̃1,1)
+k̃0,0= DH(bk1,0, k̃1,1)
+bk1,0
+̃
+k
+1,1
+k̃1,1= DH(bk2,2, k̃2,3)
+bk2,0
+̃
+bk2,1 bk2,2 k
+2,3
+bk3,0 bk3,1 bk3,4
+bk3,2
+bk3,3 bk3,5
+u7
+TM
+u1 u2 u3 u4 u5 u6
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 21
+CHAPTER 1: TGDH – LEAVE (2)
+2. Update
+u7
+k̃0,0= DH(bk̃1,1, k1,0,)
+k̃0,0
+bk̃1,1 bk̃2,3
+u1, ... ,
+u6
+k1,0
+bk̃1,1
+3.
+e.g. u1: Group key calculation
+Receive bk̃1,1
+k̃0,0= DH(bk̃1,1, k1,0)
+k2,0
+bk2,1 bk2,2 bk̃2,3
+k3,0 bk3,1 bk3,4
+bk3,2
+bk3,3 bk3,5
+u7
+u1 u2 u3 u4 u5 u6
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 22
+CHAPTER 1: TGDH – LEAVE EXAMPLE CALCULATION
+0.
+1.
+Group ui i{1,2,3,4,5,6,7,8}
+LEAVE u8
+New sponsor u7 , g = 3, p = 31
+LeaveRequest
+k=128mod31=1
+k̃0,0
+k=2615mod31=30
+bk=330mod31=1
+k1,0
+bk̃1,1
+k=228mod31=28
+u7
+u8
+u7 group key calculation:
+Refresh k̃2,3,
+bk̃2,3
+k̃1,1= DH(bk2,2, k̃2,3), kb̃1,1= BK(k̃1,1)
+k̃0,0= DH(bk1,0, k̃1,1)
+k2,0
+k=17
+bk=317mod31=22
+bk2,1 bk2,2 bk̃2,3
+k=8
+bk=38mod31=20
+k3,0 bk3,1 bk3,4
+bk3,2
+bk3,3 bk3,5
+u7
+TM
+u1 u2 u3 u4 u5 u6
+2. ……
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 23
+CHAPTER 1: TGDH – HANDLING OF THE JOIN / LEAVE
+IN THE NETWORK
+■ The JoinRequest is sent via IP multicast because the sponsor is unknown to a new user
+■ The LeaveRequest is sent via IP multicast because the user may have stored the wrong
+sponsor
+■ TGDH users must be members of an IP multicast group
+■ IP multicast can also be used for efficient key update distribution
+JoinRequest
+LeaveRequest
+u1, ... ,
+u7
+u6
+u8
+u8
+u1, ... ,
+u7
+u6
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 24
+CHAPTER 1: TGDH - MOBILE AD-HOC NETWORKS
+■ Network fusion
+■ The network fusion is supported by a
+key tree merge
+→ Generation of a new common root
+→ Inserting the smaller tree in the bigger tree
+■ Network separation
+■ A key tree split is used to support a
+network separation
+→ Multiple REJOIN if the separation can not
+be handled by a tree split
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 25
+CHAPTER 1: SUMMARY
+■ Confidentiality in distributed systems is provided by encryption E(m,k) with a
+group key k
+■ Key management is a fundamental component for providing confidentiality
+■ Distributed group key management, e.g. TGDH, is based on the iterative application of
+the Diffie-Hellman algorithm
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 26
+CHAPTER 2: LEARNING OBJECTIVE
+■ We want to understand protection mechanisms against content modifications where
+“all” or “a certain number” of users contribute
+Example:
+chat system
+u1b
+u2
+u3
+u1a
+u1c
+company owner and
+managing directors
+0100100111100101 010010011
+010101000110
+101010011000
+101000010010
+101000101001
+101001010010
+010001010100
+001101000101
+111010101001
+100100101001
+u4
+u5
+[psaik]
+special offer m
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 27
+CHAPTER 2: SECRET SHARING FOR DISTRIBUTED
+SIGNATURE GENERATION/VERIFICATION
+■ Secret sharing can be used to enable distributed signature generation
+■ “Trusted” dealer for initialization
+■ Linear secret sharing
+■ n-out-of-n users to sign
+■ Additive reconstruction: s = s1 + … + sn
+■ Threshold secret sharing (k,n)
+■ k-out-of-n users to sign
+■ Reconstruction by Lagrange interpolation
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 28
+CHAPTER 2: DISTRIBUTED INTEGRITY PROTECTION-
+N-OUT-OF-N SIGNATURE ALGORITHM WITH RSA
+■ The user ui , i = 1,…,n jointly calculates the signature of a message m
+■ Public key e, partial secret keys di of the user ui, modulus ñ (ñ = p·q, p,q large primes)
+Signing: RSA encryption of the hash (with the partial keys)
+M = H m < ෤
+n
+si = Mdi mod ෤
+n; user ui, i = 1, … , n
+signature
+reconstruction
+Verification: RSA decryption of the hash
+n
+s = ෑi=1
+si
+?
+H m = H′ m = se mod ෤
+n
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 29
+CHAPTER 2: EXAMPLE- E-VOTING SYSTEM
+■ Objective
+■ A secret election with protection
+against election fraud
+■ Concept
+■ Voter with vote x
+■ Multiple authorities Ai (i = 1,…,n)
+confirm and count the votes
+■ Basic algorithms
+■ n-out-of-n RSA signature
+■ Blind signature
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 30
+CHAPTER 2: BLIND SIGNATURE
+■ Authority signs a message m without knowing the content
+■ The user "blinds" a message m with random number r (and the authority‘s public key)
+■ The authority calculates the signature of the blinded message
+■ The user can “unblind" the signature of the blinded message using r-1
+Example: Blind RSA Signature Algorithm
+Authority: secret key d, public key e, modulus ñ (ñ = p·q, p,q large primes)
+User: r = Rnd(), gcd(r, ñ) = 1,
+´
+m
+= blinde(m, r) => m´
+Authority: s´ = Sig(blinde(m, r), d) => s´
+User: Unblind(s
+´
+,r) => s = s
+´
+·r-1 mod ñ
+= re·m mod ñ = r·md mod ñ
+(re mod ñ is blinding factor)
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 31
+CHAPTER 2: EXAMPLE- E-VOTING SYSTEM (LINEAR
+SECRET SHARING, BLIND SIGNATURES) (1)
+■ Voter with vote x
+■ Authority Ai, i = 1,…,n with secret (private) keys (di, ñ), public key (e, ñ)
+1. Voting, blinding, informing the authorities
+x = vote, r = Rnd()
+´
+x
+= Blinde(x, r) => x´
+= re·x mod ñ
+x
+´: V → Ai, i = 1,…,n
+vote and sign
+2. Signing the blinded vote by the authorities
+si
+´ = Sig(x
+´,di)
+=>
+′
+si
+= x′di mod ෤
+n
+si
+´
+: V  Ai, i = 1,…,n
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 32
+CHAPTER 2: EXAMPLE- E-VOTING SYSTEM (LINEAR
+SECRET SHARING, BLIND SIGNATURES) (2)
+■ Voter with vote x
+anonymous
+communication
+for privacy
+■ Authority Ai, i = 1,…,n with secret (private) key (di, ñ), public key (e, ñ)
+3. Unblinding signature by the voter
+n
+s′
+= ෑi=1
+s′
+i
+s = Unblind(s
+´
+,r) => s = s
+´
+·r-1 mod ñ
+s, x: V → Ai, i  {1,…,n}
+4. Verification, vote counting by an authority
+Ai, i  {1,…,n}
+?
+s = Ver(x, e), Count(x)
+deliver, verify and count
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 33
+CHAPTER 2: REMARK– ANONYMOUS INTERNET
+COMMUNICATION
+■ TOR (http://tor.eff.org)
+■ Second-generation onion routing network
+■ Specifically designed for low-latency anonymous Internet communication
+encrypted
+links
+The data is sent through
+a series of servers called
+"relays"
+clear link
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 34
+CHAPTER 2: REFRESHER- THRESHOLD SECRET SHARING (1)
+ring with multiplication, addition
+■ Shamir`s Secret Sharing is a (k, n) threshold algorithm
+modulo m as operation
+■ “Trusted” dealer
+(m>n, e.g. m=2k)
+usually
+■ Users ui (i=1,…n)
+field modulo prime p
+(p>n, e.g. p=2q+1, p,q=primes)
+■ Secret a0 (e.g. secret key)
+■ A dealer chooses randomly k-1 positive integers from (ℤp, +, ) and create a
+polynomial f(x) which contains the secret
+f k
+( 1
+x
+)
+−
+=
+a
++
+a
+x
++
+0
+1
+...
++
+a
+k mod
+x
+−
+1
+p
+■ A dealer gives every user ui a share (xi, si=f(xi) mod p)
+■ The input xi is public (mostly xi=i with i = user id)
+■ The output si must be kept secret
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 35
+CHAPTER 2: REFRESHER- THRESHOLD SECRET SHARING (2)
+■ The secret s can be reconstructed from every
+subset of k share
+secret
+space
+■ Restoring the secret a0 is done by Lagrange
+interpolation with k points (xi, yi)
+where yi = si = f(xi) mod p shares
+secret
+f(x)=a0+a1x
+u1
+x1, f(x1)
+−
+x
+f
+) 0
+=
+a
+=
+
+
+( 0 
+j
+s
+i mod
+x
+−
+x
+j
+i
+i j
+x2, f(x2)
+p
+u2
+x
+Restoring a secret in a (2, n)
+secret sharing
+Lagrange interpolation
+polynomial with 𝑥=0
+Lagrange basis
+polynomial with 𝑥=0
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 36
+CHAPTER 2: THRESHOLD SIGNATURES
+■ Threshold signature algorithm
+■ Hash function, e.g. SHA-2, threshold encryption algorithm, e.g. ElGamal algorithm
+■ Distributed signing: Distributed encryption of the message hash
+message m
+x = H(m)
+partial
+signature
+E(x,sk)
+00101100…0
+key share
+E(x,sk)00101100…0
+key share
+E(x,sk)00101100…0
+key share
+11011110…0
+encrypted hash (Sig)
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 37
+CHAPTER 2: EXAMPLE- THRESHOLD SIGNATURES WITHIN
+DNSSEC
+■ The Domain Name System (DNS)
+associate's information, e.g. IP address,
+with domain names
+■ A Resource Record (RR) is the basic
+information unit
+■ DNSSEC is the Domain Name System
+with security features
+■ In the Resource Record SIG a
+RR signature is stored
+www.example.de. 1285 A 1.2.3.4
+www.example.de. 1285 IN ; class of the RR
+RRSIG ; RR of the type RRSIG
+A ; type of the signed RR
+3 ; „signature“ algorithm
+3 ; number of name components
+1285
+( 20040327122207
+20040226122207
+22004 ; key tag
+example.de. ; signer name
+BM=)8.BfsWf&%X ; signature )
+Resource Record SIG for www.example.de
+■ The secret signature key for the root zone is split into 7 pieces
+■ Signatures are possible with 5 pieces
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 38
+CHAPTER 2: MULTI-SIGNATURE
+■ A multi-signature algorithm enables multiple
+users to sign a message efficiently
+■ A receiver can verify a multi-signature
+but must know the identities/keys of the
+signers
+■ A user can be easily added to the group
+of possible signers
+■ A multi-signature is shorter than
+the collection of individual signatures
+u3
+u2
+u1
+SigMulti(m,ski, ..., ski+j)
+u5
+u4
+e.g. company owner and managing
+directors creates and signs a contract
+■ Example: Guillou-Quisquater signature algorithm
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 39
+CHAPTER 2: GROUP SIGNATURE
+■ A group signature procedure enables a
+user to sign a message m on behalf of the
+group
+■ A receiver can verify the group signature
+but need not know the identity of
+the signer
+■ The signer identity can be revealed
+■ A group signature procedure consists of 6
+algorithms
+■ Example: ElGamal Signature algorithm with
+Group Controller contributions
+u3
+u2
+u1
+SigGroup(m,sk)
+u5
+u4
+Example: Member of the
+sales department creates and
+signs an offer
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 40
+CHAPTER 2: SUMMARY
+■ Linear sharing provides a n-out-of-n sharing of a secret
+■ Within a (k,n) threshold sharing k of n potential users can reconstruct the secret
+■ Shamir`s Secret Sharing is a (k, n)-threshold algorithm
+■ Secret sharing can be also be used for distributed signature calculation
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 41
+CHAPTER 3: LEARNING OBJECTIVE
+■ We want to understand the documentation of transactions in distributed system with
+no trusted third party
+u1 give …
+u1 give …
+u2
+u1 give …
+u1
+Example:
+chat system
+u3
+u1 give …
+0100100111100101 010010011
+010101000110
+101010011000
+101000010010
+101000101001
+101001010010
+010001010100
+001101000101
+111010101001
+100100101001
+u4
+u1 give …
+u5
+[psaik]
+message: 10 € for all recipients
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 42
+CHAPTER 3: SECURE DISTRIBUTED DOCUMENTATION OF
+TRANSACTIONS
+■ To document transactions with no trusted third party the distributed ledger technology
+can be used
+■ A blockchain is one of the best-known distributed ledger technique
+■ Records are placed in blocks
+■ Blocks are linked by hashes
+■ Everyone has copy of the ledger (blockchain)
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 43
+CHAPTER 3: BITCOIN BLOCKCHAIN
+■ Bitcoin is a (crypto-)currency based on a blockchain-based
+ledger
+■ A block of the ledger contains a block header and
+a list of transactions
+■ A Merkle tree is constructed from the transaction
+■ Every leaf of the tree contains the hash of one transaction
+in the block
+■ The root hash of the tree is included in the block header
+■ Merkle tree enables an efficient proof of membership
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 44
+CHAPTER 3: BITCOIN BLOCK DETAILS
+■ The SHA-256 hash of the previous block that
+creates the chaining
+■ The hash is calculated from the version field
+until the nonce field of the header
+■ The root node of a Merkle tree from the
+transactions
+■ The nonce is required for the agreement on
+the information in the blockchain (consensus
+mechanism)
+■ The difficulty is a parameter of the consensus
+mechanism
+Block size Version
+Hash of previous block
+Hash of Merkle root node
+Time Difficulty Nonce Transaction
+Counter
+Block header
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 45
+CHAPTER 3: ACCOUNT-BASED LEDGER VS TRANSACTION-
+BASED LEDGER
+■ There are two types of ledgers for crypto-currencies
+■ Account-based ledger
+■ Focuses on accounts and their balances
+■ Stores balances of accounts
+■ Transaction-based ledger
+■ Focuses on individual transactions and their documentation
+■ Stores a sequence of transactions
+■ The Bitcoin blockchain is a transaction-based ledger
+■ Documentation of transactions is more efficient than tracking balances of accounts
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 46
+CHAPTER 3: TRANSACTIONS IN BITCOIN (1)
+■ Transactions (Tx) have a number of inputs
+and a number of outputs
+■ Inputs (Txin): Former outputs, that are
+being consumed
+■ Outputs (Txout): Transfer of coins
+Tx2
+Txin1
+Txout1
+■ A transaction output can be referenced by the
+transaction identifier and index TxID[#txout]
+■ Example: 5[1] -> Second Txout (index = 1)
+of the transaction with identifier TxID = 5
+■ Transactions are signed by the creator
+Txin2
+Txout2
+Transaction Tx2 with two
+inputs and two outputs
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 47
+CHAPTER 3: TRANSACTIONS IN BITCOIN (2)
+■ Transactions are linked by inputs and outputs
+■ All Txin reference an existing unspent Txout
+■ Each Txout specifies a recipient of the transaction
+■ Multiple Txout for one Txin possible
+Tx0
+Txin1
+Txout1
+Txin2
+Txout2
+Tx2
+■ Coinbase transaction (first transaction in a block)
+contains a reward for creating the block and
+transaction fees
+■ Have no Txin
+■ Create coins
+Tx1
+Txin1
+Txin2
+Txout1
+Txout2
+Txin1
+Txout1
+Linking of the transactions in
+Tx0, Tx1 and Tx2
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 48
+Tx of
+Alice
+Tx of
+Bob
+Tx of
+Alice
+06.11.2025 CHAPTER 3: EXAMPLE- TRANSACTIONS IN BITCOIN
+Coinbase
+transaction
+Either all or none of the
+coins must be consumed
+→ Bitcoin must manage
+a list of unspent
+transaction outputs
+(UTXO)
+Hashes of the public keys are
+used for addressing
+Lecture IT Security / University of Bonn / Thorsten Aurisch 49
+CHAPTER 3: BITCOIN WALLET
+■ Users need a wallet program to send and
+receive bitcoins
+■ The wallet program
+■ creates the public/private key pairs
+■ calculates the 160-bit hash of the public key which
+is the Bitcoin address of the wallet/user
+■ The wallet program provides the transactions of the
+Bitcoin address
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 50
+CHAPTER 3: MULTI-SIGNATURE ADDRESS
+■ To collaboratively control transactions, a multi-signature
+addresses are used
+■ To spend coins from a n-of-m address, n cosigners
+need to sign a transaction by using a multi-signature
+algorithm
+■ Partially signed transactions are transferred too the
+cosigner wallets by
+■ Manual transfer (e.g. via file on a USB stick)
+■ Electronic exchange with a Cosigner Pool Plugin
+■ Note: Using a threshold signature algorithm
+(shared secret key) is possible but each user
+already has a key
+Create a 2 of 2 multi-signature
+Electrum wallet
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 51
+CHAPTER 3: MULTI-SIGNATURE USE CASE (1)
+■ Purchase process with Bitcoin under the following conditions
+■ Buyer does not want to send coins before having the product
+■ Seller does not want to send the product before having the coins
+■ To fulfill requirements above a 2-of-3 multi-signature address with the following keys is
+used
+■ Buyer’s key
+■ Seller’s key
+■ Escrow agent’s key
+■ The escrow agent is third party that provides an escrow service
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 52
+CHAPTER 3: MULTI-SIGNATURE USE CASE (2)
+■ Funding the escrow:
+■ The buyer orders a product and sends the Bitcoin payment to the multi-signature
+address
+■ These funds are now in escrow and cannot be moved without at least two of the
+three keys
+■ Releasing funds:
+■ Satisfactory fulfillment of the order: The buyer and the seller sign a transaction
+releasing the funds from the multi-signature address to the seller
+■ Disagreement: The escrow agent will mediate and decide
+- to sign with the buyer to refund the payment
+- to sign with the seller to release the funds to the seller
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 53
+CHAPTER 3: BITCOIN OPERATION
+■ Actors: user with wallet, mining node (miner)
+■ Step 1: Users create, sign and then broadcast their transactions
+■ The mining nodes cache the transactions in the memory pool (mempool)
+■ Step 2: A mining node creates a candidate (new) block with verified transactions
+■ All transactions must be authentic (digital signature checking)
+■ All transactions block must be valid (transaction checking)
+■ Step 3: The candidate block is shared across the Bitcoin network
+■ Step 4: All mining nodes try to solve a search puzzle for the candidate block
+■ Step 5: A mining node who first solves the search puzzle broadcasts the valid block
+■ Step 6: Other mining nodes accept the new block and using the new block hash as the
+previous hash for the next candidate block
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 54
+CHAPTER 3: STEPS 4,5 - DISTRIBUTED CONSENSUS OF THE
+MINING NODES
+■ The Bitcoin network agree on the information in the blockchain
+■ Which of the broadcast transactions are accepted?
+■ In which order do the transactions appear in the blockchain?
+■ The Bitcoin network uses a decentralized consensus mechanism on the next block
+■ The Bitcoin network selects a random mining node who proposes a new valid block by
+using the proof-of-work (PoW) method
+■ Proof-of-work means solve a hard search puzzle for the candidate block
+■ The process of creating a valid block is also called mining
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 55
+CHAPTER 3: SEARCH PUZZLE- PROOF-OF-WORK
+■ Search puzzle means finding a nonce so
+that the hash of block and nonce is smaller
+than the difficulty d
+■ A search puzzle requires searching a large
+space to find a solution
+■ There are no shortcuts in finding the
+solution Search puzzle to find a nonce so that result of
+the hash function is smaller than d
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 56
+CHAPTER 3: PROOF-OF-WORK IN BITCOIN
+■ The proof-of-work is an iterative process to find a nonce that solves the search puzzle
+previous
+block
+hash
+Check the number
+of "leading zeros"
+in the hash
+combine
+and hash Hash <
+Difficulty?
+yes
+Proof of work achieved,
+adding block
+candidate
+block
+Nonce
+no, nonce = nonce + 1
+nonce = 0 0 leading zeros = 4c8f1205f49e70248939df9c7b7…
+nonce = 12 1 leading zero = 05017256be77ad2985b36e75e…
+nonce = 112 2 leading zeros = 00ae7e0956382f55567d0ed931…
+nonce = 3728 3 leading zeros = 000b5a6cfc0f076cd81ed3a606b…
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 57
+CHAPTER 3: BRANCHING OF A BLOCKCHAIN-BASED
+DISTRIBUTED LEDGER
+■ When two mines found two valid blocks at the same time a branching of the blockchain
+is possible
+■ If branching occurs, the longest chain is accepted as the valid version because the
+longest chain took the most effort to build
+Block
+303
+Tx3
+Block
+304
+Tx5
+Block
+305
+Tx4
+Block
+301
+Tx1
+Block
+302
+Tx2
+Block
+303
+Tx4
+Blockchain fork at block 302
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 58
+CHAPTER 3: TRANSACTIONS IN ORPHAN BLOCKS
+■ A block that has been published but is not included in the longest blockchain is called
+an orphan block
+■ Including a block causes the removal of the included transactions from the mempool
+■ Unconfirmed transactions are still stored in the mempool
+■ The transactions in an orphan block are considered as unconfirmed and included later
+Block
+303
+Tx3
+Block
+304
+Tx5
+Block
+305
+Tx4
+Block
+301
+Tx1
+Block
+302
+Tx2
+Tx4 included in
+a later block
+Block
+303
+Tx4
+Transactions in an orphan block
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 59
+CHAPTER 3: SUMMARY
+■ To document transactions in a group the distributed ledger technology can be used
+■ Blockchain-based distributed ledger operation consists of six steps
+■ Bitcoin is a (crypto-)currency based on a Blockchain-based public distributed ledger
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 60
+CONCLUDING REMARK
+■ This was a high-speed walk-through selected topics of the lecture on cyber security of
+distributed and resource limited systems
+■ If you want to know more, visit the lecture (e.g., SS 2026)
+■ Kill chain, defense strategies for distributed systems
+■ Key management
+■ Distributed signatures
+■ Cyber resilience in the case of partially successful cyber attacks
+■ Distributed ledger technology (blockchain)
+■ IoT security
+■ Cyber security in software-defined networks
+■ Artificial intelligence in cyber security
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 61
+EXERCISE
+■ Exercise sheet “Cyber security of distributed and resource-limited systems”
+■ Issue
+■ Via Sciebo
+■ Discussion
+■ November 12, 2025, 02:15 - 03:00 p.m.
+■ Please complete the tasks so that you can show the solution on the board at the
+next exercise and submit your solution as pdf to the gitlab
+■ Tasks
+■ Task 1: Distributed group key management
+■ Task 2: Secret Sharing
+■ Task 3: Blockchain-based Distributed Ledger
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 63
+OPINION POLL
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 64
+Institute of Computer Science IV, University
+of Bonn in cooperation with the
+Fraunhofer FKIE
+Dr. Thorsten Aurisch
+FKIE / KOM
+Zanderstraße 5
+D-53177 Bonn, Germany
+Phone: +49 (228) 50212-505
+Mail: thorsten.aurisch@fkie.fraunhofer.de
+06.11.2025 Lecture IT Security / University of Bonn / Thorsten Aurisch 65

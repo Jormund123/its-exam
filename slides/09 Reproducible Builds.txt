@@ -1,0 +1,586 @@
+IT Security
+Reproducible Builds
+Timo Pohl
+pohl@cs.​uni-bonn.​de
+University of Bonn
+Lecture IT Security | Uni Bonn | WT 2025/2026
+Installing Software
+user@machine:~ » cowsay 'I love IT security!'
+zsh: command not found: cowsay
+1
+Installing Software
+user@machine:~ » sudo pacman -S cowsay
+resolving dependencies...
+looking for conflicting packages...
+Package (1) New Version Net Change
+extra/cowsay 3.8.4-1 0.04 MiB
+Total Installed Size: 0.04 MiB
+:: Proceed with installation? [Y/n]
+2
+Installing Software
+user@machine:~ » sudo pacman -S cowsay
+resolving dependencies...
+looking for conflicting packages...
+Package (1) New Version Net Change
+extra/cowsay 3.8.4-1 0.04 MiB
+Total Installed Size: 0.04 MiB
+:: Proceed with installation? [Y/n]
+3
+Installing Software
+user@machine:~ » cowsay 'I love IT security!'
+_____________________
+< I love IT security! >
+---------------------
+\ ^__^
+\ (oo)\_______
+(__)\ )\/\
+||----w |
+|| ||
+4
+Installing Software
+user@machine:~ » cowsay 'I love IT security!'
+_____________________
+< I love IT security! >
+---------------------
+\ ^__^
+\ (oo)\_______
+(__)\ )\/\
+||----w |
+|| ||
+5
+How Did We Get Pwned?
+6
+Reproducible Builds
+Computing Requires Trust
+source: https://www.invent.org/inductees/ken-thompson
+8
+Downloading Software from the Internet
+source: https://slsa.dev/
+9
+Reproducible Builds Focus
+We focus on the build process
+source: https://slsa.dev/
+10
+Verifying Binaries is Hard
+push rbp
+mov rbp,rsp
+mov QWORD PTR [rbp-0x18],rdi
+mov QWORD PTR [rbp-0x20],rsi
+mov DWORD PTR [rbp-0x4],0x0
+jmp 11b7 <encrypt+0x6e>
+mov eax,DWORD PTR [rbp-0x4]
+movsxd rdx,eax
+mov rax,QWORD PTR [rbp-0x20]
+add rax,rdx
+movzx esi,BYTE PTR [rax]
+mov ecx,DWORD PTR [rbp-0x4]
+movsxd rax,ecx
+imul rax,rax,0x55555556
+shr rax,0x20
+mov rdx,rax
+mov eax,ecx
+sar eax,0x1f
+sub edx,eax
+mov eax,edx
+add eax,eax
+add eax,edx
+sub ecx,eax
+mov edx,ecx
+movsxd rdx,edx
+mov rax,QWORD PTR [rbp-0x18]
+11
+Verifying Source Code is Ok
+void encrypt(char key[3], char *content) {
+for (int i = 0; content[i] != 0; ++i) {
+content[i] = content[i] ^ key[i % 3];
+}
+}
+int main(void) {
+char key[3] = {42, 13, 37};
+char domain[20] = {104, 116, 116, ...};
+encrypt(domain, key);
+printf("%s\n"
+, domain);
+}
+12
+How to Trust the Builder?
+1. Become the builder?
+Very inefficient
+2. Distribute trust across
+multiple entities (“Distributed
+Building”)
+Only requires that at least
+on builder is benign
+However, even benign builders
+don’t always get the same
+result…
+13
+Why are Artifacts Different?
+user@machine:~ » python
+Python 3.13.7 (main, Aug 15 2025, 12:34:02) [GCC 15.2.1 20250813] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>>
+Contains elements like
+Git branch name
+Compile timestamp
+Compiler version
+Builder OS
+14
+Takeaways
+We typically download build artifacts to run on our computers
+If we audit, we audit source code
+Thus we have to trust that the artifact was built from this source code
+This can be abused!
+Idea: distribute trust across multiple entities
+Compare build outputs for equality
+If one entity is malicious, their output will be different
+⚠️ Benign build outputs are not always the same
+15
+Reproducible Builds in Detail
+Declared Goals
+“Reproducible builds are a set of software development
+practices that create an independently-verifiable path from
+”
+source to binary code.
+— reproducible-builds.org
+17
+Declared Goals
+“A build is reproducible if given the same source code, build
+environment and build instructions, any party can recreate
+”
+bit-by-bit identical copies of all specified artifacts.
+— reproducible-builds.org
+18
+Declared Goals
+“A build is reproducible if given the same source code, build
+environment and build instructions and metadata from the
+build artifacts any party can recreate copies of the artifacts
+that are identical except for the signatures and parts of
+”
+metadata.
+— Fedora Project
+19
+Reproducibility Definition
+Reproducibility definition
+A triplet (input, function, output) is called reproducible, if calling the function with
+the given input always yields the given output.
+input may be any set of data or requirements for the environment that has to be
+this specific value. anything not given here may be set to arbitrary values.
+function is any set of commands to be executed, for example a build script.
+output is the set of artifacts that are created as a result of calling function, and that
+are “relevant”. This means, that function may have more side-effects, but if they’re
+not listed as explicit outputs here it is okay if they change.
+20
+Advantages of this Definition
+Can be applied to any process
+Does not require the input or output to be of a certain type
+Any change in output requires either the input or the function to change
+And is therefore suspicious
+Does not require the function to always be deterministic
+21
+Reproducibility vs Reproduced
+Reproduced Artifact definition
+An artifact is called “reproduced” if a third party has recreated the artifact.
+Applies to an artifact instead of a process
+No guarantee that it can be done again
+No restrictions in required knowledge of the rebuilder
+Might need to “magically” know certain build steps or parts of the environment
+Does not necessarily help other’s to reproduce the artifact
+Build process may be uselessly simple
+E.g. concatenating two other binary artifacts
+Commonly used in practice
+22
+When are Two Files the Same?
+Level 1: whole files are bit-by-bit identical
+Level 2: semantically relevant parts of files are bit-by-bit identical
+Level 3: files are semantically equivalent
+Level 4: files semantically similar
+In practice, we usually see Level 1 or Level 2 equivalence.
+source: Dietrich et al., “Levels of Binary Equivalence for the Comparison of Binaries from Alternative Builds”, 2025 IEEE International
+Conference on Software Maintenance and Evolution (ICSME) 23
+Showing Level 1 Equivalence
+Level 1 equivalence
+Whole files are bit-by-bit identical.
+user@machine:» sha256sum file1
+38871fce33227acb7238f634068b7cac232fbc07ee54db355d671cb46166ea89 file1
+user@machine:» sha256sum file2
+38871fce33227acb7238f634068b7cac232fbc07ee54db355d671cb46166ea89 file2
+user@machine:» sha256sum file3
+b35f33a351c56dac610834e91e2d9ddd739170574f9fa3517fefb6dec93e40e0 file2
+Hash the file
+Level 1 equality ⇔ hash equal
+24
+Showing Level 2 Equivalence
+Level 2 equivalence
+Semantically relevant parts of files are bit-by-bit identical
+Use a process called “normalization”
+Bring semantically irrelevant differences into same form
+Level 2 equivalence
+If normalized files are level 1 equivalent, original files are at least level 2 equivalent.
+25
+Normalization Example
+Original:
+user@machine:~ » python
+Python 3.13.7 (main, Aug 15 2025, 12:34:02) [GCC 15.2.1 20250813] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>>
+Normalized:
+user@machine:~ » python
+Python 3.13.7 (main, Jan 1 1970, 00:00:00) [Generic Compiler] on OS
+Type "help", "copyright", "credits" or "license" for more information.
+>>>
+26
+Normalization Caveats
+Creating a normalizer is hard
+It should be automated
+It should be as generic as possible
+It should only include semantically irrelevant parts
+False-positives potentially security relevant!
+That’s why we strive for level 1 equivalence
+27
+Target of Reproducibility Testing — Artifacts
+Definition remote artifact reproduction
+Remote artifact reproduction is the process of testing whether a given artifact from
+a given ecosystem can be reproduced by a third party.
+Goals:
+Confirm that a concrete existing artifact was not compromised
+Show whether it is “easy” to reproduce locally
+Identify parts of artifact that cannot be reproduced
+28
+Target of Reproducibility Testing — Build
+Processes
+Definition adversarial rebuilding
+Adversarial rebuilding is the process of testing whether a given build process on a
+given input is reproducible under varying environments.
+Goals:
+Show that given build process on the given source code keeps creating the same
+output
+Investigate which environment alterations affect the output artifact
+Identify parts of artifact that change
+29
+Common Tools for Reproducibility Research
+OSS Rebuild
+performs remote artifact reproduction
+can test for level 1 and level 2 equivalence
+publishes attestations about results
+reprotest
+builds packages multiple times under deliberate environment modifications
+add-determinism and strip-nondeterminism
+stabilizers for various file formats
+diffoscope
+creates recursive diffs of archives, directories and files
+semantic support for a lot of file types
+30
+Diffoscope Output Example
+Semantic diff for .tar.gz archive header:
+31
+Diffoscope Output Example
+Semantic diff for .tar.gz file list:
+32
+Diffoscope Output Example
+Semantic diff for .json file:
+33
+Diffoscope Output Example
+Diff for arbitrary byte files:
+34
+Common Causes for Irreproducibility
+Build
+Filesystem
+Root
+Cause
+Memory
+2
+Build ID
+54
+77
+Build Path
+5 008
+Build Time-
+Stamp
+155
+628
+Signatures
+File
+Filesystem
+Ordering
+24
+189
+Package
+Dependency
+2
+2
+Reference to
+Memory Address
+1
+12
+Uninitialized
+Memory
+2
+2
+Architecture
+Information
+10
+102
+System's
+DNS Name
+1
+60
+11
+User Information
+122
+Archive
+Metadata
+Encoding
+File
+Permissions
+Randomness
+14
+66
+3
+60
+57
+837
+File Encoding
+Snippet
+Encoding
+3
+29
+4
+16
+Key
+System
+Locale
+Root
+Cause
+Hierarchical
+Relationship
+# of
+categorized
+Issues
+# of Packages
+Affected
+source: Pohl et al.: “SoK: Towards Reproducibility for Software Packages in Scripting Language Ecosystems”, 2025, Availability, Reliability and
+Security 35
+Common Causes for Irreproducibility
+Timestamps
+Unstable build dependencies
+Unstable ≅ may change over time
+File names
+Build path
+FS ordering
+Archive metadata
+…
+source: Pohl et al.: “SoK: Towards Reproducibility for Software Packages in Scripting Language Ecosystems”, 2025, Availability, Reliability and
+Security 36
+Reproducibility for Software Packages in
+Programming Language Ecosystems
+So far we looked at classic compilation of source code to native binaries (ELF, PE,
+Mach-O, …)
+Idea can be transferred to any “transformation”
+Package building often transforms source code into archives
+The Ultralytics Python package was recently compromised.
+37
+Case Study: Python Cache File Poisoning
+Python
+source: https://knowyourmeme.com/photos/2870281
+39
+Python Execution Model
+def myfunc(some_list: list):
+return len(some_list)
+Turns into
+b'\x95\x00[\x01\x00\x00\x00\x00\x00\x00\x00\x00U\x005\x01[...]'
+Corresponds to
+1 RESUME 0
+2 LOAD_GLOBAL 1 (len + NULL)
+LOAD_FAST 0 (some_list)
+CALL 1
+RETURN_VALUE
+40
+Python Cache Files
+Python creates .pyc cache files upon execution
+.
+├── __init__.py ├── __pycache__ │ ├── __init__.cpython-312.pyc │ ├── common.cpython-312.pyc │ └── mq.cpython-312.pyc ├── common.py └── mq.py
+41
+Python Cache File Poisoning Attack
+When shipped with a package, they might be malicious?
+.
+├── __init__.py ├── __pycache__ │ ├── __init__.cpython-312.pyc
+│ ├── 😈 common.cpython-312.pyc 😈
+│ └── mq.cpython-312.pyc ├── common.py └── mq.py
+42
+Summary Python Cache Files
+Python compiles source code to “bytecode”
+This is cached in so-called python cache files
+If a cache file for a module exists, python prefers loading the cache files
+Cache files may be shipped in packages
+Cache file contents can be manipulated
+Thus, even if you audit the source code files, the package could be malicious
+43
+RQ: Is there malware on PyPI that leverages cache file
+poisoning?
+Research Idea
+Download packages, compile cache files ourselves and compare to downloaded
+cache files.
+45
+Cache Compilation Requirements
+py_compile.compile(
+file, # input file
+# [...]
+optimize=-1, # optimization level
+invalidation_mode=PycInvalidationMode.TIMESTAMP, # invalidation mode
+# [...]
+)
+46
+Fulfilling Requirements
+input file from PEP 3147 encoded file name
+__pycache__/<modulename>-<cache-tag>.pyc, e.g. __pycache__/__init__.cpython-313.pyc
+invalidation mode from cache file header as per PEP 552
+optimization level from file name as well, thanks to PEP 488
+<modulename>-<cache-tag>[.<optimization-level>].pyc, e.g.
+__init__.cpython-313.opt-1.pyc
+47
+First Try – Compile Some Cache File
+$ sha1sum nexui_tags.cpython-313.pyc
+c1c62781fbdb3342be8dffbb85f5d97d7172c593
+$ sha1sum nexui_tags-selfcompiled.pyc
+fda369a9cc1342a8dbaf5da0dd202a0c933ca90a
+Hashes don’t match up ⇒ file was not reproduced.
+48
+Obstacle 1 — Cache File Metadata Differences
+import marshal
+with open("file.pyc"
+,
+"rb") as fp:
+code: CodeObject = marshal.load(fp)
+class CodeObject(Protocol):
+co_name: str
+co_code: bytes
+co_consts: tuple[CodeObject | Any, ...]
+#[... +10 fields]
+co_names: tuple[str]
+co_filename: str
+co_flags: int
+49
+Obstacle 1 — Cache File Metadata Differences
+>>> built_code.co_filename
+'nexui-0.2.4/nexui/templatetags/nexui_tags.py'
+>>> downloaded_code.co_filename
+'C:\\Users\\goliy\\Desktop\\Software Engineer\\NexUI\\nexui\\templatetags\
+\nexui_tags.py'
+50
+Cache File Metadata Differences
+Cache files contain more metadata aside form bytecode
+They are serialized Code Objects
+For example, the field co_filename contains the path to the file that is compiled
+51
+Resolving Obstacle 1
+Only require level 2 equivalence
+We only look at co_code and co_consts
+Recursively investigate all objects in co_consts for their respective co_code and
+co_consts fields
+>>> built_code.co_code
+b'\x95\x00S\x00S\x01K\x00J\x01r\x01[...]'
+>> built_code.co_consts
+(0, ('template'
+,),
+'components/button.html'
+, <code object button at
+0x564e53f85ff0, file "nexui-0.2.4/nexui/templatetags/nexui_tags.py"
+, line 10>,
+'components/input.html'
+, <code object input_field at 0x564e53f95970, file
+"nexui-0.2.4/nexui/templatetags/nexui_tags.py"
+, line 55>)
+52
+Obstacle 2 — Bytecode Differences
+Source code:
+def add(a, b):
+return a + b
+Downloaded bytecode:
+Built bytecode:
+1 RESUME 0
+1 RESUME 0
+2 LOAD_FAST 1 (a)
+LOAD_FAST 2 (b)
+BINARY_OP 0 (+)
+RETURN_VALUE
+2 LOAD_FAST 2 (b)
+LOAD_FAST 1 (a)
+BINARY_OP 0 (+)
+RETURN_VALUE
+53
+Obstacle 2 — Bytecode Versions
+Python has conecpt of “bytecode versions”
+Indicated by importlib.util.MAGIC_NUMBER
+Per PEP 552 this is encoded in the cache file header
+⇒ Just compile with Python version that uses this bytecode version?
+“Magic word to reject .pyc files generated by other Python versions. It should
+change for each incompatible change to the bytecode.
+”
+– importlib.util.MAGIC_NUMBER doc comment
+⇒ Even if MAGIC_NUMBER is the same, bytecode emittance might change.
+⇒ No guarantee, that compiling with Python release that emits this bytecode
+version we get the same bytecode.
+54
+Resolving Obstacle 2
+Compile with all python releases emitting same bytecode version.
+55
+Results
+Cache Files
+249,564
+Reproduction 228,844
+Disregarded 20,720
+Irreproducible 21,350
+Reproducible 207,494
+Outdated
+17,563
+Additional tags 3,787
+No Source
+15,887
+< Python 3.5 3,722
+Corrupt File 1,012
+Invalidated
+99
+56
+This is a paper
+57
+Takeaways
+Malicious functionality might be hidden in python cache files
+Use principles of reproducibility to check that
+Overcome metadata differences by using level 2 equivalence
+Overcome bytecode differences by compiling multiple times
+Only one artifact has to match
+Example of Remote Artifact Reproduction
+58
+Related Approaches
+Software Attestations
+Definition Software Attestation
+A software attestation is a cryptographically signed claim by a given identity about
+a given artifact.
+To leverage for build integrity, the three components could be
+Identity: GitHub Actions
+Artifact: Release 1.2.3 of some package
+Claim: Built from commit XYZ using the build script .github/workflows/build.yaml
+entity, and get cryptographically verifiable materials that they have built a certain
+artifact.
+⇒ If we trust GitHub Actions and verified the build inputs, we can trust the release.
+60
+Bootstrappable Builds
+Start with verifiable tiny binary compiler
+Using that, compile the whole chain of dependencies and the final product
+Aside from the initial blob, no dependence on binaries, everything in software is
+verifiable
+61
+Summary
+Problem: Missing connection between source code and
+downloaded artifact
+Potential for manipulation in the build step
+Trust is in single entity
+Solution: Distributed building, distribute trust across
+multiple entities
+Catch: Building in multiple places does not yield equal
+results
+R-B tries to resolve this catch
+Lightning
+Surveys
+62

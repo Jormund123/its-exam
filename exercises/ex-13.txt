@@ -1,0 +1,68 @@
+IT Security 2025/2026
+Exercise Sheet 13
+– Anonymization & Secure Multiparty Computation –
+Markus Krämer
+Publication: 22.01.2026
+Deadline: 27.01.2026 14:00
+Exercise 1 (Anonymization, 4×1 point).
+Answer the following questions with respect to Table 1 briefly into anonymization.txt.
+Age Gender ZIP Illness
+[20− 25] m 53*** Corona
+[20− 25] m 53*** Corona
+[20− 25] m 53*** Cancer
+[20− 25] m 53*** Flu
+[40− 45] f 54*** Corona
+[40− 45] f 54*** Corona
+Table 1: Medical dataset
+[40− 45] f 54*** Corona
+a) Does the given dataset fulfill k-anonymity? Give evidence for your answer
+b) Which is the maximum k? Give evidence for your answer
+c) Does the given dataset fulfill distinct l-diversity? Give evidence for your answer
+d) Which is the maximum l? Give evidence for your answer
+Exercise 2 (Secure Multiparty Computation, 3 points).
+Answer the following statements with true or false into smc.yml.
+1) In the prosecutor model, honest parties get a reward.
+2) For reaching l-diversity, all l sensitive attributes of a dataset must occur in an equivalence
+class.
+3) Unsorted matching attacks are possible because vulnerable anonymized datasets have not
+been permuted.
+4) In SMC, the number of participating parties is limited to two.
+5) In OT 1
+2 , Bob gets to know only one message.
+6) In GC, Bob shares his input labels with Alice.
+7) Microaggregation is a perturbative transformation method.
+8) Point & Permute allows to find the correct line to decrypt directly.
+9) In GRR3, the number of gates is reduced from four to three.
+1
+Exercise 3 (Garbled Circuits, a) and b) optional, 3×1 points for c) – e)).
+Answer the following questions and submit your answers in gc.txt.
+a) Which steps are necessary for a GC setup?
+b) Which steps are necessary for a GC evaluation?
+c) Why may there be up to three unnecessary decryptions in GC evaluation?
+d) Which strategy overcomes this problem and how does it work?
+e) Which strategy may reduce the transmission size of garbled tables and how does it work?
+Exercise 4 (Privacy Models (optional)).
+Solve the following subtasks with respect to Table 2 and write your solution into privacy-
+models.txt.
+a) Define the following terms: direct identifier, quasi identifier, sensitive attribute.
+b) Name the identifiers, quasi-identifiers and sensitive attributes of Table 2.
+c) Turn it into a k-anonymous table.
+d) Turn it into a l-diverse table.
+e) Does your table support t-closeness?
+f) Pick and describe three privacy models given in the lecture that go beyond t-closeness.
+Table 2: Employee dataset
+Name ID Gender Address Y1 Position Illness
+Dieter 1 m Main Street 1, 53115 Bonn 20 CEO cancer
+Flo 2 m Beach Club 7, 53121 Bonn 2 Worker flu
+Maren 3 f Main Street 3, 53115 Bonn 17 Secretary flu
+Martin 4 m Avenue 27, 53121 Bonn 1 Worker flu
+Doris 5 f Boulevard 4, 53115 Bonn 18 accounting flu
+Heinz 6 m Avenue 77, 53121 Bonn 12 management flu
+Lisa 7 f Main Street 64, 53332 Bornheim 8 Worker cancer
+Laura 8 f Avenue 34, 53489 Sinzig 9 Worker cancer
+Horst 9 m Main Street 10, 53115 Bonn 19 management cancer
+Emil 10 m Beach Club 3, 53121 Bonn 4 Worker flu
+Carsten 11 m Beach Club 13, 53121 Bonn 14 management flu
+Yvonne 12 f Main Street 3,53115 Bonn 16 accounting cancer
+1Years in company
+2

@@ -1,0 +1,176 @@
+Rheinische Friedrich-Wilhelms-Universität Bonn
+1
+Master Course Computer Science
+Written Exam
+Semester: Summer 2021 Exam Period: 1. x 2. □
+Module Name: IT Security
+Module Number: MA-INF 3236 Date of Exam: 30.07.2021
+Examiner: Prof. Dr. Michael Meier
+To be filled by the Student:
+Last name: Matriculation number:
+First name:
+Course of Study
+Master in Computer Science □ Master in Education □ secondary subject □ other □
+For me, there were no technical problems with
+the exam.
+Signature:
+To be filled by the Examiner:
+1 2 3 4 5 6 7 8 9 10 11 12 Σ
+10 10 10 10 10 10 10 10 10 10 10 10 120
+To be filled by the Examiner:
+Grading:
+*Grades: very good (1,0; 1,3) good (1,7; 2,0; 2,3) satisfactory (2,7; 3,0; 3,3) sufficient (3,7; 4,0) not sufficient (5,0)
+Date:
+---------------------------------------
+ Signature of Examiner
+Name: Matriculation number:
+2
+Task 1: (Wireless Security – Basics and Jamming) 3+4+3 points
+a) Why is security by proximity a flawed security strategy? Explain on an example.
+b) Name a protocol aware jamming attack and a protocol oblivious jamming attack on 802.11a Wi-Fi. Explain the differences between a protocol aware jamming attack and a protocol oblivious jamming attack
+with regards to 802.11a Wi-Fi.
+c) Name two techniques that make wireless communication more robust against narrow-band jamming
+attacks. Pick one and explain: Why does this technique result in a less potential overall data rate for that
+communication?
+Task 2: (Wireless Security – Wi-Fi Security) 2+2+4+2 points
+a) Which of the following statements are true and which are false? Use the symbols T (true) and F (false) to
+answer this question.
+_ Open System Authentication describes a method, where any client can connect to a Wi-Fi network
+without knowledge of any secrets.
+_ An access point of a Wi-Fi network secured by MAC-address filtering only accepts connections by
+devices using a MAC address matching to its pre-set list of MAC addresses.
+_ WEP supports the different keylengths 32 bits, 40 bits, and 104 bits.
+_ WEP's successor WPA was a major redesign of which WPA2 adopted most aspects, eventhough WPA
+still used the broken RC4.
+b) What weakness of RC4 does the FMS attack exploit?
+c) You are eavesdropping all nearby Wi-Fi packets. You notice a WEP encrypted communication between
+two devices. What packets can you use to perform the FMS attack as presented in the lecture? Explain
+what makes these packets usable.
+d) What makes the WPA2 handshake vulnerable?
+Task 3: (Side Channels) 3+2+5 points
+a) Describe the difference between the side channels and covert channels.
+b) Compared to brute forcing a cryptographic algorithm, what advantage do side channels provide?
+c) What side channel enables the padding oracle attack presented in the lecture? Which information is
+leaked?
+Task 4: (Threat Intelligence) 2+6+2 points
+a) What characteristics of Indicators of Compromise are visualized by the "Pyramid of Pain"?
+b) Name the main motivation for each Threat Actor type.
+c) What is the idea behind Supply Chain Attacks?
+Name: Matriculation number:
+3
+Task 5: (Group Key Management) 2+2+3+3 points
+k2,0
+k1,0
+u1 u2
+k2,1 k2,2 k2,3
+k1,1
+k0,0
+u3 u4
+The key tree above is used for the key management of a group G with the user ui, i ∈ {1,2,3,4}. The members
+of the group are associated with leafs of the key tree. Each node in the key tree contains a secret key. All
+members of the sub-tree rooted at node v know the key stored in the node v. The key k0,0 stored in the root
+of the tree is the group key.
+a) A group controller uses the LKH (Logical Key Hierarchy) protocol and the tree in the figure for the key
+management. Write down the keys known by the user u3.
+b) The user u5 joins the group and is added to the tree at the position of the user u3 (in the figure).
+Hence, k2,2 moves to k3,4. Draw the modified tree.
+c) Now the modified tree from task (b) is used for the key management. The user u2 leaves the group.
+A group controller uses the LKH protocol (group oriented) for the key update. Specify the broadcast
+message of the group controller that enables remaining members to calculate the new group key.
+d) Now the TGDH (Tree Based Group Diffie Hellman) protocol and the tree in the figure is used for the
+key management. Write down the keys known by the user u4.s
+Task 6: (Secret Sharing) 3+3+3+1 points
+a) Write down different types of secret sharing and describe their main two features.
+b) Given a 5-out-of-5 RSA signature algorithm with the public key (e, ñ), the secret (private) keys (di, ñ) of
+user ui, i ∈ {1,2,3,4,5} and the (RSA) modulus ñ = p·q (p,q large primes). Write down the multi-signature
+generation equations for a message m.
+c) Write down the multi-signature verification equation for the 5-out-of-5 RSA signature.
+d) Name an application for the n-out-of-n RSA signature.
+Task 7: (Distributed Ledger/Blockchain) 2+2+6 points
+a) What is a blockchain?
+b) What is the task of miners in a blockchain-based distributed ledger?
+c) Describe a blockchain-based distributed ledger operation.
+Name: Matriculation number:
+4
+Task 8: (Certificate Revocation) 5+5 points
+Serial number
+1 Serial number
+2 Serial number
+3
+Issuer A Issuer A Issuer A
+NotBefore 01/01/2018 NotBefore 01/01/2019 NotBefore 01/01/2019
+NotAfter 31/12/2021 NotAfter 31/12/2021 NotAfter 31/12/2021
+Subject B Subject S Subject H
+Serial number
+4 Serial number
+5 Serial number
+6
+Issuer A Issuer A Issuer A
+NotBefore 01/01/2018 NotBefore 01/01/2018 NotBefore 01/01/2018
+NotAfter 31/12/2021 NotAfter 31/12/2021 NotAfter 31/12/2021
+Subject E Subject G Subject T
+Table 1: Details about some certificates
+The certificate authority J issues the certificates listed in table 1.
+a) The certificate authority (CA) A publishes revocation information in the form of CRLs. A complete CRL is
+always generated at the first day of the month. Please specify the CRLs issued in June, July and August
+2020 if the following certificate are revoked.
+B 03/06/2020
+E 05/06/2020
+T 14/06/2020
+G 11/07/2020
+H 24/07/2020
+b) The CA J introduces delta CRLs. The delta CRLs are issued twice a month, on the 10th and 20th of each
+month. Please write down the delta CRLs in June and July 2020.
+Name: Matriculation number:
+5
+Task 9: (Privacy) 10 points
+Which of the following statements are true and which are false? Use the symbols T (true) and F (false) to
+answer this question.
+_ After anonymizing a dataset using multivariate microaggregation, anomaly detection is always possible.
+_ Pseudonymization always makes it impossible to link an individual to certain data anymore.
+_ The GDPR demands that anonymous data is protected from being used for purposes different from the
+purpose the plaintext data have been collected for.
+_ A release of data is said to have the k-anonymity property if the information for each person contained
+in the release cannot be distinguished from at least k -1 individuals whose information also appear in
+the release.
+_ In the context of privacy and data protection, the GDPR is the abbreviation of "guide of data protection
+and privacy respectation".
+_ Global recoding is an appropriate technique for numerical data. The values of the data attributes are
+simply replaced with summary statistics.
+_ Local recoding allows for replacing values of data attributes with summary statistics of values of other
+data attributes.
+_ Pseudonymization should be preferred over anonymization in all use cases.
+_ In the clustering phase of multivariate microaggregation, each value of one single data attribute is made
+indistinguishable from k-1 other values of different data attributes in the same dataset.
+_ The anonymization technique “suppression” would always preserve the highest possible utility of a dataset.
+Task 10: (Anomaly Detection) 2+8 points
+a) Which of the following statements are true and which are false? Use the symbols T (true) and F (false)
+to answer this question.
+_ In general, data deformation can improve the detection quality of k-means and linear SVMs but
+not for the DBScan algorithm.
+_ In a worst case scenario, the runtime of DBScan is in O(#pts * dim).
+b) Provide the algorithms for DBScan and k-means (including the input parameters). In each of the resulting models, which points are predicted "abnormal"?
+Name: Matriculation number:
+6
+Task 11: (Statistics) 4+6 points
+Which of the following statements are true and which are false? Use the symbols T (true) and F (false) to
+answer this question.
+_ The values of an ordinal data type come with a natural ordering.
+_ The average positive ratio is the harmonic mean.
+_ The correlation measures the unnormalized variability of two random variables.
+_ In the t-test, we have to assume that the two given groups are approximately normally distributed.
+A new virus scanner detects malware with a recall Rec = TP/(TP+FN) of 100% and a specificity Spec = TN/(TN+FP)
+of 99.9%. A cloud service provider operates a server with 10,050,000 unencrypted files. We assume that
+50,000 files are infected. The virus scanner scans all unencrypted files. Fill out the confusion matrix and compute the accuracy of the virus scanner.
+File is infected File is not infected
+File is reported by the
+scanner
+TP FP
+File is not reported by
+the scanner
+FN TN
+Name: Matriculation number:
+7
+Task 12: (Internet Routing) 10 points
+Given a small Internet as shown in the figure below, calculate the Impact regarding Prefix Hijacking of AS
+64124. Provide the corresponding formula and intermediate results of your calculation.

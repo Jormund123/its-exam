@@ -1,0 +1,41 @@
+IT Security 2025/2026
+Exercise Sheet 4
+Security of Distributed and Resource Limited Systems
+Dr. Thorsten Aurisch
+Publication: 06.11.2025
+Deadline: 11.11.2025 14:00
+Submit your solutions as answers.pdf to the repository.
+Exercise 1 (Distributed Group Key Management, 1.5+1+1 points).
+Lightning Survey
+Figure 1: Key tree of the TGDH protocol
+The users u1, u2, u3, u4, and u5 apply the Tree-based Group Diffie-Hellman (TGDH) protocol
+with the key tree shown in Figure 1 for the group key establishement. For TGDH the group
+Z∗
+37 with generator g = 2. Assuming that the following keys are stored in the leaves: k3,0 = 9,
+k3,1 = 5, k2,1 = 8, k2,2 = 17, k2,3 = 27.
+a) The user u6 with the key k = 19 joins the key tree in Figure 1. Hence, k2,1 moves to k3, 2.
+Draw the modified tree and calculate the group key.
+b) Write down the messages of the sponsor.
+c) Now the user u5 leaves the group. Hence, the user u4 alters his private key to˜
+k1,1 = 10.
+Calculate the new group key.
+Exercise 2 (Secret Sharing, 1+1+1.5 points).
+a) Explain the two different types of secret sharing from the lecture.
+b) A one-time pad is the simplest 2-out-of-2 secret-sharing algorithm. Only the authorized
+set of users u1 and u2 can reconstruct the secret. Specify the algorithm and reconstruct
+the message from the shares s1 := 0110000011 and s2 := 1011010111.
+c) Assuming five users ui, i = 1, 2, 3, 4, 5 and a (3,5)-threshold sharing algorithm with the
+polynomial f (x) = 15x2 + 14x + 6 mod 17. Calculate a share for each user. Show that
+the secret can be restored by using the key shares of users u1, u2, u3. (useful calculation
+rules: (−a) mod b = (kb− a) mod b, https://de.planetcalc.com/8329/).
+1
+Figure 2: Four transactions in Bitcoin
+Exercise 3 (Blockchain-based Distributed Ledger, 1+1+1 points).
+a) Explain the basic operation of the blockchain-based distributed ledger Bitcoin.
+b) The difficulty is also part of the block header. Explain why the difficulty of the hash
+puzzle changes regularly. What negative effects can occur if this does not happen (name
+four disadvantages)?
+c) In Bitcoin the four transactions in Figure 2 are processed. Calculate the balance for each
+user after Tx4 and create a transaction Tx5 in the format of Figure 2 where the user A
+sends 5 coins to user B.
+2

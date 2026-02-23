@@ -1,0 +1,534 @@
+IT Security
+Cyber Reasoning Systems
+Annika Kuntze
+akuntze@uni-bonn.de
+University of Bonn | Institute of Computer Science 4
+IT-Security/Cyber Reasoning Systems
+Contents
+▪ Cyber Reasoning what?
+▪ AIxCC and CGC
+▪ Fuzzing Recap
+▪ Fuzzing-First
+▪ LLM-First
+▪ Real world testing
+▪ Open weights models
+IT-Security/Cyber Reasoning Systems
+2
+About Me
+▪ 2021-2025
+▪ 2025-???
+▪ Since 2024
+▪ B.Sc. in Computer Science in Bonn
+▪ M.Sc. in Cyber Security
+▪ Researcher and Developer for WASPS
+IT-Security/Cyber Reasoning Systems
+3
+Motivation
+▪ AI is everywhere right now
+▪ Taking on repetitive tasks that don't require much thought
+▪ Writing tests
+▪ Finding bugs?
+IT-Security/Cyber Reasoning Systems
+4
+AIxCC
+▪ Open source software developers overworked
+IT-Security/Cyber Reasoning Systems
+5
+AIxCC
+▪ Open source software developers overworked
+IT-Security/Cyber Reasoning Systems
+https://xkcd.com/2347/
+6
+AIxCC
+▪ Open source software developers overworked
+▪ AI slop doesn't make it any better
+IT-Security/Cyber Reasoning Systems
+7
+AIxCC
+▪ Open source Software Entwickler überlastet
+▪ AI slop macht es nicht besser
+IT-Security/Cyber Reasoning Systems
+8
+AIxCC
+▪ Open source software developers overworked
+▪ AI slop doesn't make it any better
+▪ ⇒ Develop autonomous system
+▪ Find and demonstrate bugs → reproducer
+▪ Deduplicate
+IT-Security/Cyber Reasoning Systems
+9
+AIxCC
+▪ Open Source Software Entwickler überlastet
+▪ AI slop macht es nicht besser
+▪ ⇒ Autonomes System entwickeln
+▪ Finden und beweisen von Bugs
+IT-Security/Cyber Reasoning Systems
+10
+AIxCC
+▪ Open source software developers overworked
+▪ AI slop doesn't make it any better
+▪ ⇒ Develop autonomous system
+▪ Find and demonstrate bugs → reproducer
+▪ Deduplicate
+▪ Patching
+IT-Security/Cyber Reasoning Systems
+11
+AIxCC
+▪ Open source software developers overworked
+▪ AI slop doesn't make it any better
+▪ ⇒ Develop autonomous system
+▪ Find and demonstrate bugs → reproducer
+▪ Deduplicate
+▪ Patching
+▪ Offline and without human intervention
+▪ C and Java projects
+IT-Security/Cyber Reasoning Systems
+12
+CyberGrandChallenge
+▪ Fuzzing-heavy
+▪ Focus on attacking others
+▪ Spawned stuff
+▪ Angr
+IT-Security/Cyber Reasoning Systems
+13
+Challenges of Traditional Tools
+Fuzzing Concolic Abstract
+Interpretation
+Pattern Match Model Checking Human
+Requires Build
+Works on
+deep/complex
+code
+Code modelling
+requirements
+Bug class
+modeling/
+detectors
+False positives
+False negatives
+Resource
+scaling
+IT-Security/Cyber Reasoning Systems
+14
+Copied from Theori: https://www.youtube.com/live/BRytIn_fBqI?si=zCj7zmezKXNGpcP4
+Problems with LLMs
+▪ Hallucinations
+IT-Security/Cyber Reasoning Systems
+15
+Problems with LLMs
+▪ Hallucinationen
+IT-Security/Cyber Reasoning Systems
+16
+Problems with LLMs
+▪ Hallucinations
+▪ ⇒ reproducer
+▪ Context Limitations
+▪ Recognize what is relevant
+▪ Multitasking
+IT-Security/Cyber Reasoning Systems
+17
+Problems with LLMs
+▪ Hallucinations
+▪ ⇒ reproducer
+▪ Context Limitations
+▪ Recognize what is relevant
+▪ Multitasking
+▪ Benchmarking difficult
+▪ New model ⇒ Benchmark “contaminated” as it may be part of the
+training data
+IT-Security/Cyber Reasoning Systems
+18
+Recap: Fuzzing
+▪ Generate maaaany input until the program crashes
+▪ “Intelligent” mutation → form of AI
+▪ Harness: Starting point/point of interaction with the program to
+be tested
+▪ Sanitizer: Auxiliary mechanism, especially for memory bugs →
+overflows, etc.
+IT-Security/Cyber Reasoning Systems
+19
+Fuzzing Terms
+▪ Basic Block: maximal sequence of instructions with:
+▪ 1 entry point
+▪ 1 exit point
+▪ No internal branches
+▪ Coverage: extent to which elements of a program are executed
+during a run
+▪ Grammar: formal specification that defines:
+▪ valid symbols
+▪ structural rules
+▪ Dictionary: A finite set of predefined symbols or tokens relevant
+to a domain or language
+IT-Security/Cyber Reasoning Systems
+20
+Fuzzing Terms
+IT-Security/Cyber Reasoning Systems
+21
+Fuzzing Terms - Examples
+▪ Basic blocks: as marked
+▪ Coverage for input 5: 75%
+▪ Dict: { 0, 1, 2, -1, -2,
+2147483647, -2147483648 }
+▪ Grammar:
+IT-Security/Cyber Reasoning Systems
+22
+Fuzzing Main Loop
+IT-Security/Cyber Reasoning Systems
+23
+Fuzzing-First
+▪ ‘Inspired’ by CGC
+▪ Focus on familiar tools but with *AI support*
+▪ Fuzzing
+▪ Grammars
+▪ Dictionaries
+▪ “Interesting” seeds and mutations
+IT-Security/Cyber Reasoning Systems
+24
+Atlantis
+▪ 3 separate CRSs:
+▪ C
+▪ Java
+▪ Multilang
+▪ Custom fuzzer: Bullseye
+▪ Custom model to aid patching
+IT-Security/Cyber Reasoning Systems
+Kim et al.: ATLANTIS: AI-driven threat localization, analysis, and triage intelligence system. arXiv preprint arXiv:2509.14589 (2025)
+25
+Atlantis
+▪ 3 separate CRSs: C, Java, multilang
+▪ Custom fuzzer: Bullseye
+▪ Custom Model for patching
+IT-Security/Cyber Reasoning Systems
+Kim et al.: ATLANTIS: AI-driven threat localization, analysis, and triage intelligence system. arXiv preprint arXiv:2509.14589 (2025)
+26
+Bullseye
+▪ Directed greybox fuzzer based on AFL ++
+▪ Metrics:
+▪ Distance to target
+▪ Reachability of “landmark” basic blocks
+▪ Mutating recently added seeds to circumvent fuzz blockers
+IT-Security/Cyber Reasoning Systems
+Kim et al.: ATLANTIS: AI-driven threat localization, analysis, and triage intelligence system. arXiv preprint arXiv:2509.14589 (2025)
+27
+BugBuster
+▪ Team name inspired by “The Hitchhiker’s Guide to
+the Galaxy”
+▪ b3fuzz: C-specific fuzzer
+▪ Corpus grabber: collect seeds from pre-build
+corpora
+▪ BandFuzz: Fuzzer framework
+▪ coverage and long-term impact
+▪ capability of solving difficult branches
+▪ SeedMind: LLM-driven seed generator
+IT-Security/Cyber Reasoning Systems
+https://lkmidas.github.io/posts/20250808-aixcc-recap
+Shi, Wenxuan, et al. "BandFuzz: An ML-powered Collaborative Fuzzing Framework." arXiv preprint arXiv:2507.10845 (2025)./
+28
+SeedMind
+▪ Prompt LLM for seed generator scripts
+▪ Scripts are refined via coverage feedback
+IT-Security/Cyber Reasoning Systems
+Shi et al.: Harnessing large language models for seed generation in greybox fuzzing (2024), https://arxiv.org/abs/2411.18143
+29
+Lacrosse
+▪ LISP
+▪ Fuzzing for reproducer discovery
+▪ LLM to describe and patch bug
+▪ Vertical fallback system between different LLMs
+▪ In some cases: LLM majority vote
+▪ Many “agents” in parallel, orchestrated by Optimus 0
+▪ Each agent runs same piece of code but can do different tasks
+IT-Security/Cyber Reasoning Systems
+https://www.youtube.com/watch?v=uO1LnENZV_4
+30
+Buttercup
+▪ Focus on token efficiency → real-world usability
+▪ Seeds, grammar, specific bugs (path traversal, sql injection)
+▪ focus on different cwes
+▪ Different agent personas:
+▪ leader
+▪ quality ensuring → test, build, validate
+▪ software engineer → write patch
+IT-Security/Cyber Reasoning Systems
+31
+https://www.trailofbits.com/documents/DEFCON_AIxCC_Stage_Talk.pdf
+https://www.youtube.com/watch?v=BmCWryz3dsU
+Buttercup
+▪ LLMs to generate:
+▪ Seeds
+▪ Grammars
+▪ Prompt for specific bugs: e.g. path traversal, sql injection
+▪ Focus on token efficiency → real-world usability
+▪ Different agent personas:
+▪ Leader
+▪ Quality assurance → test, build, validate
+▪ Software engineer → write patch
+IT-Security/Cyber Reasoning Systems
+https://www.trailofbits.com/documents/DEFCON_AIxCC_Stage_Talk.pdf
+https://www.youtube.com/watch?v=BmCWryz3dsU
+32
+IT-Security/Cyber Reasoning Systems
+https://support.shellphish.net/blog/2025/08/22/shellphish-x-aixcc-pm/
+33
+Grammar Guy
+▪ Part of the dynamic analysis
+▪ Use LLMs to auto-generate grammars
+▪ Scans entire code base
+▪ Gathers a quickly increasing context → very expensive
+▪ Claude
+▪ Composition: nested input formats
+▪ Token-level fuzzing grammars based on LLM grammars
+IT-Security/Cyber Reasoning Systems
+https://support.shellphish.net/blog/2025/08/22/shellphish-x-aixcc-pm/
+34
+Patching
+▪ AI-heavy across all teams but implementation differs
+▪ Generate diff
+▪ Replace whole function
+▪ Bug deduplication via patches
+▪ Patches without reproducers possible
+▪ Models have different strengths and weaknesses
+▪ Try different models and compare
+▪ Different prompts/personas
+IT-Security/Cyber Reasoning Systems
+35
+LLM-First
+▪ Agents
+▪ Tools
+▪ Prompting strategies
+▪ Pipeline/mode that works entirely without fuzzers
+IT-Security/Cyber Reasoning Systems
+36
+LLMs and Code-Interaction
+IT-Security/Cyber Reasoning Systems
+37
+FuzzBrain
+▪ Optimization of CodeQL that takes <5 minutes
+▪ LLMs to extract the top 5 most likely vulnerable
+functions
+▪ 10 different reproducer strategies
+▪ Often 0 or 1 shot
+▪ Simple: vuln func
+▪ More complex: reachability, call trees,
+language-specific guidance
+IT-Security/Cyber Reasoning Systems
+38
+Sheng et al: All you need is a fuzzing brain: An LLM-powered system for automated vulnerability detection and patching. arXiv preprint arXiv:2509.07225 (2025)
+WASPS
+▪ 3 agents
+▪ Team consisting of
+▪ University of Bonn
+▪ Frauenhofer FKIE
+▪ Code Intelligence
+IT-Security/Cyber Reasoning Systems
+39
+WASPS
+▪ 3 agents
+▪ Architecture close to Theori
+IT-Security/Cyber Reasoning Systems
+40
+WASPS
+▪ 3 agents
+▪ Architecture close to Theori
+IT-Security/Cyber Reasoning Systems
+41
+WASPS
+IT-Security/Cyber Reasoning Systems
+42
+Lessons Learnt
+▪ Pulling the LAN cable is not sufficient for an
+“offline test”
+▪ Clear caches!
+▪ ⇒ Test on a completely clean system
+▪ (Performing a DDoS attack on the submission
+platform maybe a strategy to extend the
+deadline?)
+IT-Security/Cyber Reasoning Systems
+43
+What are Agents? What are Tools?
+▪ LLM engages in reasoning with itself
+▪ Uses tools to obtain more information or perform tasks
+▪ Model Context Protocol
+▪ e.g. LangChain
+▪ In principle, a tool can be anything:
+▪ getWeather
+▪ turnOnLight
+▪ general shell access
+IT-Security/Cyber Reasoning Systems
+44
+LLMs and Code-Interaction
+▪ Reminder: Context is limited, distractions are bad
+IT-Security/Cyber Reasoning Systems
+45
+LLMs and Code-Interaction
+▪ Reminder: Context is limited, distractions are bad
+▪ Tools for interacting with code:
+▪ getDefinition(symbol name s)
+▪ findReferences(symbol name s)
+▪ updateDefinition(symbol name s, code newCode)
+▪ testPatch()
+▪ run unit tests
+▪ run against reproducer
+▪ run against reproducer mutations if you are feeling fancy
+IT-Security/Cyber Reasoning Systems
+46
+LLMs and Code-Interaction
+▪ Intercept build with libear
+▪ Parse code with clang
+▪ Keep track of what Symbols the LLM-Agent has seen
+▪ to know their position (File, line, column)
+▪ Communicate via LSP (to support multiple languages)
+IT-Security/Cyber Reasoning Systems
+47
+LLMs and Code-Interaction
+▪ Intercept build with libear
+▪ Communicate via LSP (to support multiple languages)
+▪ Keep track of what symbols the LLM-Agent has seen
+▪ Track position (File, line, column)
+▪ Necessary to make symbol look-up unambiguous
+IT-Security/Cyber Reasoning Systems
+48
+Generating Reproducers
+▪ LLMs are bad at generating binary data
+▪ They are trained to generate natural language
+▪ Bytes are not language
+▪ BUT: they are good at writing code
+▪ generateReproducer(PythonCode c)
+▪ The Python code is executed, and the content of the variable
+“reproducer” after execution is passed to the test harness.
+IT-Security/Cyber Reasoning Systems
+49
+Generating Reproducers
+▪ Code instead of bytes
+IT-Security/Cyber Reasoning Systems
+50
+Baby Proofing and Sanity Checks
+▪ Run code in sandbox
+IT-Security/Cyber Reasoning Systems
+51
+Baby Proofing and Sanity Checks
+▪ Run code in sandbox
+IT-Security/Cyber Reasoning Systems
+52
+▪
+WASPS
+IT-Security/Cyber Reasoning Systems
+53
+Theoris Code Agent
+▪ Nested use of agents
+▪ PoVProducer has access to multiple sub-agents
+▪ Source Questions
+▪ Testing and debugging potential reproducers
+▪ Input Encoder
+IT-Security/Cyber Reasoning Systems
+https://theori.io/blog/aixcc-and-roboduck-63447
+https://theori.io/blog/building-effective-llm-agents-63446
+54
+IT-Security/Cyber Reasoning Systems
+55
+On which projects can we test?
+▪ Require an interface to interact with projects
+▪ Building
+▪ Information about/interacting with harnesses
+▪ Testing
+IT-Security/Cyber Reasoning Systems
+56
+On which projects can we test?
+▪
+https://xkcd.com/927
+IT-Security/Cyber Reasoning Systems
+57
+On which projects can we test?
+▪ Require an interface to interact with projects
+▪ Building
+▪ Information about/interacting with harnesses
+▪ Testing
+▪ AIxCC finals use OSS-Fuzz infrastructure
+▪ WASPS needs OSS-Fuzz project structure but builds modification
+on top of it
+IT-Security/Cyber Reasoning Systems
+58
+OSS-Fuzz
+▪ Google’s Fuzzing platform for critical open source projects
+▪ Launched in 2016 as response to the Heartbleed Bug in OpenSSL
+▪ Continuous Fuzzing
+▪ libFuzzer (required)
+▪ AFL
+▪ honggfuzz
+▪ FuzzTest
+▪ Automated Reporting
+IT-Security/Cyber Reasoning Systems
+59
+OSS Fuzz
+IT-Security/Cyber Reasoning Systems
+60
+OSS-Fuzz
+IT-Security/Cyber Reasoning Systems
+61
+OSS-Fuzz
+IT-Security/Cyber Reasoning Systems
+62
+Real-world impact
+▪ Each team found at least one 0day in the finals
+▪ System should be usable by others to actually have an
+impact
+▪ AIxCC had unrealistically high budget for hardware and token
+▪ $85,000 in Azure compute resources
+▪ $50,000 in LLM usage
+▪ Some CRSs down-scalable to run on one laptop
+▪ e.g. FuzzBrain
+▪ Some teams focus on the most efficient/economical use of
+tokens.
+▪ e.g. Trail of Bits
+IT-Security/Cyber Reasoning Systems
+63
+Open Weights
+▪ None of the finalist teams reported using
+open-weights models in the finals
+▪ (Team Atlanta used a custom LLM for patching)
+▪ We support open weights models
+▪ → Self-hosting
+▪ Qwen
+▪ GPTOSS
+▪ (DeepSeek)
+IT-Security/Cyber Reasoning Systems
+64
+Open Weights
+IT-Security/Cyber Reasoning Systems
+65
+Open Weights
+IT-Security/Cyber Reasoning Systems
+66
+Open Weights
+▪ CMake/libexpat: XML parser of build system
+▪ GPTOSS-120B
+▪ Stack Overflow
+▪ “Rediscovery” - but public discloser after knowledge
+cut-off
+▪ Analyzed older commits
+▪ Unbound: recursive DNS resolver
+▪ Qwen3Coder-30B
+▪ Brief occurrence of NULL pointer dereference in feature
+branch
+▪ Bug was introduced and removed silently
+▪ Recognized in introducing commit
+IT-Security/Cyber Reasoning Systems
+67
+Thank you for listening
+▪ The topic is NOT relevant for the exam
+▪ There is an exercise sheet that allows you to
+test the WASPS CRS
+▪ We are looking forward to your feedback
+▪ But the sheet is NOT relevant for the exam
+admission
+IT-Security/Cyber Reasoning Systems
+68
+Recommended Sources
+▪ Overview over the whole AIxCC competition by a member of
+42-b3yond-6ug and summary of each team:
+https://lkmidas.github.io/posts/20250808-aixcc-recap/
+▪ Contains links to stage presentations and interviews of each
+team: https://aicyberchallenge.com/finalist-teams/
+▪ Contains links to all CRSs: https://archive.aicyberchallenge.com/
+IT-Security/Cyber Reasoning Systems
+69

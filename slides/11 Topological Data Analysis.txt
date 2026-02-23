@@ -1,0 +1,232 @@
+IT Security
+TopologicalDataAnalysis
+ChristianBungartz
+bungartz@cs.uni-bonn.de
+UniversityofBonn|InstituteofComputerScience4
+LectureITSecurity| UniBonn| WT2025/26
+About me
+Christian Bungartz
+2015–2019 B.Sc. inComputerScienceinBonn
+2019–2022 M.Sc. inComputerScienceinBonn
+since2022 ResearcherattheUniversityofBonn
+Interests AnomalyDetection,TopologicalDataAnalysis,
+MachineLearning,AISecurity,…
+1
+Motivation
+2
+Motivation
+2
+Motivation
+Geometric properties are those that are defined by shape, size, and position. Topo-
+logicalpropertiesarethosethataredefinedbyconnectivity andcontinuity.
+2
+Foundations of Topology
+What is Topology?
+Topology is the study of properties that are preserved under continuous deforma-
+tions,suchasstretching,twisting,crumplingandbending. Thatisalloperationswith-
+out closing or opening holes, tearing or gluing, or passing through itself. In other
+words: Topology studies properties that are invariant as long as the connectivity of
+the space does not change.
+3
+Case Study - Introduction
+4
+Case Study - Introduction
+5
+Foundations of Topology
+EssentialTerminology
+Essential Terminology
+Metric Space
+AmetricspaceisasetX togetherwithametricd : X × X → R suchthat
+d(x, y) ≥ 0
+d(x, y) = 0 ⇐⇒ x = y
+d(x, y) = d(y, x)
+d(x, z) ≤ d(x, y) + d(y, z)
+Invariant
+An invariant is a quantity that remains unchanged by a certain classes of transfor-
+mations. Forexample,theareaofasquareisaninvariantunderrotation.
+6
+Foundations of Topology
+TopologicalSpaces
+Topological Space
+Atopological space isasetX togetherwithacollectionofsubsetsT thattellsushowto
+groupelementstogetherinameaningfulway. T canbethoughtofas”neighborhoods”
+withinX
+Thepair(X, T) iscalledatopologicalspacewithT beingthetopology onX.
+Inpracticewetypicallyworkwithmetric spaces,aspecialcaseoftopologicalspaces.
+Whiletopologicalspacesgiveabroadwaytotalkaboutcloseness,metric spaces pro-
+videaconcretewaybyintroducingdistancesbetweenpoints.
+7
+Topological Space
+Inametricspace,theconceptofclosenessisdefinedbythedistancebetweenpoints.
+Foreachpointx ∈ X andanyϵ > 0,wecandefinetheneighborhoodofx asthesetof
+pointswithindistanceϵ ofx. Thisneighborhoodiscalledtheϵ-ball aroundx,denoted
+Bϵ(x):
+Bϵ(x) = y ∈ X | d(x, y) < ϵ
+AsubsetU ⊆ X isconsideredtobepartofT iff
+∀x ∈ U : ∃ϵ > 0 : Bϵ(x) ⊆ U
+ThismeansthatpointsinU are”locallynear”eachotherintermsofdistance.
+Notethatametricspaceisalwaysatopologicalspace,buttheconverseisnottrue.
+8
+Example Data - Euclidean Space
+9
+Example Data - Euclidean Space
+10
+Topological Data Analysis
+Topological Data Analysis
+Topological Data Analysis (TDA) sitsattheintersectionoftopologyanddatascience.
+Itallowsustostudyhigh-dimensionaldata(e.g. frompointclouds,networks,etc.) in
+aquantitativewaybyexaminingtheshapeofthedata(e.g. connectedcomponents,
+holes,etc.). Inparticular,TDAallowsustostudytopological invariants,whichallows
+fortheexaminationofhigher-orderinteractionsinthedata.
+11
+The pipeline of TDA
+Data
+Derivedfromtherealworld(e.g. pointcloud,network,image,…)
+Topological Objects
+Constructedfromthedata,typicallyasimplicialcomplex(moreaboutthislater)
+Homology Groups
+Computedfromthetopologicalobjects(moreaboutthislater)
+12
+Topological Data Analysis
+SimplicialComplexes
+Simplicial Complexes
+13
+Simplicial Complexes
+A simplicial complex K is a finite collection of simplices defining a triangulation of a
+topologicalspace. Inparticular:
+EveryfaceofeachsimplexinK isalsoinK
+TheintersectionofanytwosimplicesinK iseitheremptyorafaceofboth
+14
+Simplicial Complexes
+15
+Abstract Simplicial Complex
+An abstract simplicial complex is the general and combinatorial way of thinking
+aboutsimplicialcomplexes.
+Itconsistsofasetofverticesandacollectionofsubsetsofthesevertices(thesim-
+plices),suchthatifasetisinthecollection,allofitssubsetsareaswell.
+Simplicesinthiscontextarenotgeometricobjectsbutrathersets. Forexample, a
+2-simplexisrepresentedbyatriple{a, b, c},indicatingatriangle.
+16
+Geometric Realization
+The process of converting an abstract simplicial complex into a geometric one is
+knownasgeometric realization.
+Here,eachsimplex{v0, v1, . . . , vk} isassociatedwiththeconvexhullofpointsrep-
+resentingtheseverticesinageometricspace.
+This process helps visualize and understand the topological properties of the ab-
+stractcomplexbyprovidingatangiblegeometricstructure.
+17
+Simplical Complex - Example
+Abstract Simplicial Complex K:
+{∅, {0}, {1}, {2}, {3}, {4}, {5},
+{0, 1}, {0, 2}, {1, 3}, {2, 3}, {2, 4},
+{3, 4}, {3, 5}, {4, 5}, {2, 3, 4}, {3, 4, 5}}
+18
+Vietoris Rips Complex
+In practice we typically work with metric spaces. A common way to construct a sim-
+plicial complex from a metric space is the Vietoris Rips Complex. The Vietoris Rips
+ComplexforametricspaceX andadiameterϵ isgivenby
+VRϵ(X) = {σ ⊆ X | ∀x, y ∈ σ : d(x, y) ≤ ϵ}
+19
+Topological Data Analysis
+PersistentHomology
+Homology
+Homology enables the association of a sequence of algebraic structures (e.g. vector
+spaces)toatopologicalspace.
+These structure are algebraic invariants of the topological space (i.e. depend only
+onthetopologicalpropertiesofthespace)
+Measuresthenumberofconnectedcomponents,1-dimensionalholes,2-dimensional
+voidsandsoon
+Comparingtheseinvariantsallowsustocomparetherespectivespaces
+Definition: Homology
+Given a space X homology is a sequence of abelian groups H0(X), H1(X), H2(X), . . .
+(thehomologygroups),whereHdX givesanmeasureofthenumberof”d-dimensional
+holes”inX.
+20
+Homology
+21
+Homology
+22
+Homology
+23
+Filtration
+A filtration is a nested sequence of simplicial complexes K0 ⊆ K1 ⊆ K2 ⊆ · · · ⊆ Kn
+such that Ki−1 is a subset of Ki. For Vietoris Rips Complexes the filtration is given by
+theincreaseoftheradiusϵ from0 to∞.
+24
+Persistent Homology
+Persistent homology allows us to study the evolution of homology groups over a fil-
+tration. Inotherwordsitallowsustokeeptrackofthei-dimensionalholesandtheir
+persistence. Atanygivenfiltrationthresholdϵi persistenthomologytellsus:
+whichholeswerenotpresentatϵi−1
+whichholesdieatscaleϵi
+whichholespersist
+Thepersistenceofafeaturecanbeseenasameasureofitsimportance. Thelongera
+featurepersists,themoreimportantitis. Weusebarcodes andpersistence diagrams
+tovisualizethepersistenceoffeatures.
+25
+Understanding Barcodes and Persistence
+Diagrams
+1
+1https://www.nature.com/articles/s41598-021-84486-1
+26
+TDA in Practice
+Topological Pipeline
+Data: Behaviorofmultiplehomogenousdeviceseachpresentedbyapointcloud
+Topological Objects: Vietoris Rips Complexes for each point cloud based on eu-
+clideandistance,whereapointcloudrepresentsdevicebehavioroveratimeperiod
+t
+27
+Feature Extraction - Defining Quantities
+Howdoweinterpretabarcode?
+Welookatthenumberoffeaturesperdimension,thepersistenceofthefeatures,
+relevantoutliers,...
+Let’sputallofthisintoavector.
+Werepresentabarcodebyavectorofdefining quantities foreachdimension. Typi-
+callythisincludesthepersistence’mean,median,standarddeviation,sum,minimum,
+thepersistenceofthethreelongestlivingfeatures,thebirthtimeofthelongestliving
+feature,andthenumberoffeatures.
+28
+Feature Extraction - Persistence Code-
+books
+29
+Persistence Distance
+ThemostcommondistancemetricsaretheBottle-
+neck distance andtheWasserstein distance. Given
+a perfect alignment η of two persistence diagrams
+X andY theBottleneckdistanceisgivenby
+w∞(X , Y) = inf
+sup
+η
+x∈X
+∥x− η(x)∥∞
+and the Wasserstein distance — depending on the
+Lp-norm—by
+wp
+q(X , Y) = inf
+(
+η
+x∈X
+∥x− η(x)∥q
+p)1
+q
+30
+Embedding based on the Wasserstein
+Distance
+31
+Conclusion
+TDA allows us to study high-dimensional data in a quantitative way by examining
+theshapeofthedata.
+Inparticular,TDAallowsustostudytopologicalinvariants,whichallowsfortheex-
+aminationofhigher-orderinteractionsinthedata.
+Inpracticewetypicallyutilizethepersistenthomologyofasimplicialcomplexrep-
+resentingthedata.
+Persistent homology allows us to study the evolution of homology groups over a
+filtrationandistypicallyvisualizedusingbarcodesandpersistencediagrams.
+The most straightforward way to utilize TDA in cybersecurity is to extract features
+fromtheserepresentations
+32
+Lightning Survey
+33
+Christian Bungartz
+University of Bonn | Institute of Computer Science 4
+bungartz@cs.uni-bonn.de

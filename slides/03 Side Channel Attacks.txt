@@ -1,0 +1,907 @@
+IT Security
+Side Channels: Attacks and Defense
+Dr. Jernej Tonejc
+Bundesamt für Sicherheit in der Informationstechnik
+Abteilung V - Verschlusssachensicherheit und Kryptographie
+SCA | Universität Bonn | WS 2025/26
+Gitversion: Unbekannt
+Filename: ITSec-lecture-SCA
+Lecture overview
+■ Definition of a side channel
+■ Types of side channels/attacks
+■ Countermeasures
+■ Examples
+■ Examples
+■ Examples
+1 / 57
+About Me
+■ PhD in Mathematics, USA
+■ Working with cryptography & IT-Security since 1998
+■ Cyber security @ Fraunhofer FKIE, 2014-2016
+■ At BSI1 since 2016
+Directorate General V – Cryptography and Protection of Classified Information
+Section V 2 – Evaluation and Development of Classified Information Solutions
+Division V 22 – IT Security Products for Classified Information
+1Bundesamt für Sicherheit in der Informationstechnik/Federal oﬀice for information security
+2 / 57
+BSI as an employer
+Personalgewinnung BSI
+bewerbung@bsi.bund.de 
+Tel. +49 (0) 228 99 9582 6388
+Bundesamt für Sicherheit in der Informationstechnik
+Referat Z 12 – Personalgewinnung
+Godesberger Allee 87
+53175 Bonn
+www.bsi.bund.de/karriere  www.bsi.bund.de/studierende 
+3 / 57
+Outline
+Introduction
+Outside the box
+Inside the box
+Watch and Listen Carefully
+■ What are Side Channels
+■ Attacks
+■ Countermeasures
+■ Turing Machine
+4 / 57
+What are Side Channels
+■ Based on (non-intentional) physical information
+■ Can be inherent or induced
+■ Can enable new kinds of attacks
+5 / 57
+Side Channels vs. Covert Channels
+Side channels ⇒Interception/Wiretapping
+The goal is to obtain the internal information about the system.
+The attacker is often passive.
+Covert channels ⇒Communication
+The goal is to exfiltrate the information.
+They require an active attacker.
+A side channel can be used as a building block for a covert channel.
+6 / 57
+Types of Side Channels
+■ Timing (Kocher 1996)
+■ Power (KJJ 1999)
+■ Electromagnetic radiation (UCL &Gemplus 2001)
+■ Temperature (Naccache 2009)
+■ Light (Kuhn 2002)
+■ Sound (Shamir & Tromer 2004)
+■ Photonic emissions (TU Berlin 2012)
+7 / 57
+Some Unusual Side Channels
+■ Keyboard clicks can be distinguished by a cell phone’s mi-
+crophone [2]
+■ In former East Germany, a page with all possible characters
+was typed by each typewriter that was produced to trace
+them later
+Source: Wikipedia
+■ YOUR fingerprints
+Source: Wikipedia
+8 / 57
+Types of Attacks
+■ Active vs. passive
+■ Exploit abnormal behavior
+■ Insertion of signals/glitches
+■ Normal operation
+■ Reading hidden signals
+■ Invasive vs. non-invasive
+■ Side-channel attacks are usually passive and non-invasive
+9 / 57
+Why it Works
+Leakage is exploitable due to
+■ dependency on sequences of instructions executed
+■ dependency on data being processed
+■ other physical effects
+■ ability to work on one small part at a time
+10 / 57
+Levels of Analysis
+■ Simple: just one measurement
+■ Differential: multiple measurements, correlate
+■ Higher order: different samples
+■ Combining several side-channels
+■ Combining with theoretical cryptanalysis
+11 / 57
+Tools
+ChipWhisperer Nano,∼50 EUR
+■ Digital Storage Oscilloscope (DSO )
+■ EMF sensors and probes
+■ Focused Ion Beam  machines
+■ ChipWhisperer 
+■
+…
+ChipWhisperer Lite,∼250 EUR
+12 / 57
+Countermeasures
+■ TEMPEST1
+■ NSA specification & NATO certification
+■ Methods of shielding against spying
+■ Zone model
+■ Filtering
+■ Specifics are classified
+■ Masking, hiding
+■ Time/execution randomization
+■ Noise generation
+NATO SDIP-27 Level A,B,C
+Zone 0, Zone 1, Zone 2, Zone 3
+1Telecommunications Electronics Materials Protected from Emanating Spurious Transmissions
+13 / 57
+Turing Machine
+■ A mathematical model of computing
+■ A tape with cells
+■ A head for reading & writing
+■ A state register
+■ Table of instructions
+■ In practice: need to read,
+write and move around
+Source: Wikipedia CC BY-SA 3.0
+Church-Turing thesis
+A function on natural numbers is computable by a human following an algorithm, if and
+only if it is computable by a Turing machine.
+14 / 57
+Outline
+Introduction
+Outside the box
+Inside the box
+Watch and Listen Carefully
+■ What’s the Time
+■ Can’t Resist the Current
+■ The Error Was X
+15 / 57
+Side Channels on the Outside
+■ Treat the system as a closed box
+Input Crypto-
+algorithm
+Output
+Side channel
+■ We can observe:
+■ Time
+■ Power consumption
+■ Passive attack
+■ Radiation
+■
+. . .
+16 / 57
+Measuring Timing Variations
+■ The duration depends on secret data
+■ Conditions:
+■ Can correlate correct guesses with observed timings
+■ Can work one bit/one byte at a time
+■ Averaging over several measurements to reduce the noise
+17 / 57
+RSA
+■ Public key (n, e), secret key (p, q, d)
+■ n = p·q, e·d ≡1 (mod (p−1)(q−1)), n has k + 1 bits
+■ To sign a message m, compute
+md mod n,
+using e.g. Square-and-Multiply (simplified):
+Set y ←1, s ←m
+For bits d0, d1, . . . , dk of d:
+If di = 1:
+or
+y ←y·s mod n
+s ←s2 mod n
+Return y
+Set y ←1
+For bits dk, dk−1, . . . , d0 of d:
+y ←y2 mod n
+If di = 1:
+y ←y·m mod n
+Return y
+18 / 57
+RSA
+■ Public key (n, e), secret key (p, q, d)
+■ n = p·q, e·d ≡1 (mod (p−1)(q−1)), n has k + 1 bits
+■ To sign a message m, compute
+md mod n,
+using e.g. Square-and-Multiply (simplified):
+Set y ←1, s ←m
+For bits d0, d1, . . . , dk of d:
+If di = 1:
+or
+y ←y·s mod n
+s ←s2 mod n
+Return y
+Set y ←1
+For bits dk, dk−1, . . . , d0 of d:
+y ←y2 mod n
+If di = 1:
+y ←y·m mod n
+Return y
+Data-dependent execution!
+18 / 57
+Timing Attack
+■ Each signature takes time T= e +
+k
+∑
+i=0
+ti
+■ Guess the first b bits of d
+■ Predict the time given the guess and subtract from T
+■ Compute variance of the difference over all samples:
+■ We obtain Var(e) + (k−b) Var(t) for correct guess
+■ We obtain Var(e) + (k + b−2c) Var(t) if only first c < b bits correct
+■ Correct guesses decrease the variance
+■ Similar attacks on other public-key schemes
+19 / 57
+Square-and-Multiply (simplified)
+■ Execution-time independent implementation
+Set y ←1
+For bits dk, dk−1, . . . , d0 of d:
+y ←y2 mod n, z ←y
+If di = 1:
+y ←y·m mod n
+Else:
+z ←z·m mod n
+Return y
+■ Is this safe?
+20 / 57
+Square-and-Multiply (simplified)
+■ Execution-time independent implementation
+Set y ←1
+For bits dk, dk−1, . . . , d0 of d:
+y ←y2 mod n, z ←y
+If di = 1:
+y ←y·m mod n
+Else:
+z ←z·m mod n
+Return y
+■ Is this safe? Seems to be...
+Caution:
+Compiler optimization
+may remove z!
+20 / 57
+Power Consumption of Circuits
+■ CMOS1 circuits use current when switching
+■ More switching ⇒more current
+■ Operations correlate with current
+■ Measuring current reveals the operations
+Source: S. Skorobogatov [7]
+1Complementary Metal Oxide Semiconductor
+21 / 57
+Types of Power Analysis
+■ Simple/Differential/Correlation Power Analysis (SPA/DPA/CPA)
+■ Template Attacks
+■ Stochastic Models
+■ Linear Regression Analysis
+■ Principal Component Analysis (PCA)
+■
+. . .
+22 / 57
+Simple Power Analysis
+■ One or few measurements
+■ Search for repetitive patterns
+■ Data-independent but instruction-dependent
+■ See number of rounds, memory access, key
+23 / 57
+Differential Power Analysis
+■ Several thousand measurements
+■ Selection function: split the traces based on the predicted value of one
+cyphertext bit given the (sub)key guess
+■ Compare the difference of the averages
+of the two sets
+■ Correct (sub)key guess has higher difference
+Try it yourself: https://dpacontest.telecom-paris.fr/home/
+Source: [1]
+24 / 57
+Correlation Power Analysis
+■ Again several thousand measurements
+■ Model of the side channel vs. the real side channel
+■ Correlation based on key hypothesis
+■ Correct hypothesis has highest correlation
+25 / 57
+Padding Oracle Attacks
+■ CBC-mode1 with PKCS7 padding:
+Pi = DK(Ci) ⊕Ci−1, C0 = IV PKCS7-padding: last block has last n bytes equal to n
+(decryption)
+X X X X X X 0x02 0x02 X X X 0x05 0x05 0x05 0x05 0x05
+■ Server reacts differently to different errors: bad padding vs. bad decryption
+■ First published in 2002 by Vaudenay
+■ Lucky Thirteen (2013), POODLE2 (2014)
+1Cipher-Block-Chaining
+2Padding Oracle On Downgraded Legacy Encryption
+26 / 57
+Example
+■ We encrypt two blocks, P1, P2, with 2 bytes of padding:
+C1 = EK(P1 ⊕IV), C2 = EK(P2 ⊕C1)
+where P2 ends in 0x02,0x02
+■ Modifying C1 affects decryption of P2: P2 = DK(C2) ⊕C1
+■ Change the last byte b−1 of C1 as b−1 ←b−1 ⊕z−1 ⊕0x01:
+■ If the last byte of the original P2 is z−1, there is no padding error
+■ Otherwise, there is a padding error
+■ Try with all 256 possible values for z−1
+■ Proceed by setting b−1 ←b−1 ⊕z−1 ⊕0x02,
+b−2 ←b−2 ⊕z−2 ⊕0x02 and guessing z−2
+P1 P2
+IV ⊕ ⊕
+EK EK
+C1 C2
+Encryption
+27 / 57
+Example
+■ We encrypt two blocks, P1, P2, with 2 bytes of padding:
+C1 = EK(P1 ⊕IV), C2 = EK(P2 ⊕C1)
+where P2 ends in 0x02,0x02
+■ Modifying C1 affects decryption of P2: P2 = DK(C2) ⊕C1
+■ Change the last byte b−1 of C1 as b−1 ←b−1 ⊕z−1 ⊕0x01:
+■ If the last byte of the original P2 is z−1, there is no padding error
+■ Otherwise, there is a padding error
+■ Try with all 256 possible values for z−1
+■ Proceed by setting b−1 ←b−1 ⊕z−1 ⊕0x02,
+b−2 ←b−2 ⊕z−2 ⊕0x02 and guessing z−2
+P1 P2
+IV ⊕ ⊕
+DK DK
+C1 C2
+Decryption
+27 / 57
+Outline
+Introduction
+Outside the box
+Inside the box
+Watch and Listen Carefully
+■ Rowhammer
+■ Flush and Reload
+■ Spectre and Meltdown
+28 / 57
+Actively Creating Side Channels
+■ Sometimes the channels are not there
+■ By manipulating the system, we create them
+■ We use the knowledge of
+■ hardware
+■ algorithm
+■ implementation
+29 / 57
+Rowhammer
+■ Cells in DRAM need periodic refresh
+■ When reading, the original content is destroyed and must be copied
+back
+■ Due to high density,
+rapid access causes side effects:
+■ Bits in adjacent rows can flip
+■ Depends on the module
+■ Unpredictable, but repeatable
+A
+RAS
+Data
+R/W
+CAS
+30 / 57
+How Flipping a Bit Helps
+■ Flipping the superuser or NX-bit in a pagetable:
+■ Access to kernel pages from userspace
+■ Memory pages can be made executable
+■ Remove write protection
+■ Flipping a bit in ssh public key:
+■ In .ssh/authorized_keys
+■ New modulus can likely be factored
+■ Compute the new private key and log in
+31 / 57
+How Flipping a Bit Helps
+■ Flipping the superuser or NX-bit in a pagetable:
+■ Access to kernel pages from userspace
+■ Memory pages can be made executable
+■ Remove write protection
+■ Flipping a bit in ssh public key:
+All in RAM!
+■ In .ssh/authorized_keys
+■ New modulus can likely be factored
+■ Compute the new private key and log in
+31 / 57
+How Flipping a Bit Helps
+■ Flipping a bit in server address:
+■ In sources.list
+■ Packages will update from a wrong server (ubuntu.com →ufuntu.com)
+■ Flipping a bit in GPG key ring:
+■ Similar to ssh key
+■ Can now sign packages and install them
+32 / 57
+How Flipping a Bit Helps
+■ Flipping a bit in server address:
+■ In sources.list
+■ Packages will update from a wrong server (ubuntu.com →ufuntu.com)
+■ Flipping a bit in GPG key ring:
+All in RAM!
+■ Similar to ssh key
+■ Can now sign packages and install them
+32 / 57
+Caching in Modern Computers
+■ Several types of memory:
+■ In CPU (registers)
+■ In CPU (cache)
+■ RAM
+■ Flash drives
+■ Hard drives
+■ Tapes/DVDs (backup)
+■ Access times vary greatly
+■ Speed increases the closer the data is to CPU
+33 / 57
+Caching in Modern Computers
+■ Several types of memory:
+■ In CPU (registers)
+■ In CPU (cache)
+Fast &
+Volatile
+■ RAM
+■ Flash drives
+■ Hard drives
+■ Tapes/DVDs (backup)
+■ Access times vary greatly
+■ Speed increases the closer the data is to CPU
+Slow &
+Non-volatile
+33 / 57
+Intel Cache Architecture
+Core 0
+Core 1
+Core 2
+Core 3
+4
+■ Several levels: L0, L1, L2, LLC1
+L1D L1I
+L1D L1I
+L1D L1I
+L1D L1I
+7
+26
+■ Several types: TLB, LFB, BPU, BTB2
+L2
+L2
+L2
+L2
+…
+■ LLC is shared across cores
+LLC
+200
+■ Can flush (evict) LLC from userspace (clflush)
+latency (cycles)
+■ Location in cache is related to the physical location in RAM
+RAM
+1Last-Level-Cache
+2Translation Lookaside Buffer, Line Fill Buffer, Branch Prediction Unit, Branch Target Buffer
+34 / 57
+Intel Sunny Cove Block Diagram
+10nm, 2019
+35 / 57
+Cache Timing Side Channel
+■ Computation speed depends on the location of the data
+■ In cache: fast. Not in cache: slow
+■ Two common techniques of measuring:
+■ Flush+Reload: Evict relevant data and check for reload, or
+■ Prime&Probe: Check if own data got evicted due to cache collision
+36 / 57
+Attacking with Flush+Reload
+■ Assumption: data-dependent code lies in different cache lines
+■ Focus on the library code
+■ Flush, wait and reload
+■ Shorter time indicates the victim loaded it already
+■ This is our side channel!
+37 / 57
+Flush+Reload attack on RSA
+■ Assume the If and Else branches lie in different cache lines:
+Set y ←1
+For bits dk, dk−11, . . . , d0 of d:
+y ←y2 mod n, z ←y
+If di = 1:
+y ←y·m mod n
+Else:
+z ←z·m mod n
+Alignment determined
+by compiler and
+location in memory
+Return y
+■ Depending on the bit value di, different cache lines get used
+38 / 57
+Speculative Execution
+■ Modern CPUs are superscalar: several execution units, long pipelines
+■ Conditional branches present an issue:
+branch target is unclear before the condition gets resolved
+■ To increase speed, processor chooses the most likely branch instead of waiting
+■ Correct choice speeds up the computation
+■ Wrong choice causes a roll-back, but no loss otherwise: the processor would have to
+wait for the correct target anyway
+■ Similar problem with permissions check
+■ Problem: roll-back leaves cache polluted
+39 / 57
+A Library Example: Setup
+■ One central library
+■ Requests can also be made through the department’s secretary
+■ The books arrive at the secretary’s oﬀice the next day
+■ The secretary validates the request before giving out the book
+■ The books can be returned directly or to the secretary
+■ If a book is already at the secretary, no request is made to the library
+40 / 57
+A Library Example: Goal
+■ We want to find out the grade of the student John Doe
+■ Grades are integers between 1 and 5
+■ The secretary has access to all the grades
+■ The secretary will only give out the requester’s grade
+■ We get no answer if we ask directly
+41 / 57
+A Library Example: Attack
+IT Department
+Central Library
+•
+Secretary’s
+oﬀice
+•
+•
+Encyclopædia
+Britannica Vol. 5
+Encyclopædia
+Britannica Vol. 4
+Encyclopædia
+Britannica Vol. 3
+Encyclopædia
+Britannica Vol. 2
+Encyclopædia
+Britannica Vol. 1
+1. “I want Encyclopædia Britannica Vol. 1, 2, 3, 4, 5”
+Day 1
+42 / 57
+A Library Example: Attack
+IT Department
+Central Library
+•
+Secretary’s
+oﬀice
+Encyclopædia Britannica Vol. 1,2,3,4,5
+•
+•
+Encyclopædia
+Britannica Vol. 5
+Encyclopædia
+Britannica Vol. 4
+Encyclopædia
+Britannica Vol. 3
+Encyclopædia
+Britannica Vol. 2
+Encyclopædia
+Britannica Vol. 1
+Day 1
+42 / 57
+A Library Example: Attack
+IT Department
+Central Library
+•
+•
+Secretary’s
+oﬀice
+•
+Encyclopædia
+Britannica Vol. 5
+Encyclopædia
+Britannica Vol. 4
+Encyclopædia
+Britannica Vol. 3
+Encyclopædia
+Britannica Vol. 2
+Encyclopædia
+Britannica Vol. 1
+Day 2
+42 / 57
+A Library Example: Attack
+IT Department
+Central Library
+•
+Secretary’s
+oﬀice
+•
+•
+Encyclopædia
+Britannica Vol. 5
+Encyclopædia
+Britannica Vol. 4
+Encyclopædia
+Britannica Vol. 3
+Encyclopædia
+Britannica Vol. 2
+Encyclopædia
+Britannica Vol. 1
+2. We return the books directly to the library
+Flushing the cache Day 2
+42 / 57
+A Library Example: Attack
+IT Department
+Central Library
+•
+Secretary’s
+oﬀice
+•
+•
+Encyclopædia
+Britannica Vol. 5
+Encyclopædia
+Britannica Vol. 4
+Encyclopædia
+Britannica Vol. 3
+Encyclopædia
+Britannica Vol. 2
+Encyclopædia
+Britannica Vol. 1
+3. “I want Encyclopædia Britannica Vol. X,
+where X is John Doe’s grade”
+Day 2
+42 / 57
+A Library Example: Attack
+IT Department
+Central Library
+John Doe: 3
+•
+Secretary’s
+oﬀice
+Encyclopædia Britannica Vol. 3
+•
+•
+Encyclopædia
+Britannica Vol. 5
+Encyclopædia
+Britannica Vol. 4
+Encyclopædia
+Britannica Vol. 3
+Encyclopædia
+Britannica Vol. 2
+Encyclopædia
+Britannica Vol. 1
+Speculative request Day 2
+42 / 57
+A Library Example: Attack
+IT Department
+Central Library
+•
+Secretary’s
+oﬀice
+Encyclopædia Britannica Vol. 3
+Encyclopædia
+Britannica Vol. 3
+•
+•
+Encyclopædia
+Britannica Vol. 5
+Encyclopædia
+Britannica Vol. 4
+Encyclopædia
+Britannica Vol. 2
+Encyclopædia
+Britannica Vol. 1
+Day 3
+42 / 57
+A Library Example: Attack
+IT Department
+Central Library
+•
+Secretary’s
+oﬀice
+Encyclopædia
+Britannica Vol. 3
+•
+•
+Encyclopædia
+Britannica Vol. 5
+Encyclopædia
+Britannica Vol. 4
+Encyclopædia
+Britannica Vol. 2
+Encyclopædia
+Britannica Vol. 1
+Request denied:
+you are not John Doe
+Permission check Day 3
+42 / 57
+A Library Example: Attack
+IT Department
+Central Library
+•
+Secretary’s
+oﬀice
+Encyclopædia
+Britannica Vol. 3
+•
+•
+Encyclopædia
+Britannica Vol. 5
+Encyclopædia
+Britannica Vol. 4
+Encyclopædia
+Britannica Vol. 2
+Encyclopædia
+Britannica Vol. 1
+4. “I want Encyclopædia Britannica Vol. 1, 2, 3, 4, 5”
+Reload Day 3
+42 / 57
+A Library Example: Attack
+IT Department
+Central Library
+•
+Secretary’s
+oﬀice
+Encyclopædia Britannica Vol. 1,2,4,5
+•
+•
+Encyclopædia
+Britannica Vol. 5
+Encyclopædia
+Britannica Vol. 4
+Encyclopædia
+Britannica Vol. 2
+Encyclopædia
+Britannica Vol. 1
+Encyclopædia
+Britannica Vol. 3
+Day 3
+42 / 57
+A Library Example: Attack
+IT Department
+Central Library
+•
+•
+Secretary’s
+oﬀice
+•
+Encyclopædia
+Britannica Vol. 5
+Encyclopædia
+Britannica Vol. 4
+Encyclopædia
+Britannica Vol. 3
+Encyclopædia
+Britannica Vol. 2
+Encyclopædia
+Britannica Vol. 1
+Day 4
+42 / 57
+A Library Example: Attack
+IT Department
+Central Library
+John Doe: 3
+•
+•
+•
+Secretary’s
+oﬀice
+The book that arrived first indicates the most likely
+grade
+Encyclopædia
+Britannica Vol. 5
+Encyclopædia
+Britannica Vol. 4
+Encyclopædia
+Britannica Vol. 3
+Encyclopædia
+Britannica Vol. 2
+Encyclopædia
+Britannica Vol. 1
+42 / 57
+Outline
+Introduction
+Outside the box
+Inside the box
+Watch and Listen Carefully
+■ Talking Behind Your Back
+■ LED it Go
+■ RAM Radio & AirHopper
+■ Twinkle, Twinkle Little Transistor
+43 / 57
+Exfiltrating Data, Linking Devices
+■ Main goal of these attacks is getting data out
+■ Use of unexpected communication channels
+■ Mostly uses standard equipment
+44 / 57
+Cross-Device Tracking
+■ SilverPush founded in 2012
+■ Embed inaudible sound in TV ads
+(ultrasound beacons)
+■ Apps on phones pick this up
+⇒Cross-device user tracking
+■ Privacy issues voiced in 2015
+Source: Talk at 33C3 [5]
+45 / 57
+Deanonymizing Tor Users
+46 / 57
+Escaping the Air-Gapped Machines
+■ Air-gapped: no direct connection to the world
+■ Need to bridge the gap to leak the data
+■ Infiltration doable1, exfiltration a challenge
+■ Is it enough to see the machine?
+1E.g., an infected USB-Stick
+47 / 57
+Blinking HD-LED
+■ Disk activity makes LED blink:
+■ Duration corresponds to amount read
+■ E.g. <4kB∼0.18 ms, 5MB∼32ms
+■ Low-privilege process can read data
+■ Simple camera can record 60 frames/sec
+■ Bitrates from 60 – 4000 bits/sec2
+■ Need to control the noise
+2with photodiode
+Source: [6]
+48 / 57
+(Un)expected Sources of Signals
+■ Data lanes within PC emit EMR3
+■ Need to find useful frequencies
+■ Example 1: DDR-RAM
+■ Example 2: Videocards
+3Electromagnetic radiation
+49 / 57
+RAM Radio
+■ DDR-RAM
+■ LTE uses 800MHz carrier frequency
+■ Modified phone firmware4 can
+decode signals
+■ Use MOVNTDQ5 for RAM access
+■ Bitrates 2-100 bits/s
+4Using e.g. OsmocomBB
+5Move Double Quadword Non-Temporal; avoids cache
+Source: [8]
+50 / 57
+AirHopper
+■ Video cables cary signals
+(Hpixel + Hsync) ∗(Vpixel + Vsync) ∗RR= PC6
+E.g. for 1440x900 we get 106.5 MHz
+■ Control signals even when monitor off
+■ Smartphones have FM receivers
+■ Patch code to ignore headphones
+■ Use modulation (A-FSK or DTMF7)
+■ Effective range∼7m, 80 bits/s
+Source: [9]
+6Utility like cvt can be used to compute the pixel clock (PC)
+7Audio Frequency-Shift Keying, Dual-Tone Multiple Frequency
+51 / 57
+Photonic Emission Analysis
+■ Microprocessors are built out of lots of transistors
+■ Low-power embedded devices at µm scale
+■ Internal memory uses SRAM cells
+■ Cell consists of 6 MOSFETs8
+■ 4 are within two cross-coupled inverters
+■ Access through WL, value in BL, BL
+WL
+M5
+M6
+Q
+Q
+BL BL
+8Metal-Oxide-Semiconductor Field Effect Transistor
+52 / 57
+Transistor Operation
+■ Hot-carrier luminescence:
+Transistors emit photons when switching
+■ Can detect SRAM memory access
+■ How?
+■ Picosecond imaging circuit analysis
+(PICA, expensive, 1,000,000+ EUR!)
+■ Optical microscope + CCD (cheaper)
+■ Issue: temporal vs. spatial resolution
+Source: S. Skorobogatov [7]
+53 / 57
+Practical Example
+From: J. Krämer, PhD Thesis “Why Cryptography Should Not Rely on Physical Attack Complexity”
+Optical emission of AES S-Box, stored in SRAM of ATMega328P. 256 Bytes are stored in
+32 cells of 8 bytes each. The emissions of the row drivers (left) are clearly visible.
+54 / 57
+Summary
+Summary
+■ What is a side channel
+■ What types of side channels exist
+■ Countermeasures
+■ Lots of examples
+Take-away
+Secure software development is not enough.
+55 / 57
+References
+1 P. Kocher et al. Differential Power Analysis.
+2 S. Yang. Researchers recover typed text using audio recording of keystrokes. http://www.berkeley.edu/news/med
+3 B. Gras et al. Memory Deduplication: The Curse that Keeps on Giving. 33C3
+4 Y. Yarom. FLUSH+RELOAD: a High Resolution, Low Noise, L3 Cache Side-Channel Attack.
+5 V. Mavroudis, F. Maggi. Talking Behind Your Back. 33C3.
+6 M. Guri et al. LED-it-GO: Leaking (A Lot of) Data from Air-Gapped Computers via the (Small) Hard
+Drive LED, DIMVA 2017.
+7 S. Skorobogatov. Using Optical Emission Analysis for Estimating Contribution to Power Analysis.
+8 M. Guri et al. GSMem: Data Exfiltration from Air-Gapped Computers over GSM Frequencies. USENIX
+2015.
+9 M. Guri et al. AirHopper: Bridging the Air-Gap between Isolated Networks and Mobile Phones using Radio
+Frequencies. MALCON 2014.
+10 M. Lipp et al. Meltdown. ArXiV e-print 1801.01207
+11 P. Kocher et al. Spectre Attacks: Exploiting Speculative Execution. ArXiV e-print 1801.01203
+12 B. Nassi et al. Video-Based Cryptanalysis: Extracting Cryptographic Keys from Video Footage of a Device’s
+Power LED. IACR e-print 2023.923.
+56 / 57
+Lightning Survey
+57 / 57

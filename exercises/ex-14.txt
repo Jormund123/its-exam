@@ -1,0 +1,59 @@
+IT Security 2025/2026
+Exercise Sheet 14
+– Web Authentication Schemes –
+Melina Hoffmann
+Publication: 29.01.2026
+Deadline: 03.02.2025 14:00
+Lightning Survey
+Exercise 1 (eID Fraud Scenarios, 1.5 points). For each of the following short scenarios, describe
+concisely (1-2 sentences each) and precisely at which step of the online authentication process
+as described in the lecture the malicious or fraudulent action is detected. You can assume that
+all other parts of the eID system are benign and work as specified. You can also assume that
+the attacker in each scenario tries to get as far as they can (e.g. tries to forge certificates) but
+cannot obtain secret information beyond what is specified (e.g. no insider access to authorities
+like the German Federal Printing Office). If you make further assumptions, please state them
+together with your answer. Submit everything in eid-fraud.txt.
+a) A pickpocket has obtained the government-issued identification card (Personalausweis) of
+somebody else and tries to use it to open a bank account in the original card holder’s
+name.
+b) A fraudster has forged a government-issued identification card (Personalausweis) including
+the integrated chip for an entirely fake identity and tries to obtain a SIM card in the name
+of this fake identity.
+c) A malicious actor wants to obtain personal data from various citizens. The malicious
+actor has replicated a government service website and has lured a citizen onto the spoofed
+website, who has now started an eID authentication process on the spoofed website.
+Exercise 2 (sPACE-Attack, 3.5 points). Research the sPACE attack (CVE-2024–23674) on the
+German eID scheme and answer the following questions. You can use the following blog post1 as
+a starting point. State all of your corresponding sources and write your solution into space.txt.
+a) What is the goal of the attack? (max. 2 sentences)
+b) Where in the eID system and processes lies the exploited vulnerability? (max. 3 sentences)
+c) Which requirements need to be fulfilled by the attacker and on the user’s side for a suc-
+cessful attack? (max. 3 sentences)
+d) Describe the sequence of steps for the attack. (max. 15 sentences)
+e) When and by whom was this attack made public? (1 sentence)
+f) What was the public response of the BSI (Federal Office for Information Security) to this
+attack, especially with regards to the assessment of the severity and recommended actions
+for citizens to protect themselves? (max. 2 sentences)
+1https://ctrlalt.medium.com/space-attack-spoofing-eids-password-authenticated-connection-
+establishment-11561e5657b1
+1
+Exercise 3 (User Agent Header, 2 points). For each of the following User Agent strings, briefly
+state which information about the browser can be inferred from each component of the string.
+State all of your corresponding sources and write your solution into user-agent.txt.
+a) Mozilla/5.0 (Android 4.4; Mobile; rv:70.0) Gecko/70.0 Firefox/70.0
+b) Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0
+Safari/537.36
+Exercise 4 (Web Authentication Implementation Scenarios, 3 points). For each of the following
+scenarios, state which of the authentication schemes discussed in the lecture is the most suitable.
+Briefly (2-4 sentences total) justify your answer by explaining for all schemes why they are
+(un)suitable. If you make any additional assumptions, state them with your answer. Submit
+your solution in scenarios.txt.
+a) A rural German town wants to offer a special reduced fare taxi service to their young
+residents on weekends to reduce risky behavior, e.g., drunk driving or sharing rides with
+untrustworthy strangers. To prevent abuse of this cheap offer, participants should need to
+register with a special app, which also automatically verifies their eligibility (age between
+16 and 27, resident of the municipality).
+b) A global online social media platform wants to give all its customers the option to link
+a secondary device (physical factor) to their account for two factor authentication (2FA).
+The customers should be able to decide whether they want to participate or not.
+2

@@ -1,0 +1,26 @@
+IT Security 2025/2026
+Exercise Sheet 10
+– Cyber Reasoning Systems –
+Annika Kuntze
+Publication: 18.12.2025
+Deadline: 06.01.2025
+Lightning Survey
+Note: This exercise sheet does not count towards the exam admission.
+Exercise 1 (Analysis Methods, 0 points).
+(i) Name and explain 2 challenges when working with traditional analysis methods (e.g.
+fuzzing, static analysis).
+(ii) Name and explain 2 challenges when working with LLMs.
+Write your solutions into task1.txt.
+Exercise 2 (Approaches and Paradigms, 0 points).
+In your own words, explain the fuzzing-first and LLM-first design paradigms. Then, try to assign
+each of the seven AIxCC finalist teams and WASPS to one of these two paradigms. If you think
+that one or more teams do not clearly fit into either category, explain your reasoning and, if
+possible, suggest an alternative category.
+Write your solutions into task2.txt.
+Exercise 3 (Hands-on Reasoning, 0 points).
+WASPS’s CRS is in the process of being open-sourced. To help ensure that the system is easy
+to use, we would appreciate your feedback via this survey
+https://forms.gle/s4H4q4Eoc4TzZ9Lx6.
+The survey will guide you step by step through setting up and running the CRS on an example
+project. We invite you to share logs and artifacts by uploading them to your repository.
+1

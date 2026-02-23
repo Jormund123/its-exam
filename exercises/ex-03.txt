@@ -1,0 +1,37 @@
+IT Security 2025/2026
+Exercise Sheet 3
+– Side Channel Attacks –
+Dr. Jernej Tonejc
+Publication: 30.10.2025
+Deadline: 04.11.2025 14:00
+Lightning Survey
+Exercise 1 (Questions, 1+1+1+1+1 points).
+Create a file answers.txt and answer the following questions:
+a) Which factors contribute to the Spectre/Meltdown bugs?
+b) Suppose the exfiltration rate is 20 bits/hour. What could be the worthy targets?
+c) Read about Flush+Reload and Prime&Probe. Explain the difference between the two
+methods.
+d) Suppose we introduce Cache‐Rollback to prevent spectre‐type attacks by marking entries
+as uncached, if they were speculatively loaded and the load should not have happened.
+Would this work? What can attacker do in this case?
+e) Consider the following code:
+1 # include " even_odd_lib .h"
+2 int main (int argc , char ** argv ) {
+3 int secret = atoi ( argv [1]) ;
+4 while ( secret >>= 1) {
+5 if ( secret & 0x1)
+6 odd ();
+7 else
+8 even ();
+9 }
+10 11 }
+return 0;
+Which side channels could exist?
+Exercise 2 (Padding Oracle, 5 points).
+A server vulnerable to a Padding Oracle attack is available at https://itsec.cs.uni-bonn.de/
+padorc/. Read the instructions and write the script padorc.py to perform the attack. The
+pipeline for this task is limited to 10 minutes, so find an efficient solution.
+Note: Brute Force is not efficient!
+Note 2: The script might work a bit faster in the pipeline compared to your computer due to
+shorter request times.
+1

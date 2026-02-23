@@ -1,0 +1,28 @@
+IT Security 2025/2026
+Exercise Sheet 2
+– Applied Binary Exploitation –
+Ben Swierzy
+Publication: 23.10.2025
+Deadline: 28.10.2025 14:00
+Lightning Survey
+Exercise 1 (ret2libc, 4 points). Consider the compiled binary task1 and its source code task1
+.c. Exploit the buffer overflow in the program by returning into system with /bin/sh. Extend
+the scaffold in task1-exploit.py to generate your exploit bytes.
+Note that the binary is statically linked, so ASLR is not relevant. Other mitigations have
+been disabled as well.
+Exercise 2 (Return-oriented Programming, 6 points). Extend the script task2-exploit.py
+by writing a ROP-chain to exploit the buffer overflow in task2 to create the file /tmp/pwned.
+You find the source code in task2.c. Be aware that this time ASLR is active!
+Hint: An additional pipeline job calls ROPgadget on glibc for you, so you do not need to think
+about getting the correct version of the library. Furthermore, another job fetches the offset of
+some symbols and strings.
+Important: While you are technically not limited, you should only interact immediately with
+the binary with basic IO. Other interactions with the system like reading the process memory
+map, libraries or directly creating the target file will lead to point deductions. This includes
+most of the ROP-specific tools shipped by pwntools.
+Note: The pipeline image is based on the ubuntu:jammy docker image. This might help you with
+debugging your solutions locally.
+Note 2: The pipeline for task 2 seems to occasionally fail without an obvious reason — even
+for the sample solutions. If you are pretty convinced your solution should work, you can try
+triggering the pipeline job again.
+1

@@ -1,0 +1,726 @@
+IT Security
+Software Supply Chain Attacks
+Marc Ohm
+ohm@cs.uni-bonn.de
+University of Bonn | Institute of Computer Science 4
+$ whoami
+Marc Ohm
+2009 – 2017 Studies in Computer Science in Bonn (B.Sc. & M.Sc.)
+2017 – now 2022 – now 2021 Interests Researcher in the working group IT-Security
+Researcher at Fraunhofer FKIE
+Dr. rer. nat. in Computer Science
+Software Supply Chain Attacks, Threat Intelligence, Machine
+Learning
+WS2025
+Software Supply Chain Attacks / Marc Ohm / IT Security
+CONTENTS
+■ Threat Intelligence
+○ Threats & Threat Actors
+○ Advanced Persistent Threats
+○ Intrusion Kill Chain
+■ Software Supply Chain Security
+○ Watering Hole Attack
+○ Systematization of Attacks
+○ Attack Surface & Threat Landscape
+○ Detection of Attacks
+WS2025 3Software Supply Chain Attacks / Marc Ohm / IT Security
+THREATS & THREAT ACTORS
+CYBER THREAT
+,, Any circumstance or event with the potential to
+adversely impact organizational operations […],
+organizational assets, individuals, other
+organizations, or the Nation through an
+information system […]”
+NIST - Cyber Threat Definition
+WS2025 5Software Supply Chain Attacks / Marc Ohm / IT Security
+THREAT ACTOR
+,,A threat actor […] is an entity that is […]
+responsible for an incident that impacts – or has
+the potential to impact – an organization's security”
+TechTarget - Threat Actor Definition
+WS2025 6Software Supply Chain Attacks / Marc Ohm / IT Security
+TYPES OF THREAT ACTORS
+THREAT ACTOR
+Nation-State
+Cybercriminals
+Hacktivists
+Terrorist Groups
+Thrill-Seeker
+Insider Threats
+https://cyber.gc.ca/en/guidance/cyber-threat-and-cyber-threat-actors
+WS2025 7Software Supply Chain Attacks / Marc Ohm / IT Security
+TYPES OF THREAT ACTORS
+THREAT ACTOR
+Hacktivists
+Terrorist Groups
+Thrill-Seeker*
+▪ Lowest level of sophistication
+▪ Rely on widely available tools that require little
+technical skill to deploy
+▪ Their actions, more often than not, have no lasting
+effect on their targets beyond reputation
+▪ *also called script-kiddies
+https://cyber.gc.ca/en/guidance/cyber-threat-and-cyber-threat-actors
+WS2025 8
+Software Supply Chain Attacks / Marc Ohm / IT Security
+TYPES OF THREAT ACTORS
+THREAT ACTOR
+Cybercriminals
+▪ Moderate sophistication
+▪ Nonetheless, they still have
+▪ Planning and support functions
+▪ Specialized technical capabilities that affect a large
+number of victims
+https://cyber.gc.ca/en/guidance/cyber-threat-and-cyber-threat-actors
+WS2025 9
+Software Supply Chain Attacks / Marc Ohm / IT Security
+TYPES OF THREAT ACTORS
+THREAT ACTOR
+Nation-State
+▪ The most sophisticated threat actors
+▪ virtually unlimited resources
+▪ dedicated personnel
+▪ extensive planning and coordination
+https://cyber.gc.ca/en/guidance/cyber-threat-and-cyber-threat-actors
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security
+10
+TYPES OF THREAT ACTORS
+THREAT ACTOR
+▪ Working within the targeted organization
+▪ Particularly dangerous because of their access to
+internal networks
+▪ Access is a key component for malicious threat
+actors
+▪ Having privileged access eliminates the need to
+employ other remote means
+▪ Insider threats may be associated with any of the
+other listed types
+▪ Or just a disgruntled employee with motive
+Insider Threats
+https://cyber.gc.ca/en/guidance/cyber-threat-and-cyber-threat-actors
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security
+11
+THREAT ACTORS‘ MOTIVATION
+THREAT ACTOR
+MOTIVATION
+Nation-State
+Cybercriminals
+Hacktivists
+Terrorist Groups
+Thrill-Seeker
+Insider Threats
+https://cyber.gc.ca/en/guidance/cyber-threat-and-cyber-threat-actors
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security
+12
+THREAT ACTORS‘ MOTIVATION
+THREAT ACTOR
+MOTIVATION
+Nation-State
+Geopolitical
+Cybercriminals
+Hacktivists
+Terrorist Groups
+Thrill-Seeker
+Insider Threats
+https://cyber.gc.ca/en/guidance/cyber-threat-and-cyber-threat-actors
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security
+13
+THREAT ACTORS‘ MOTIVATION
+THREAT ACTOR
+MOTIVATION
+Nation-State
+Cybercriminals
+Profit
+Hacktivists
+Terrorist Groups
+Thrill-Seeker
+Insider Threats
+https://cyber.gc.ca/en/guidance/cyber-threat-and-cyber-threat-actors
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security
+14
+THREAT ACTORS‘ MOTIVATION
+THREAT ACTOR
+MOTIVATION
+Nation-State
+Cybercriminals
+Hacktivists
+Ideological
+Terrorist Groups
+Ideological Violence
+Thrill-Seeker
+Insider Threats
+https://cyber.gc.ca/en/guidance/cyber-threat-and-cyber-threat-actors
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security
+15
+THREAT ACTORS‘ MOTIVATION
+THREAT ACTOR
+MOTIVATION
+Nation-State
+Cybercriminals
+Hacktivists
+Terrorist Groups
+Thrill-Seeker
+Satisfaction
+Insider Threats
+https://cyber.gc.ca/en/guidance/cyber-threat-and-cyber-threat-actors
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security
+16
+THREAT ACTORS‘ MOTIVATION
+THREAT ACTOR
+MOTIVATION
+Nation-State
+Cybercriminals
+Hacktivists
+Terrorist Groups
+Thrill-Seeker
+Insider Threats
+Discontent
+https://cyber.gc.ca/en/guidance/cyber-threat-and-cyber-threat-actors
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security
+17
+THREAT ACTORS‘ MOTIVATION
+THREAT ACTOR
+MOTIVATION
+Nation-State
+Geopolitical
+Cybercriminals
+Profit
+Hacktivists
+Ideological
+Terrorist Groups
+Ideological Violence
+Thrill-Seeker
+Satisfaction
+Insider Threats
+Discontent
+https://cyber.gc.ca/en/guidance/cyber-threat-and-cyber-threat-actors
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security
+18
+A
+P
+T
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security
+19
+Advanced
+P
+Full spectrum of intelligence-gathering
+techniques and able to access/develop more
+advanced (attack-)tools as required
+T
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security
+20
+Advanced
+Persistent
+“low-and-slow” approach rather than
+opportunistically seeking information for
+financial or other gain
+T
+▪Average Dwell time
+▪ Americas: 60 days (71 in 2018)
+▪ APAC: 54 days (204 in 2018)
+▪ EMEA: 54 days (177 in 2018)
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security
+21
+Advanced
+Persistent
+Operators have intent, opportunity, and
+capability, i.e. a specific objective and are
+skilled, motivated, organized and well
+funded
+Threat
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security
+22
+INTRUSION KILL CHAIN
+INTRUSION KILL CHAIN
+RECONNAISSANCE
+WEAPONIZE
+▪ Originates from a military concept related to the structure
+of a physical attack
+DELIVER
+EXPLOIT
+▪ Lockheed Martin adapted this concept to information
+security in 2011
+INSTALL
+▪ Models the phases of a cyber attack
+COMMAND AND CONTROL
+ACT ON OBJECTIVE
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security
+24
+INTRUSION KILL CHAIN
+RECONNAISSANCE
+▪ Find useful information about
+▪ Technical facts
+▪ Used programs, program versions, …
+▪ IP addresses, domains, …
+▪ Non-technical facts
+▪ Personal information: Name, friends, hobbies,
+…
+▪ Business information: Contractors, supplier, …
+▪ If only sources outside the target are used it is called
+footprinting
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security
+25
+INTRUSION KILL CHAIN
+WEAPONIZE
+▪ Prepare a piece of software that can be transmitted to the
+victim
+▪ Bundles an exploit with backdoor into deliverable payload
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security
+26
+INTRUSION KILL CHAIN
+DELIVER
+▪ Bring the weapon into the target’s environment
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security
+27
+INTRUSION KILL CHAIN
+▪ Exploiting a vulnerability to gain access
+EXPLOIT
+Dumitraş T. (2015) Understanding the Vulnerability Lifecycle for Risk Assessment and Defense Against Sophisticated Cyber Attacks. In: Jajodia S.,
+Shakarian P., Subrahmanian V., Swarup V., Wang C. (eds) Cyber Warfare. Advances in Information Security, vol 56. Springer, Cham
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security
+28
+INSTALL
+WS2025 INTRUSION KILL CHAIN
+▪ Establish persistence by installing the payload of the
+weapon
+Verified exploits listed at exploit-db.com
+(13.03.2020)
+Software Supply Chain Attacks / Marc Ohm / IT Security
+29
+INTRUSION KILL CHAIN
+▪ APT malware often relies on manual interaction
+▪ In order to receive commands a channel to a C2 server is
+established
+COMMAND AND CONTROL
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security
+30
+INTRUSION KILL CHAIN
+▪ Do whatever your objective is
+ACT ON OBJECTIVE
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security
+31
+INTRUSION KILL CHAIN
+RECONNAISSANCE
+Research, identification and selection of targets
+WEAPONIZE
+Coupling an exploit with backdoor into a deliverable payload
+DELIVER
+Transmission of the weapon to the targeted environment
+EXPLOIT
+Exploitation a vulnerability to triggers intruder‘s code
+INSTALL
+Installation of malware on victims system to maintain persistence
+COMMAND AND CONTROL
+Command channel for remote manipulation of victim
+ACT ON OBJECTIVE
+Typically, the objective is data exfiltration or lateral movement inside the network
+Software Supply Chain Attacks / Marc Ohm / IT Security
+32
+SOFTWARE SUPPLY CHAIN
+ATTACKS AND DEFENCES
+Let’s play a little game
+colorama colourama
+Software Supply Chain Attacks / Marc Ohm / IT Security 34
+Let’s play a little game
+colorama colourama
+Software Supply Chain Attacks / Marc Ohm / IT Security 35
+WATERING HOLE ATTACK
+RECONNAISSANCE
+I am a lion and like to eat zebras - they come to a watering hole twice a day
+WEAPONIZE
+My teeth are sharp and well in shape
+DELIVER
+I will jump at them from the back
+EXPLOIT
+They don’t have a shell and look into the water, ez win
+INSTALL
+Bite as hard as I can
+COMMAND AND CONTROL
+Wait
+ACT ON OBJECTIVE
+Eat
+Software Supply Chain Attacks / Marc Ohm / IT Security
+36
+WATERING HOLE ATTACK
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security
+37
+WATERING HOLE ATTACK
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security
+38
+WATERING HOLE ATTACK
+RECONNAISSANCE
+I want to hack Apple. They use an internal npm registry
+WEAPONIZE
+Craft a malicious npm package
+DELIVER
+Upload to official npm site
+EXPLOIT
+npm install first checks external registry, then internal
+INSTALL
+npm install will do it for me :)
+COMMAND AND CONTROL
+Send IP address and hostname to my server as proof
+ACT ON OBJECTIVE
+Print “You got hacked, send bug bounty pls”
+Software Supply Chain Attacks / Marc Ohm / IT Security
+39
+WATERING HOLE ATTACK
+RECONNAISSANCE
+I want to hack Apple. They use an internal npm registry
+WEAPONIZE
+Craft a malicious npm package
+DELIVER
+Upload to official npm site
+EXPLOIT
+npm install first checks external registry, then internal
+INSTALL
+npm install will do it for me :)
+COMMAND AND CONTROL
+Send IP address and hostname to my server as proof
+ACT ON OBJECTIVE
+Print “You got hacked, send bug bounty pls”
+Software Supply Chain Attacks / Marc Ohm / IT Security 40
+SUPPLY CHAIN ATTACKS
+“A software supply chain is the components,
+libraries, tools, and processes used to
+develop, build, and publish a software artifact.”
+Geer, Dan, Bentz Tozer, and John Speed Meyers.
+“For good measure: Counting broken links: A quant’s view of software supply chain security”. USENIX;
+Login 45.4 (2020).
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security
+41
+SUPPLY CHAIN ATTACKS
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security
+42
+https://heizerrenderom.wordpress.com/2018/11/14/om-in-the-news-the-stressed-global-auto-supply-chain/
+SOFTWARE SUPPLY CHAIN
+Developer
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 44
+Developer WS2025 SOFTWARE SUPPLY CHAIN
+Code repository
+Software Supply Chain Attacks / Marc Ohm / IT Security 45
+Developer WS2025 SOFTWARE SUPPLY CHAIN
+Code repository Build system
+Software Supply Chain Attacks / Marc Ohm / IT Security 46
+Developer WS2025 SOFTWARE SUPPLY CHAIN
+Code repository Build system
+Package registry
+Software Supply Chain Attacks / Marc Ohm / IT Security 47
+Developer WS2025 SOFTWARE SUPPLY CHAIN
+npm
+pip
+gem
+Code repository Build system Package registry
+Package manager
+Software Supply Chain Attacks / Marc Ohm / IT Security User
+48
+STAKEHOLDER
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 49
+THE PROBLEM
+Package Repository
+WS2025
+Software Supply Chain Attacks / Marc Ohm / IT Security 50
+THE PROBLEM
+Package Repository „New“ Software
+WS2025
+Software Supply Chain Attacks / Marc Ohm / IT Security 51
+WHAT COULD GO WRONG?
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 52
+WHAT COULD GO WRONG?
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 53
+WHAT COULD GO WRONG?
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 54
+WHAT COULD GO WRONG?
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 55
+SOFTWARE SUPPLY CHAIN
+ATTACK SYSTEMATIZATION
+Use-After-Free WS2025 ATTACK TREE 1.0
+Inject malicious
+code
+Publish new
+package
+Takeover existing
+package
+Typosquatting Zombie
+package
+Code repo Build system
+Package repo
+Compromised
+credentials Vulnerability Alternative
+repository
+Marc Ohm et al. „Backstabber’s Knife Collection: A Review of Open Source Software Supply Chain Attacks“.
+In: Proceedings of the The 17th Conference on Detection of Intrusions and Malware & Vulnerability Assessment
+Software Supply Chain Attacks / Marc Ohm / IT Security 57
+ATTACK TREE 2.0
+https://sap.github.io/risk-explorer-for-software-supply-chains/
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 58
+POSSIBLE ATTACK SURFACE
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 59
+POSSIBLE ATTACK SURFACE
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 60
+POSSIBLE ATTACK SURFACE: A
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 61
+POSSIBLE ATTACK SURFACE
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 62
+POSSIBLE ATTACK SURFACE: B
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 63
+POSSIBLE ATTACK SURFACE
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 64
+POSSIBLE ATTACK SURFACE: C
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 65
+POSSIBLE ATTACK SURFACE
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 66
+POSSIBLE ATTACK SURFACE: D
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 67
+POSSIBLE ATTACK SURFACE
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 68
+POSSIBLE ATTACK SURFACE: E
+■ Happened October 2021
+■ 8 millionen weekly downloads
+■ ~1,200 dependent packages
+■ Coinminer and data exfiltration (user/credential
+information)
+Affected Version Patched Version
+0.7.29 0.7.30
+0.8.0 0.8.1
+1.0.0 1.0.1
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 69
+POSSIBLE ATTACK SURFACE: E
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 70
+POSSIBLE ATTACK SURFACE
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 71
+POSSIBLE ATTACK SURFACE: F
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 72
+POSSIBLE ATTACK SURFACE
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 73
+POSSIBLE ATTACK SURFACE: G
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 74
+POSSIBLE ATTACK SURFACE
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 75
+POSSIBLE ATTACK SURFACE: H
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 76
+PACKAGE MANAGER
+THREAT LANDSCAPE
+CURRENT RESEARCH
+▪ Collect cases of known malicious packages
+▪ npm, PyPI, RubyGems
+▪ 469 malicious packages identified
+▪ Obtain these packages
+▪ 174 packages downloaded (sometimes several versions)
+▪ Analyze them by hand
+▪ Dwell time, techniques, objectives, …
+Marc Ohm, Henrik Plate, Arnold Sykosch, and Michael Meier. "Backstabber's Knife Collection: A Review of Open Source Software Supply Chain Attacks",
+International Conference on Detection of Intrusions and Malware, and Vulnerability Assessment. 2020
+WS2025
+Software Supply Chain Attacks / Marc Ohm / IT Security 78
+OPEN SOURCE AS SUPPLY CHAIN
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 79
+HOW DO THEY ENTER THE SUPPLY CHAIN?
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 80
+TYPOSQUATTING
+Definition
+Naming of packages based on common
+misspelling, expected typos, or similar
+phrases.
+Repo Name npm soket.io RubyGems active-support npm tensorplow npm browserift PyPI acqusition Levenshtein distance of an average
+typosquatting package to its target is
+2.3
+PyPI openvc PyPI colourama WS2025
+Software Supply Chain Attacks / Marc Ohm / IT Security Target
+socket.io
+activesupport
+tensorflow
+browserify
+acquisition
+opencv-python
+colorama
+81
+HOW DO THEY HIDE?
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 82
+COLOURAMA
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 83
+HOW IS IT TRIGGERED?
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 84
+COLOURAMA
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 85
+WHO DO THEY TARGET?
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 86
+COLOURAMA
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 87
+WHAT DO THEY WANT?
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 88
+COLOURAMA
+▪ Downloads cryptocurrency clipboard hijacker written in VBScript. Persistence by
+Windows registry entry to execute it whenever the user logs into the machine.
+WS2025
+Software Supply Chain Attacks / Marc Ohm / IT Security 89
+THEY DON’T COME ALONE
+▪ We identified 21 clusters
+▪ In total, 157 of the 174 packages (90%) belonged to a
+cluster
+▪ We observed shared techniques across languages
+WS2025
+Software Supply Chain Attacks / Marc Ohm / IT Security 90
+A TYPICAL ATTACK
+▪ Attackvector: Typosquatting (61 %)
+▪ Acts early: Malicious code is executed during installation (56 %)
+▪ Steals data: Exfiltration of sensitive information (55 %)
+▪ Hides: Use techniques of obfuscation (49 %)
+▪ Long availability: Two month available from oﬃcial repo
+Marc Ohm, Henrik Plate, Arnold Sykosch, and Michael Meier. "Backstabber's Knife Collection: A Review of Open Source Software Supply Chain Attacks",
+International Conference on Detection of Intrusions and Malware, and Vulnerability Assessment. 2020
+WS2025
+Software Supply Chain Attacks / Marc Ohm / IT Security 91
+MALICIOUS PACKAGE
+DETECTION
+THERE IS A LOT
+Ohm, Marc, and Charlene Stuke. "SoK: Practical Detection of Software Supply Chain Attacks." Proceedings of the 18th
+International Conference on Availability, Reliability and Security. 2023.
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 93
+THE “BEST” ONES
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 94
+CASE STUDY “EVENT-STREAM”
+CASE STUDY “EVENT-STREAM”
+▪ Targeted Attack against „bitpay/copay“
+▪ „Copay is a secure bitcoin wallet platform for both desktop and mobile
+devices.“
+▪ 1.5 million downloads per week
+▪ 1,600 packages listed event-stream as dependency
+▪ Went undiscovered for two month
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 96
+CASE STUDY “EVENT-STREAM”
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 97
+CASE STUDY “EVENT-STREAM”
+right9ctrl
+contributes to
+code
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 98
+CASE STUDY “EVENT-STREAM”
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 99
+CASE STUDY “EVENT-STREAM”
+right9ctrl
+contributes to
+code
+Transfer of
+publishing
+rights
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 100
+CASE STUDY “EVENT-STREAM”
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 101
+CASE STUDY “EVENT-STREAM”
+version published on
+npm
+version published on
+GitHub
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security
+102
+CASE STUDY “EVENT-STREAM”
+right9ctrl
+contributes to
+code
+Transfer of
+publishing
+rights
+right9ctrl adds
+new
+dependency
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 103
+CASE STUDY “EVENT-STREAM”
+▪ Read in AES encrypted data from a file disguised as a test fixture
+▪ The obfuscated code reads the description field from a
+project’s package.json file, then uses that description to decode
+an AES256 encrypted payload
+▪ The description field for bitpay/copay, which is ”A Secure Bitcoin Wallet”, is the
+key required to decrypt this data
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 104
+CASE STUDY “EVENT-STREAM”
+right9ctrl
+contributes to
+code
+Transfer of
+publishing
+rights
+right9ctrl adds
+new
+dependency
+Decrypts
+malicious
+code on
+import
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 105
+CASE STUDY “EVENT-STREAM”
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 106
+CASE STUDY “EVENT-STREAM”
+right9ctrl
+contributes to
+code
+Transfer of
+publishing
+rights
+right9ctrl adds
+new
+dependency
+Decrypts
+malicious
+code on
+import
+Monkeypatch
+es function
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 107
+CASE STUDY “EVENT-STREAM”
+▪ Detect the current environment: Mobile/Cordova/Electron
+▪ Check the Bitcoin and Bitcoin Cash balances on the victim’s copay account
+▪ If the current balance was greater than 100 Bitcoin, or 1000 Bitcoin Cash:
+▪ Harvest the victim’s account data in full
+▪ Harvest the victim’s copay private keys
+▪ Send the victim’s account data/private keys off to a collection service
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 108
+CASE STUDY “EVENT-STREAM”
+right9ctrl
+contributes to
+code
+Transfer of
+publishing
+rights
+right9ctrl adds
+new
+dependency
+Decrypts
+malicious
+code on
+import
+Monkeypatch
+es function
+Sends wallet
+credentials to
+server
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 109
+TEASER: AI SECURITY
+TEASER: AI SECURITY
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 111
+TEASER: AI SECURITY
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 112
+TEASER: AI SECURITY
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 113
+TEASER: AI SECURITY
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 114
+TEASER: AI SECURITY
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 115
+TEASER: AI SECURITY
+Goodfellow, I. J., Shlens, J., & Szegedy, C. (2014). Explaining and harnessing adversarial examples. arXiv preprint arXiv:1412.6572.
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 116
+TEASER: AI SECURITY
+Carlini, N., & Wagner, D. (2018, May). Audio adversarial examples: Targeted attacks on speech-to-text. In 2018 IEEE security and privacy
+workshops (SPW) (pp. 1-7). IEEE.
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 117
+TEASER: AI SECURITY
+Eykholt, K., Evtimov, I., Fernandes, E., Li, B., Rahmati, A., Xiao, C., … & Song, D. (2018). Robust physical-world attacks on deep learning visual
+classification. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 1625-1634).
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 118
+TEASER: AI SECURITY
+Sharif, M., Bhagavatula, S., Bauer, L., & Reiter, M. K. (2016, October). Accessorize to a crime: Real and stealthy attacks on state-of-the-art
+face recognition. In Proceedings of the 2016 acm sigsac conference on computer and communications security
+WS2025 Software Supply Chain Attacks / Marc Ohm / IT Security 119
+Lecture:
+Security in Digital Supply Chains
+(MA-INF 3246)

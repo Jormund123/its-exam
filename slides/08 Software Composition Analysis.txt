@@ -1,0 +1,755 @@
+
+Software Composition Analysis
+Ben Swierzy
+swierzy@cs.​uni-bonn.​de
+University of Bonn
+Lecture IT Security | Uni Bonn | WT 2025/2026
+Motivation
+Software Components
+2
+Software Versions
+A software version is a unique identifier which maps to a unique state of a
+software. It usually consists of numbers or letters which are often assigned in
+ascending order to generate an order.
+Examples
+Linux 6.10.6
+Firefox 129.0.2
+intel-ucode 20240813-2
+pdfTeX 3.141592653-2.6-1.40.26
+Flavius 32501e228e1e865e397ccb437712066bae9ccdef
+3
+Semantic Versioning
+Systematic software versioning helps your dependency management.
+X.Y.Z
+X Major Version
+increment when you make incompatible API changes
+Y Minor Version
+increment when you add functionality in a backward compatible manner
+Z Patch Version
+increment when you make backward compatible bug fixes
+4
+Motivation: CVE & CVSS
+CVE Description Components
+Software
+Version range
+Vulnerabilty
+CVSS
+Measures CVE severity
+Multiple categories form a score between 0 and 10
+Multiple versions with different categories
+5
+Motivation: CVE & CVSS
+https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator 6
+Be careful with CVEs
+CVE: CVE-2020-19909 Integer Overflow in Curl
+First CVSSv3 Scoring:
+AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H - 9.8
+Problematic Parameter:
+curl --retry-delay 18446744073709552
+Issue:
+Few actors control the CVE ecosystem (Mitre, NVD) and have policies with
+implications that are easy to overlook.
+https://daniel.haxx.se/blog/2023/08/26/cve-2020-19909-is-everything-that-is-wrong-with-cves/
+7
+Banner Grabbing
+Banner Grabbing
+Most software includes functionality to announce their version. For this, a
+special string called banner is typically included. Banner grabbing denotes the
+process of reading and evaluating this banner.
+Main Advantages
+Easy to fetch, abitility to identify unknown versions
+Main Disadvantages
+Easy to hide and spoof, unstructured, no consistent locations
+9
+Lots of Strings
+We will look at different sources for banners.
+Output
+Banners contained in the direct output of a system
+Metafiles
+Accidental files containing version information
+Binaries
+Banners in BLOBs and ELFs
+10
+Banners from Output
+If you have local access and the system and you analyze a locally installed
+package, the task is easy.
+Example for Ubuntu:
+$ apt-cache policy gcc
+gcc:
+Installed: 4:13.2.0-7ubuntu1
+Candidate: 4:13.2.0-7ubuntu1
+Version table:
+*** 4:13.2.0-7ubuntu1 500
+500 http://archive.ubuntu.com/ubuntu noble/main amd64 Packages
+100 /var/lib/dpkg/status
+11
+Banners from Output
+Most command line utilities offer an option similar to --version.
+$ gcc --version
+gcc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+Copyright (C) 2023 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions. There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+12
+Banners from Output
+Most GUI Tools offer version information through their menu, often at Help >
+About.
+13
+Banners from Output
+Most web servers announce their version in the Server HTTP Header:
+HTTP/2 200
+strict-transport-security: max-age=63072000; includeSubdomains
+accept-ranges: bytes
+content-length: 509
+content-type: text/html
+etag: "673234dc-1fd"
+server: nginx/1.27.2
+14
+Banners from Output
+Many web applications announce their version in <meta> tags:
+<!DOCTYPE html>
+<html>
+<head>
+<meta name=
+[...]
+"generator" content=
+"WordPress 6.4.1" />
+… and we can find even more version information in HTML.
+15
+Metadata from Output
+The HTML output usually contains many versions. They are most often
+classified as metadata and not strictly as banners.
+CDN script URLs
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js">
+Web App Plugins
+<link href='https://wordpress.org/wp-content/plugins/gutenberg/style.css?ver=18.8.0' />
+Inline Data
+window._wpemojiSettings = {baseUrl:"https://s.w.org/images/core/emoji/15.0.3/72x72/"}
+16
+Metafiles
+Metafiles are served on a web server but not required for functionality.
+Usually, they are accessible through misconfiguration or accidentally copied.
+Examples for Metafiles
+Readmes
+Files from package managers
+Files from version control
+Artifacts from the build process
+17
+Metafiles: Readme
+Readme files are often used to detect versions of WordPress extensions.
+$ curl https://wordpress.org/wp-content/plugins/gutenberg/readme.txt | head
+Contributors: matveb, joen, karmatosed
+Tested up to: 6.8
+Stable tag: 22.0.0
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+The Gutenberg plugin adds editing, customization, and site building to
+WordPress. Use it to test beta features before their official release.
+18
+Metafiles: Composer
+Files from package manager exist if a project is served directly. On the web, we
+can find many metafiles from composer (PHP) and npm (JavaScript).
+$ curl https://wordpress.org/composer.json
+{
+"name": "wordpress/wordpress.org"
+,
+"description": "wordpress.org multi-network install"
+"license": "GPLv2+"
+,
+,
+"require-dev": {
+"dealerdirect/phpcodesniffer-composer-installer": "^0.7.0"
+"phpunit/phpunit": "^9.4"
+,
+"spatie/phpunit-watcher": "^1.23.2"
+,
+"wp-coding-standards/wpcs": "2.*"
+,
+},
+"scripts": {
+"format": "phpcbf -p"
+,
+"lint": "phpcs"
+,
+"test": "php -d xdebug.mode=off ./vendor/bin/phpunit"
+,
+[...]
+19
+Metafiles: npm
+$ curl http://149.202.74.137/package.json
+{
+"private": true,
+"devDependencies": {
+"autoprefixer": "^10.3.7",
+"axios": "^0.21",
+"browser-sync": "^2.27.7",
+"browser-sync-webpack-plugin":
+"2.3.0",
+"laravel-mix": "^6.0.6",
+"lodash": "^4.17.19",
+"postcss": "^8.3.11",
+"tailwindcss": "^2.2.17"
+},
+}
+"dependencies": {
+"@rateyo/jquery":
+"^3.0.0-alpha.2",
+"jquery": "^3.6.0",
+"rateyo": "^3.0.0-alpha.2",
+"slick-carousel": "^1.8.1"
+}
+20
+Metafiles
+Files from version control systems can be very sensitive as they may contain
+the complete history of the repository.
+Besides allowing access to source files, these can include credentials that have
+been pushed into the repository at any point in time.
+$ curl https://flux-cdn.com/.git/HEAD
+ref: refs/heads/masters
+21
+Metafiles
+Source maps are artifacts from JavaScript bundling process and can reveal file
+system paths of the source code. The package manager pnpm writes the
+package versions into directory names for symlinking.
+$ curl https://assets-cdn.getbento.com/static/analytics/js/snowplow-3.1.6.js.map | jq .sources | grep .pnpm
+"../../../common/temp/node_modules/.pnpm/tslib@2.3.0/node_modules/tslib/tslib.es6.js"
+,
+"../../../common/temp/node_modules/.pnpm/uuid@3.4.0/node_modules/uuid/lib/bytesToUuid.js"
+"../../../common/temp/node_modules/.pnpm/uuid@3.4.0/node_modules/uuid/lib/rng-browser.js"
+,
+,
+"../../../common/temp/node_modules/.pnpm/uuid@3.4.0/node_modules/uuid/v1.js"
+"../../../common/temp/node_modules/.pnpm/uuid@3.4.0/node_modules/uuid/v4.js"
+,
+,
+"../../../common/temp/node_modules/.pnpm/uuid@3.4.0/node_modules/uuid/index.js"
+,
+"../../../common/temp/node_modules/.pnpm/crypt@0.0.2/node_modules/crypt/crypt.js"
+,
+"../../../common/temp/node_modules/.pnpm/charenc@0.0.2/node_modules/charenc/charenc.js"
+,
+"../../../common/temp/node_modules/.pnpm/sha1@1.1.1/node_modules/sha1/sha1.js"
+,
+"../../../common/temp/node_modules/.pnpm/jstimezonedetect@1.0.7/node_modules/jstimezonedetect/..."
+,
+22
+Binaries
+Banners are usually stored directly in the binary. If we know how versions look,
+we can obtain them quite easily.
+$ strings /boot/vmlinuz-linux | grep -E '[0-9]+\.[0-9]+\.[0-9]+'
+6.10.7-arch1-1 (linux@archlinux) #1 SMP PREEMPT_DYNAMIC Thu, 29 Aug 2024 16:48:57 +0000
+6.10.7-arch1-1 (linux@archlinux) (gcc (GCC) 14.2.1 20240805, GNU ld (GNU Binutils) 2.43.0)
+#1 SMP PREEMPT_DYNAMIC Thu, 29 Aug 2024 16:48:57 +0000
+1.5.2
+$ strings /usr/bin/gcc | grep -E '[0-9]+\.[0-9]+\.[0-9]+'
+GLIBC_2.3.2
+GLIBC_2.3.4
+GLIBC_2.2.5
+14.2.1
+14.2.1 20240805
+[...]
+23
+Commercial Services
+builtwith.com
+Builtwith is a closed-source product analyzing technologies on the web.
+25
+builtwith.com
+26
+shodan.io
+Shodan offers a closed-source search
+engine for servers. Thus, it is suitable
+to find IoT devices or many other
+interesting services.
+27
+shodan.io
+Shodan offers a closed-source search
+engine for servers. Thus, it is suitable
+to find IoT devices or many other
+interesting services.
+28
+Wappalyzer
+Wappalyzer is an open source SaaS
+web technology scanner. It works
+with an extensive set of regular
+expressions.
+29
+WPScan
+WPScan is an open source
+WordPress security scanner. It
+retrieves versions through banner
+grabbing to search for known
+vulnerabilities.
+30
+And without banners?
+Types of Analysis
+Static Analysis Dynamic Analysis
+32
+Software Composition Analysis for
+JavaScript Bundles
+Scenario
+Historically, JavaScript libraries have been included as separate files.
+<script src=
+"//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js">
+With the rise of Node.JS, packages could be installed through a package
+manager:
+npm install cookieconsent2
+Then, a bundler is needed to create an artifact usable on the web.
+Examples for Popular Bundlers
+Webpack, Esbuild, Parcel, Browserify, …
+34
+Scenario
+Additionally, bundling reduces
+the number of HTTP requests.
+35
+Bundling
+(a) (b) (c) (d)
+(a) (b) (c) Build Module Graph from entry point
+Tree Shaking eliminates unused code
+Code Split creates multiple bundles
+with smaller file size
+(d) Minification reduces file size
+36
+Bundling
+Jeremy Rack and Cristian-Alexandru Staicu: “Jack-in-the-box: An Empirical Study of JavaScript Bundling on the Web and its Security Implications”. CCS 2023
+37
+Challenges
+Software Composition Analysis faces the following major challenges in
+JavaScript bundles:
+1. Minification: Identifiers are meaningless
+2. 3. Tree Shaking: Packages may only be included partially
+First Party Code: Packages and website-specific code is difficult to
+distinguish
+38
+General Approach
+Software Composition Analysis for JS bundles comprises two different steps:
+Package Identification
+Version Detection
+General strategy for a version detection algorithm
+1. 2. 3. Build a reference database of packages
+Compare the similarity of each version with a bundle
+The version with highest similarity is our detection
+39
+Abstract Syntax Trees
+ASTs are essential data structures in source code processing.
+Primary Use Cases
+Program
+Compilers
+Interpreters
+Static Analysis
+body
+VariableDeclaration
+declarations
+VariableDeclarator
+Advantages
+id
+init
+Identifier z
+ObjectExpression
+Easy to process
+Editable
+Disregards formatting
+Nodes may be annotated
+properties
+Property
+key
+value
+Identifier error
+Literal "some...
+"
+40
+JavaScript
+JavaScript (formally ECMAScript) is a popular scripting language.
+Selection of JavaScript’s Features/Traits:
+Dynamic typings
+Interpreted
+Imperative
+Some functional programming features
+Prototype-based inheritance
+The syntax is similar to languages such as C and Java.
+41
+JavaScript: Language-Specific Constructs
+// Variable declarations
+var x = [3, 4];
+let y =
+"abc";
+const z = { error: "something failed" };
+// Regular Expressions
+const regexp = /[0-9]+/g;
+// "Classes"
+class ABC extends Object {
+constructor(name) {
+this.name = name;
+}
+// Anonymous functions and closures
+const f = (y) => x[0] + y;
+// Object and Array Destructuring
+const { value: a } = {
+value: 1,
+value2: 2
+};
+// Async and await
+async function handler(v) {
+return await v();
+}
+}
+42
+Creating an AST
+Lexical analysis converts a stream of characters into a stream of tokens.
+const z = { error: "something failed" };
+const z = { error: "something failed" };
+Then, a parser constructs an AST based on this stream.
+Program
+body
+VariableDeclaration
+declarations
+VariableDeclarator
+id
+init
+Identifier z
+ObjectExpression
+properties
+Property
+key
+value
+Identifier error
+Literal "some...
+"
+43
+Acorn
+ESTree is a de-facto standard for JavaScript ASTs.
+There are many JavaScript parsers, but most suffer from the following issues:
+Outdated
+Incomplete
+Slow
+Most appropriate JavaScript parser are implemented in JavaScript.
+We will use acorn in this lecture.
+44
+Acorn
+Example Usage of Acorn
+const code =
+"let x = 3;";
+const ast = acorn.parse(code, {
+ecmaVersion: "latest"
+,
+// By default, parentheses only influence the AST structure
+preserveParens: true,
+// Provides a mapping of nodes to source code lines and columns
+locations: true,
+});
+45
+Demo: AST Explorer
+AST Explorer is a web app which allows to explore JavaScript ASTs generated
+with acorn.
+https://astexplorer.net/
+46
+AST Structure
+ESTree specifies the following structure.
+A node of type Program is the root of the tree. It contains a sequence of
+statements.
+Siblings represent nodes on the same level.
+Nested structures are represented as children.
+Nodes are contextless, i.e., they have no knowledge on their siblings and
+parents.
+You can find the full specification at https://github.com/estree/estree
+47
+ESTree: Selected Node Types
+Leaf Types:
+Identifier
+Literal
+RegExpLiteral
+name: str
+value: *
+regex.pattern: str regex.flags: str
+Leaves are the most simple node type as they cannot contain other nodes.
+48
+ESTree: Selected Node Types
+Control Flow Choice Types:
+IfStatement
+test: Expr consequent: Stmt alternate?: Stmt
+ForStatement
+init?: Decl | Expr test?: Expr update?: Expr body: Stmt
+49
+ESTree: Selected Node Types
+Expression Types:
+BinaryExpression
+AssignmentExpression
+op: Enum left: Expr right: Expr
+op: Enum left: Pattern | Expr right: Expr
+MemberExpression
+CallExpression
+object: Expr property: Expr computed: bool
+callee: Expr arguments: Expr[]
+50
+AST Traversal
+ASTs can be traversed using classical graph algorithms.
+1
+1
+2 7 8
+2 3 4
+3 6 9 12
+5 6 7 8
+4 5 10 11
+9 10 11 12
+Depth-First Search
+Breadth-First Search
+Graphics licensed under CC BY-SA 3.0 by Alexander Drichel
+51
+AST Traversal
+Visitor Pattern
+A common method to traverse an AST is the
+visitor pattern.
+Internally, the AST is iterated with an
+arbitrary strategy.
+For each node, we call the method
+specialized in visiting that specific type.
+Program
+body
+VariableDeclaration
+declarations
+VariableDeclarator
+id
+init
+Identifier z
+ObjectExpression
+properties
+Property
+key
+value
+Identifier error
+Literal "some...
+"
+52
+Acorn Walk
+acorn-walk is a utility for traversing acorn ASTs with the visitor pattern.
+It uses DFS and offers different modes of traversal. Most importantly
+walk.simple
+Iterate over the AST and execute all visitor methods
+walk.ancestor
+Iterate over the AST and execute all visitor methods.
+Tracking of the AST position allows visitors to access all ancestors.
+53
+Example: Find unused variables
+Example: Finding all unused variables (naive)
+The following code implements a naive way of extracting unused variables.
+Basic idea:
+Track every declaration and check whether it occurs as an identifier
+afterwards.
+54
+Example: Find unused variables
+const ast = acorn.parse(...);
+const variables = new Map();
+walk.simple(ast, {
+VariableDeclaration(node) {
+for (const decl of node.declarations) {
+variables.set(decl.id.name, false);
+}
+},
+Identifier(node) {
+variables.set(node.name, true);
+}
+});
+for (const [v, used] of variables.entries()) {
+if (!used)
+console.log(`Variable ${v} unused`);
+}
+55
+JavaScript: Scopes and Shadowing
+Consider the following code
+let x = 1;
+if (true) {
+let x = 3; // Shadows outer 'x'
+console.log(x); // 3
+}
+How can we find the first unused variable?
+Note: As a simplification, we will treat var declarations equivalent to let and const.
+56
+Example: Find unused variables with scopes
+Example: Finding all unused variables (with scopes)
+Fundamental algorithm:
+1. 3. Associate variable declarations with their scope
+2. Implement shadowing
+On end of scope, discard all associated declarations
+This moderately increases the complexity and the amount of code required.
+57
+Example: Find unused variables with scopes
+const ast = acorn.parse(...);
+const scopedVariables = new Map(); // id => bool[]
+const scopeCleaner = new Map(); // scope => method[]
+function cleanScopes(nodes) {
+// Clean all scopes which are not in nodes
+for (const scope of scopeCleaner.keys()) {
+if (!nodes.includes(scope)) {
+scopeCleaner.get(scope).forEach((cleaner) => cleaner());
+scopeCleaner.delete(scope);
+}
+}
+}
+walk.ancestor(ast, {
+VariableDeclaration(node, _state, ancestors) {
+cleanScopes(ancestors);
+58
+Example: Find unused variables with scopes
+for (const decl of node.declarations) {
+if (!scopedVariables.has(decl.id.name))
+scopedVariables.set(decl.id.name, []);
+scopedVariables.get(decl.id.name).push(false); // Push a new scope, currently tagged "unused"
+const parent = ancestors.at(-1);
+if (!scopeCleaner.has(parent))
+scopeCleaner.set(parent, []);
+// Register a new cleaner for the current scope
+scopeCleaner.get(parent).push(() => {
+const used = scopedVariables.get(decl.id.name).pop();
+if (!used)
+// We must evaluate already during the clean
+console.log(`Variable ${decl.id.name} unused (somewhere)`);
+});
+}
+},
+59
+Example: Find unused variables with scopes
+Identifier(node) {
+// Mark the usage in the lowest scope
+scopedVariables.get(node.name).with(-1, true); // Sets last element to true
+}
+});
+60
+ASTs for Software Composition
+Analysis
+Application 1: Bundler Detection with ASTs
+For Software Composition Analysis on arbitrary JavaScript files, we first need to
+ensure that we indeed have a bundle at hand.
+A general idea is to identify Bundler characteristics inside the AST. For example,
+Webpack uses a characteristic runtime function __webpack_require__.
+It is responsible to resolve cross-compartment references.
+62
+Application 1: Bundler Detection with ASTs
+function __webpack_require__(moduleId) {
+var cachedModule = __webpack_module_cache__[moduleId];
+if (cachedModule !== undefined) {
+return cachedModule.exports;
+}
+var module = __webpack_module_cache__[moduleId] = {
+exports: {}
+};
+t__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+return module.exports;
+}
+Even after minification, we can detect this characteristic structure.
+63
+Application 2: Compartment Extraction with
+ASTs
+A compartment-based similarity comparison may improve classification
+performance.
+Jeremy Rack and Cristian-Alexandru Staicu: “Jack-in-the-box: An Empirical Study of JavaScript Bundling on the Web and its Security Implications”. CCS 2023
+64
+Application 2b: Compartment Graphs
+node:ieee754
+node:base64-js
+node:isarray
+node:shallowequal
+node:hoist-non-react-statics
+node:react-fast-compare
+node:react-side-effect
+node:buffer
+node:scheduler
+node:react-helmet
+node:object-assign
+node:react
+node:axios
+node:formdata-polyfill
+node:styled-components
+node:cidr-regex
+node:ip-regex
+node:is-cidr
+node:react-dom
+node:classnames
+node:prop-types
+node:p-debounce
+node:styled-system
+node:lodash
+node:axios-retry
+node:moment
+node:core-js
+node:querystring-es3
+node:npm-user-validate
+first party
+node:validate-npm-package-name
+node:deepmerge
+node:mitt
+node:uuid
+node:shallow-compare
+node:symbol-observable
+node:icepick
+node:process
+node:lodash-es node:regenerator-runtime
+node:fuzzaldrin
+node:http-errors
+node:once
+node:is-retry-allowed
+node:react-is
+node:depd
+node:toidentifier
+node:inherits
+node:path-browserify
+node:statuses
+node:setprototypeof
+65
+node:wrappy
+Application 3: Similarity Comparison
+Rolling AST hashes are a possible way to compare the similarity.
+Program
+Step 1: Extract all 𝑘-grams. For 𝑘 = 4:
+body
+VariableDeclaration
+declarations
+Program, VariableDeclaration, VariableDeclarator, Identifier
+VariableDeclaration, VariableDeclarator, Identifier, ObjectExpression
+VariableDeclarator, Identifier, ObjectExpression, Property
+Identifier, ObjectExpression, Property, Identifier
+ObjectExpression, Property, Identifier, Literal
+VariableDeclarator
+id
+init
+Identifier z
+ObjectExpression
+Step 2: Hash all 𝑘-grams
+properties
+Property
+key
+value
+Identifier error
+Literal "some...
+"
+Fictive Hashes:
+32
+28
+49
+58
+5
+The Winnowing algorithm will keep the smallest hash
+from each window with size 𝑤.
+Example for 𝑤 = 2: [28, 49, 5]
+66
+Outlook
+Example Application of SCA: Update Behavior Estimation
+67
+Recap
+Strings Everywhere
+Banners
+Metafiles
+Binaries
+Structural Software Composition Analysis
+Scenarios
+JavaScript Bundles
+AST Analysis
+68
+Possible Student Topics
+Exemplary Topics:
+Intermediate representation for JavaScript to enhance code
+comparisons (Lab/Thesis)
+Benchmark dataset creation for SCA in JavaScript Bundles
+(Lab/Thesis)
+Techniques and methods for C++ library detection (Seminar)
+If you are interested in these or similar topics, feel free to
+directly message me.
+69

@@ -1,0 +1,205 @@
+Rheinische Friedrich-Wilhelms-Universität Bonn
+Master Course Computer Science
+Semester: Summer 2019
+Module Name: IT Security
+Module Number: MA-INF 3236
+Examiner: Prof. Dr. Michael Meier
+To be filled by the Student:
+Last name:
+First name:
+Written Exam
+Exam Period: 1. x 2.
+Date of Exam: 16.07.2019
+Matriculation number:
+Course of Study
+Master in Computer Science Master in Education secondary subject
+Pseudonym:
+To be filled by the Examiner:
+1 2 3 4 5 6 7 8 9 10 11 Σ
+10 10 20 10 10 10 10 10 10 10 10 120
+To be filled by the Examiner:
+Grading:
+*Grades: very good (1,0; 1,3) good (1,7; 2,0; 2,3) satisfactory (2,7; 3,0; 3,3) sufficient (3,7; 4,0) not sufficient (5,0)
+Date:
+Signature of Examiner
+1
+Name: Matriculation Number:
+Important notes - please read carefully:
+Use permanent pens (e.g. no lead pencil). Do not use red ink.
+Label each sheet with your name and matriculation number. Sheets without this information might not
+be evaluated.
+Write your solutions on the task sheets, if possible inside the intended area. You can also use the backsides of the sheets. Additional sheets of paper can be requested from the exam supervisors. Do not use
+your own paper.
+In your own interest please write readable. No points can be assigned on unreadable solutions.
+It is not allowed to separate the sheets of the exam. Do not remove the staple.
+A task might not be assessed, if multiple differing solutions are given.
+It is not allowed to use any electronic device during the exam. Please switch off your mobile devices.
+You have 90 minutes to solve the exam. The number of points for each task is aligned to the estimated
+amount of time needed.
+Good luck!
+2
+Name: Matriculation number:
+Task 1: (Side Channels)
+a) List at least two reasons why information leakage in side channels is exploitable.
+b) What side channel enables the padding oracle attack?
+c) Does any of the reasons you listed in (a) apply to (b)? Explain your answer.
+3
+2+5+3 points
+Name: Matriculation number:
+Task 2: (Wireless Security)
+a) Why is security by proximity a flawed security strategy?
+b) Use an example to justify your answer.
+c) Name a protocol oblivious jamming attack.
+d) Briefly explain how this attack works against OFDM as used in 802.11a WiFi.
+e) Why is this attack protocol oblivious?
+f) What are the drawbacks for the attacker?
+4
+2+2+1+2+1+2 points
+Name: Matriculation number:
+Task 3: (Runtime Attacks)
+a) How does a code injection attack impact on the CFG of the attacked program?
+b) How does a code reuse attack impact on the CFG of the attacked program?
+c)
+d)
+2+2+8+8 points
+Describe the idea of return-oriented-programming (ROP). Which information is required for an attacker
+in order to successfully attack a program using return-oriented-programming? How are these information used during the attack?
+Describe the idea of Control Flow Integrity (CFI) checking as discussed in the lecture. What is the goal?
+How does CFI checking work?
+5
+Name:
+Task 4: (Group Key Management)
+Matriculation number:
+Ko.o
+K1,0 K1,1
+K2.0 K2,1 K2,2 K2,3
+น น2 น4 น5
+2+4+4 points
+The key tree above is used for the key management of a group G with the user u, ii€ {1,2,4,5}. The mem
+bers of the group are associated with leafs of the key tree. Each node in the key tree contains a secret key.
+The key stored in the node v is known by all members of the sub-tree rooted at v. The key ko,o stored in the
+root of the tree is the group key.
+a) A group controller uses the LKH (Logical Key Hierarchy) protocol and the tree in figure 1 for the key
+management. Write down the keys known by the user u1.
+b) The user u, joins the group and is added to the tree at the position of the user u2 (in figure 1).
+Hence, k21 moves to k3.2. Draw the modified tree.
+c) A group controller uses the LKH protocol (group oriented) for the key update. Specify the broadcast
+message of the group controller that enables all members to calculate the new group key. Assume
+that the key k3,3 is established by the Diffie-Hellman algorithm in advance.
+6
+Name: Matriculation number:
+Task 5: (Multi-signature algorithm)
+a) Write down four features of a multi-signature.
+4+3+3 points
+b) Given a n-out-of-n RSA signature algorithm with the public key (e, ñ), the secret (private) keys (d, ñ) of
+user u, i E {1,2,...,n} and the (RSA) modulus ñ = p-q (p,q large primes). Write down the multi-signature
+generation equations for a message m.
+c) Write down the multi-signature verification equation for the n-out-of-n RSA signature.
+7
+Name: Matriculation number:
+Task 6: (Public Key Infrastructure) 8+2 points
+The certificates of a PKI hierarchy are shown in figure 2. In this figure, each certificate is represented as pair (issuer, subject).
+Issuer Subject
+S M
+a) Draw the full PKI hierarchies as trees. The entities should be represented
+as nodes and the certificates as directed edges (arrows).
+b) Now look at the PKI hierarchy from exercise (a). The leaves in a tree are
+users. All other nodes of the tree represent CAs. The root node of each
+tree is the trust anchor of the underlying users. Now insert a certificate
+such that P trusts in all certificates issued by F but does not trust in certificates issued by Q.
+M E
+Ο Q
+J J
+N B
+F K
+F C
+F H
+Π Ο
+Q G
+F
+J S
+P N
+M D
+N A
+P P
+0 F
+Q T
+Q X
+Figure 2: PKI hierarchy
+8
+Name: Matriculation number:
+Task 7: (Anomaly Detection) 2+8 points
+a) Which of the following statements are true and which are false? Use the symbols T (true) and F
+(false) to answer this question.
+_ In general, data deformation can improve the detection quality of DBScan and linear SVMs but
+not for the 2-means algorithm.
+_ Ina worst case scenario, the runtime of DBScan is in O(#pts³+dim).
+b) Provide the algorithms for DBScan and linear SVM (including the input parameters). In each of the
+resulting models, which points are predicted "normal"?
+9
+Name: Matriculation number:
+Task 8: (Privacy)
+a)
+b)
+c)
+6+2+2 points
+Which of the following statements are true and which are false? Use the symbols T (true) and F (false)
+to answer this question.
+_ After anonymizing a dataset using microaggregation, anomaly detection is always possible.
+_ Pseudonymization makes it impossible to link an individual to certain data anymore.
+_ The GDPR demands that anonymized data is protected from being used for purposes different
+from the purpose the plaintext data have been collected for.
+_ In order to produce a pseudonym that allows for plaintext disclosure on demand, a state-of-the
+art probabilistic encryption function can be used.
+_ A release of data is said to have the k-anonymity property if the information for each person
+contained in the release cannot be distinguished from at least k -1 individuals whose information also appear in the release.
+In the context of privacy and data protection, the GDPR is the abbreviation of "guide of data
+protection and privacy respectation".
+Explain the difference between the generalization techniques of global and local recoding, respectively.
+Considering pseudonymized data is still subject to the GDPR, why should personal data be pseudonymized at all?
+10
+Name:
+Task 9: (AРТ)
+Matriculation number:
+1+6+2+1 points
+a) To which threat actor does the following statement fit best: "Is driven by believe and willing to spend
+an enormous amount of resources"?
+b) Order the following parts of the pyramid of pain in ascending order of difficulty to extract by the defender. You earn 0.5pts for each correct successor and predecessor.
+IP Addresses
+Artifacts
+Hashvalues
+TTP
+Tools
+Domains
+c) Explain the principle of a supply chain attack.
+d) Can different APT campaigns be strictly separated? You do not need to justify your answer.
+11
+Name: Matriculation number:
+Task 10: (Statistics) 5+2+3 points
+Which of the following statements are true and which are false? Use the symbols T (true) and F (false) to
+answer this question.
+_ Given a sequence of positive ratios, their average ratio is expressed by their geometric mean.
+_ The values of a nominal data type do not come with a natural ordering.
+☐ The Spearman Correlation Coefficient of two ordinal features F and G is defined as the correlation
+of the ranks of F respectively G.
+_ PCA is used to approximate the probability distributions of a family of features.
+_ In the t-test, we have to assume that the two given groups are approximately normally distributed.
+However, we do not need to assume that distributions of the two groups are approximately equal,
+up to a shift.
+Let X, Y: N R be random variables with a probability measure p defined on N. Let 2, u E R and define a
+new random variable Z = λΧ + μ: Ω → R by Z(ω) = λΧ(ω) + μ.
+a) Define the expected value E(X).
+b) Define the covariance Cov(X, Y) and show that Cov(AX + μ, Y) = ACov(X, Y). You are allowed to
+use that the expected value is linear without giving a proof.
+12
+Name: Matriculation number:
+Task 11: (Internet Routing) 10 points
+Given a small Internet as shown in the figure below, calculate the Resilience regarding Prefix Hijacking of AS
+64124. Provide the corresponding formula and intermediate results of your calculation.
+AS 64124
+AS 16268
+AS 48
+AS 22648
+13
+AS 690
+AS 1540

@@ -1,0 +1,49 @@
+IT Security 2025/2026
+Exercise Sheet 8
+– Software Composition Analysis –
+Ben Swierzy
+Publication: 04.12.2025
+Deadline: 09.12.2025 14:00
+Lightning Survey
+Exercise 1 (Flavius, 6×0.5 points). You have been using Flavius for more than two months.
+Time to take a closer look how it works. Open the web page in your browser and answer the
+following questions: Write your solution into task1.txt.
+(1) What is the version of the web server serving the frontend?
+(2) What JavaScript framework is used for the frontend?
+(3) What is the version of the runtime-core component of that framework?
+(4) What HTTP server serves the API backend?
+(5) What framework is used for the API backend?
+(6) In what programming language is the API backend written?
+Note: In most browsers you can use F12 to open the developer tools and analyze network traffic
+in the Network tab.
+Exercise 2 (Bundler Fingerprints, 7 points). To be able to run different methods such as
+software composition analysis on JavaScript bundles, we need to ensure that our artifact at
+hand is indeed a bundle. In this task, you will implement a detector for the runtime of the
+Webpack bundler.
+Conceptually, you need to locate the fingerprint below inside the JavaScript input file. However,
+as bundles are minified you can neither rely on the names of any identifiers nor on string matching
+algorithms. Therefore, your comparison needs to traverse the AST of the bundle. It should
+try to match the fingerprint AST as a subtree in the bundle AST by comparing only the
+node types. You can ignore that the order of properties in ObjectExpressions can sometimes
+be shuffled by minifiers and rely on the order provided in the snippet. If a match is found,
+Webpack has successfully been detected. Otherwise, we do not know anything about the bundle
+1 function n(e) {
+2 if (t[e]) return t[e].x;
+3 var i = t[e] = {
+4 i: e,
+5 l: !1,
+6 x: {}
+7 };
+8 return r[e]. call (i.x, i, i.x, n), i.l = !0, i.x
+9 }
+Listing 1: Minified Webpack runtime.
+Please take a look at the following additional material inside the Git repository:
+1
+• webpack_fingerprinter.mjs: Extend this scaffold with your commented script.
+• webpack: This folder contains Webpack bundles which should match your fingerprint.
+• otherjs: This folder contains other bundles and scripts which do not include the Webpack
+runtime.
+You need to run npm ci to perform a clean install of the acorn and acorn-walk packages.
+The script can be run with node webpack_fingerprinter.mjs path/to/file.js if you have
+NodeJS installed.
+2

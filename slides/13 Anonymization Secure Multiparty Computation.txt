@@ -1,0 +1,905 @@
+Lecture: IT-Security
+Anonymization & Secure
+Multi-Party-Computation
+Markus Krämer
+kraemerm@cs.uni-bonn.de
+University of Bonn | Institute of Computer Science 4
+|Bonn |22. Januar 2026
+About me
+2013-2017 2017-2020 2016-2020 Bachelor Computer Science in Bonn
+Master Computer Science in Bonn
+Tutor „Logik und diskrete Strukturen“
+Tutor „Reaktive Sicherheit
+Tutor „IT-Sicherheit“
+Since 2020 Researcher WG IT-Security
+Project „WACHMANN“
+Project „BNTrAInee“
+Project „DARIA“
+Project „PEKI“
+2/ 80
+Privacy
+Definition The right of individuals to protect their personal lifes &
+matters from the outside world and to determine which
+information about itself should be known to others
+(Westin & Kasem-Madani)
+3/ 80
+Personal Data
+Definition Any information relating to an identified or identifiable
+(Name, Address, ...) natural person
+4/ 80
+Principles of personal data processing
+Lawfulness, fairness and transparency
+Purpose limitation
+Data minimization
+Accuracy of processed data
+Storage limitation
+Integrity and confidentiality
+5/ 80
+Attribute Types
+(Direct) Identifiers
+Identify an in individual directly
+Examples
+Name
+Address
+Identity number
+6/ 80
+Quasi-Identifiers
+Population U
+Table T with attributes Ai: T (A1, ..., An)
+Forward function: fv : U →T
+Backward funcion: fr : T →U ′
+, U ′⊆U
+Definition
+A Quasi-Identifier QT is a subset of attributes
+(Aj , ..., Ak) ⊆(A1, ..., An), which are sufficient to identify an
+individual: fr(fv(pi[QT ])) = pi
+7/ 80
+Sensitive Attributes
+Attributes whose values are considered sensitive somehow and are
+worth to be protected
+Examples:
+Salary
+Disease
+...
+8/ 80
+Privacy Threats
+Membership disclosure
+The attacker gains information about whether data concerning an
+individual is contained in a data set
+Means not necessarily leakage of more information (e.g. sensitive
+attributes)
+Threat relies on leakage of meta information
+E.g. data set is about cancer patients
+9/ 80
+Attribute disclosure
+Leakage of sensitive attributes
+May cause discomfort or harm to affected individuals
+Illnesses or political convictions
+Attribute disclosure is possible without matching an individual
+to a record (We will see this later)
+10/ 80
+Identity disclosure
+The attacker is able to match an individual to a record of the data
+set
+Result: Leakage of all attribute values
+11/ 80
+Anonymization: Attacker Models
+Prosecutor
+Intends to gain information about a specific individual
+Assumption: Knows that the individual is contained in the
+dataset
+Journalist
+Intends to gain information about a specific individual
+Assumption: No background knowledge whether the
+individual is contained in the dataset
+Marketer
+Intends to re-identify a large number of individuals
+Constraint: An Attack is only considered successful if a larger
+fraction of the individuals is re-identified 12/ 80
+Privacy enhancing technologies
+13/ 80
+Pseudonymization
+Personal data may no longer be attributed to individuals
+without the use of additional information
+which must be kept separately
+where technical or organizational measures ensure that no
+reidentification is possible
+Effort for reidentification is relatively high
+14/ 80
+Pseudonymization: Examples
+Mandy 0704 ↔Mandy Miller
+Pseudonymization: Additional information reidentifies
+0704Abr4753 ←Decryption →Mandy Miller
+Pseudonymization: Additional information reidentifies
+Hash:A4797UTZ ←Mandy Miller
+Pseudonymization: Hashing of values reidentifies
+15/ 80
+Anonymization
+„information which does not relate to an identified or identifiable
+natural person“
+„personal data rendered anonymous in such a manner that the
+data subject is not or no longer identifiable“
+Effort for reidentification is excessively high
+Anonymous data is not personal data anymore, thus the GDPR
+needs not to be accounted
+16/ 80
+Anonymization
+Anonymization
+Anonymization techniques
+Masking Methods
+Perturbative Methods
+Non-Perturbative Methods
+Synthetic data
+17/ 80
+Perturbative Methods
+Alter the attribute values in a way that the new data set may
+contain erroneous information
+E.g. add noise following a normal distribution
+Age = 23, Noise = 4 →Age = 27
+18/ 80
+Non-Perturbative Methods
+Replace attribute values with less specific than incorrect values
+Detail reduction
+E.g. Interval
+Age = 23 →Age = [20-25]
+19/ 80
+Synthetic data
+Replace attribute values by artificially created values
+May be based on a model of the real data
+20/ 80
+Masking Methods
+Perturbative Methods
+Non-Perturbative Methods
+Synthetic data
+21/ 80
+Masking Methods
+PerturbativeMethods
+Non-Perturbative Methods
+Synthetic data
+22/ 80
+Perturbative: Microaggregation
+Replace a group of values with a summary statistic, e.g. mean
+Clustering possible (replace values by centroid)
+For numerical data types
+Univariate: Microaggregation per attribute (no k-anonymity
+ensured)
+23/ 80
+Perturbative: Univariate Microaggrega-
+tion
+Microaggregation per attribute (no k-anonymity ensured)
+4
+7
+3
+1
+5
+7
+3
+1
+6
+1
+2
+2
+5
+1
+2
+2
+1
+6
+8
+3
+5
+6
+8
+3
+9
+2
+7
+2
+5
+2
+7
+2
+24/ 80
+Perturbative: Multivariate Microaggre-
+gation
+Multivariate: Microaggregation for multiple (all) attributes at once
+Ensures k-anonymity for unpartitioned data if all attributes
+were considered in the process
+4
+7
+3
+1
+5
+4
+5
+2
+6
+1
+2
+2
+5
+4
+5
+2
+1
+6
+8
+3
+5
+4
+5
+2
+9
+2
+7
+2
+5
+4
+5
+2
+25/ 80
+Masking Methods
+Perturbative Methods
+Non-PerturbativeMethods
+Synthetic data
+26/ 80
+Non-Perturbative: Generalization
+In the original table, every attribute value is as specific as possible
+Values are called to be in the ground domain
+Generalizing attribute values means making them less specific
+Generalization hierarchies may be defined
+Global vs local recoding
+Global recoding: All occurrences of a value are replaced by
+the same generalized value
+Local recoding: Values are replaced by generalizations based
+on their respective subset they belong to
+27/ 80
+Generalisierung: Global vs local reco-
+ding
+Original Berlin Berlin Berlin Berlin Berlin Berlin Berlin Berlin Global recoding European European European European European European European European Local recoding
+European
+European
+European
+European
+German
+German
+German
+German
+28/ 80
+Generalization hierarchy
+75200
+75240
+75270
+75243 75249
+75279 75277
+29/ 80
+Non-Perturbative: Suppression
+Remove data completely from the table
+May be used to adapt the necessary level of generalization
+Outliers may be removed if they would cause a very high
+generalization level
+30/ 80
+Non-Perturbative: Suppression
+ZIP Profession Age
+ZIP Profession 53118 Builder 24
+5311* Builder 53117 Builder 20
+5311* Builder 53118 Builder 22
+5311* Builder Age
+[20-60]
+[20-60]
+[20-60]
+53116 Builder 58
+5311* Builder [20-60]
+Age 58 causes high generalization level
+31/ 80
+Non-Perturbative: Suppression
+ZIP Profession Age
+ZIP Profession 53118 Builder [20-25]
+5311* Builder 5311* Builder *
+5311* Builder Age
+[20-25]
+[20-25]
+53118 Builder [20-25]
+5311* Builder *
+5311* Builder [20-25]
+Age 58 causes high generalization level
+32/ 80
+Anonymization
+Anonymization - Data protection models
+k-Anonymity
+Definition In a released dataset, every occuring combination of values
+of quasi-identifiers must occur for at least k individuals
+These groups of at least k entries are called equivalence classes
+k must be bigger than 1
+33/ 80
+k-Anonymity
+QuestionHow to turn this dataset k-anonymous?
+Name Gender Age ZipCode Illness
+Mark Tobi John Karl Sophie Hannah m 31 m 33 m 20 m 22 f 37 f 38 63457 63455 63455 63457 63751 63777 flu
+flu
+Corona
+Cancer
+Cancer
+Corona
+34/ 80
+k-Anonymity
+QuestionHow to turn this dataset k-anonymous?
+Name Gender Age ZipCode Mark Tobi John Karl Sophie Hannah m [30-34] m [30-34] m [20-24] m [20-24] f [35-39] f [35-39] 6345* 6345* 6345* 6345* 637** 637** Illness
+flu
+flu
+Corona
+Cancer
+Cancer
+Corona
+35/ 80
+k-Anonymity
+Is this the end of privacy breaks?
+Unfortunately no
+36/ 80
+k-Anonymity: Unsorted Matching Attack
+Entries in published datasets have an order
+Different published k-anonymous versions of the original table
+may be linked
+The linked (combined) table may destroy the k-anonymity
+Solution:Mix the entries of a table before publishment
+37/ 80
+k-Anonymity: Unsorted Matching Attack
+Gender ZipCode
+Gender ZipCode
+Gender ZipCode
+m 63455
+d 63455
+m 63439
+d 63439
+f 63455
+f 63439
+Original table
+* 63455
+* 63455
+* 63439
+* 63439
+* 63455
+* 63439
+Publication one
+m 634**
+d 634**
+m 634**
+d 634**
+f 634**
+f 634**
+Publication two
+38/ 80
+k-Anonymity: Complementary Release
+Attack
+Previous attack: Only quasi-identifiers in table
+Real world: More attributes than quasi-identifiers
+Every published table may reveal additional information, even
+when fulfilling k-anonymity
+The linked (combined) table may destroy the k-anonymity
+Solution:Consider all attributes of a published table T as a
+quasi-identifier or base publishments on T
+39/ 80
+k-Anonymity: Complementary Release
+Attack
+Name Gender Age ZipCode Illness
+Mark Tobi John Karl Sophie Hannah m 31 m 33 m 20 m 22 f 37 f 38 63457 63455 63455 63457 63751 63777 Original table
+flu
+flu
+Corona
+Cancer
+Cancer
+Corona
+40/ 80
+k-Anonymity: Complementary Release
+Attack
+Gender Age ZipCode Illness
+m [30-34] m [30-34] m [20-24] m [20-24] f [35-39] f [35-39] 6345* 6345* 6345* 6345* 637** 637** flu
+flu
+Corona
+Cancer
+Cancer
+Corona
+T1
+41/ 80
+k-Anonymity: Complementary Release
+Attack
+Gender Age ZipCode Illness
+m * m * f * f * m * m * 63457 63457 637** 637** 63455 63455 T2
+flu
+Cancer
+Cancer
+Corona
+flu
+Corona
+42/ 80
+k-Anonymity: Complementary Release
+Attack
+Gender Age ZipCode Illness
+m [30-34] m [30-34] m [20-24] m [20-24] f [35-39] f [35-39] 63457 63455 63455 63457 637** 637** Combined table
+flu
+flu
+Corona
+Cancer
+Cancer
+Corona
+43/ 80
+Definition: l-Diversity
+An equivalence class is said to fulfill l-diversity if at least l
+„well-represented“values for the sensitive attribute occur
+in it.
+A table is said to meet the l-diversity requirement if all its
+equivalence classes are l-diverse.
+l must be bigger than 1
+44/ 80
+l-Diversity: „Well-represented“?
+Distinct l-diversity
+Entropy l-diversity
+Recursive (c, l)-diversity
+45/ 80
+Distinct l-diversity
+For distinct l-diversity „well-represented“ means that there are at
+least l different values for a sensitive attribute in each equivalence
+class.
+46/ 80
+Distinct l-diversity
+Gender Age ZipCode Illness
+m [30-34] 6345* flu
+m [30-34] 6345* flu
+m [20-24] 6345* Corona
+m [20-24] 6345* Cancer
+f [35-39] 637** Cancer
+f [35-39] 637** Corona
+Distinct l-diversity is only fulfilled for olive and pink equivalence
+class
+Thus not for the whole table
+47/ 80
+Entropy l-diversity
+Entropy of an equvalence class E is defined as
+Entropy(E) =−
+s∈S
+p(E, s)log(p(E, s))
+S: Domain of sensitive attribute
+p(E, s): fraction of records in E with sensitive attribute s
+To fulfill the „well-represented“ property, each equivalence class
+must have Entropy(E) ≥log(l)
+48/ 80
+Entropy l-diversity
+Gender Age ZipCode Illness
+m [30-34] 6345* flu
+m [30-34] 6345* flu
+m [20-24] 6345* Corona
+m [20-24] 6345* Cancer
+f [35-39] 637** Cancer
+f [35-39] 637** Corona
+Entropy orange: 0 = 1·log2(1)
+Entropy olive: 1 =−
+1
+2·log2(1
+2 ) + (−)1
+2·log2(1
+2 )
+Entropy pink: 1 =−
+1
+2·log2(1
+2 ) + (−)1
+2·log2(1
+2 )
+49/ 80
+Recursive (c, l)-diversity
+Most frequent value should not occur too often
+Less frequent values should not occur too rarely
+(c, l)-diversity(E) is fulfilled if the following inequality holds
+r1 < c(rl + rl+1 +... + rm)
+m: number of values in an equivalence class
+ri, 1 ≤ri ≤m number of occurences of the ith most
+frequent value in E
+(c, l)-diversity holds for the whole table if it holds for all its
+equivalence classes
+50/ 80
+Entropy l-diversity
+Gender Age ZipCode Illness
+m [30-34] 6345* m [30-34] 6345* m [20-24] 6345* m [20-24] 6345* f [35-39] 637** flu
+flu
+Corona
+Cancer
+Cancer
+f [35-39] 637** Corona
+r1 < c(rl + rl+1 +... + rm)
+Not fulfillable for orange
+For olive and pink: c > 1 and l = 2
+51/ 80
+t-Closeness
+Definition: An equivalence class is said to fulfill t-closeness if the dis-
+tributions of sensitive attributes in this class and the whole
+table differ by at least t.
+A table is said to meet the t-closeness requirement if all
+its equivalence classes are t-close.
+52/ 80
+Beyond t-Closeness
+k-map
+Average Risk
+Population Uniqueness
+Sample Uniqueness
+δ-disclosure privacy
+β-likeness
+β-prensence
+Profitability
+Differential privacy
+53/ 80
+Beyond t-Closeness
+Data Protection Models
+Reidentification
+Sensitive Attributes
+k-Anonymity
+l-Diversity t-Closeness
+k -Anonymitym
+AVG-Risk
+δ-Disclosure β-likeness
+k-Map
+Population Uniqueness
+Sample Uniqueness
+δ-Presence
+Profitability
+Diﬀerential Privacy
+54/ 80
+Secure Multiparty Computation
+Millionaire's Problem
+55/ 80
+Millionaire's Problem
+2 millionaires
+Alice
+Bob
+Question:Who is richer?
+Constraint:No additional information about their wealth should
+be leaked
+56/ 80
+Attacker Models
+Semi-honest
+Outputs, computations and sent messages are as given by the
+original protocol
+May use its own & received knowledge to compute more than
+required
+Tries to infer more knowledge than it should gain
+⇒Violates mainly privacy constraints
+Malicious
+May arbitrarily deviate from the given protocol
+⇒May violate privacy constraints & alter the outcome of the
+protocol
+57/ 80
+1-out-of-2 Oblivious transfer
+Alice owns two secret messages M1, M2
+Bob should receive exactly one, either M1 or M2 such that
+Alice does not know which message Mi Bob received
+1-out-of-2 Oblivious transfer is denoted as OT 1
+2
+Further protocols for OT 1
+n and OT k
+n exist
+58/ 80
+OT 1
+MessagesM0, M1
+RSAKeypaird, (N, e)
+Generate two random messages
+m0, m1
+(N, e), m0, m1
+2 protocol based on RSA
+x
+Choose b ∈0, 1
+Generate random message k
+x = (mb + ke) mod N
+k0 = (x−m0)d mod N
+k1 = (x−m1)d mod N
+M ′
+0 = (M0 + k0) mod N
+M ′
+1 = (M1 + k1) mod N M ′
+0, M ′
+1
+Mb = (M ′
+b−k) mod N
+59/ 80
+Secure Multiparty Computation
+Garbled Circuits
+Garbled Circuits
+2 parties: Alice & Bob (called Garbler & Evaluator)
+Would like to compute a shared function
+With secret inputs each
+Model the function as boolean circuit
+Gates connected by wires
+Circuit is mutually known
+60/ 80
+Garbled Circuits: Construction
+Alice
+Input-Bit 0
+Bob
+Input-Bit 0
+Wa Wb
+XOR
+Wo
+Output-Bit 0
+61/ 80
+Garbled Circuits: Truth table
+Alice
+Input-Bit 0
+Bob
+Input-Bit 0
+Wa Wb Wo
+Wa Wb
+XOR
+0 0 0
+0 1 1
+1 0 1
+1 1 0
+Wo
+Output-Bit 0
+62/ 80
+Alice
+Input-Bit 0
+Garbled Circuits: Labelling
+Bob
+Input-Bit 0
+Wa Wb Wo
+Wa Wb
+XOR
+L0
+a L0
+b L0
+o
+L0
+a L1
+b L1
+o
+L1
+a L0
+b L1
+o
+L1
+a L1
+b L0
+o
+Wo
+Output-Bit 0
+63/ 80
+Garbled Circuits: Encryption
+Alice
+Input-Bit 0
+Bob
+Input-Bit 0
+Encrypted Table
+Wa Wb
+XOR
+EncL0
+a,L0
+b (L0
+o)
+EncL0
+a,L1
+b (L1
+o)
+EncL1
+a,L0
+b (L1
+o)
+EncL1
+a,L1
+b (L0
+o)
+Wo
+Output-Bit 0
+64/ 80
+Garbled Circuits: Encryption
+Alice
+Input-Bit 0
+Bob
+Input-Bit 0
+Encrypted Table
+Wa Wb
+XOR
+EncL0
+a,L0
+b (L0
+o)
+EncL0
+a,L1
+b (L1
+o)
+EncL1
+a,L0
+b (L1
+o)
+EncL1
+a,L1
+b (L0
+o)
+Wo
+Output-Bit 0
+65/ 80
+Garbled Circuits: Garbling
+Alice
+Input-Bit 0
+Bob
+Input-Bit 0
+Garbled Table
+Wa Wb
+XOR
+EncL1
+a,L0
+b (L1
+o)
+EncL1
+a,L1
+b (L0
+o)
+EncL0
+a,L1
+b (L1
+o)
+EncL0
+a,L0
+b (L0
+o)
+Wo
+Output-Bit 0
+66/ 80
+Garbled Circuits: Setup process in a
+nutshell
+Construct the function as a boolean circuit
+Construct the truth tables for each gate
+Generate a label for each possible state at each wire
+Encrypt the output-wire labels with the input-wire labels
+Garble the encrypted tables
+Share the garbled circuit & the Garbler’s input labels with the
+Evaluator
+67/ 80
+Garbled Circuits: Evaluation
+Alice
+Input-Bit 0
+Bob
+Input-Bit 0
+Wa Wb
+XOR
+Wo
+Output-Bit 0
+68/ 80
+Garbled Circuits: Evaluation
+Alice
+Input-Bit 0
+Bob
+Input-Bit 0
+L0
+a Wb
+XOR
+Wo
+Output-Bit 0
+Bob knows the input label of Ali-
+ce L0
+a but not the real value as it
+is randomly generated
+69/ 80
+Garbled Circuits: Evaluation
+Alice
+Input-Bit 0
+Bob
+Input-Bit 0
+L0
+a L0
+b
+XOR
+Wo
+Output-Bit 0
+Bob gets to know the label of
+its own input from Alice via ob-
+livious transfer
+70/ 80
+Alice
+Input-Bit 0
+Garbled Circuits: Evaluation
+Bob
+Input-Bit 0
+L0
+a L0
+XOR
+L0
+o
+Bob decrypts the garbled table
+from top to bottom (whereby
+incorrect decryptions may be
+detected) until he has decrypt-
+b
+ed the correct row and gets to
+know the resulting label
+Output-Bit 0
+Garbled Table
+EncL1
+a,L0
+b (L1
+o)
+EncL1
+a,L1
+b (L0
+o)
+EncL0
+a,L1
+b (L1
+o)
+EncL0
+a,L0
+b (L0
+o)
+71/ 80
+Garbled Circuits: Results
+The result can either be
+Taken as an input into another gate or
+Taken as an output bit of the circuit
+Bob shares the output bits with Alice who knows the assignment
+to the real values
+As specified by the semi-honest model, Alice shares the result with
+Bob
+72/ 80
+Secure Multiparty Computation
+Performance Optimizations
+Garbled Circuits: Performance
+Technique Rows Enc-calls
+Garbler Evaluator
+AND XOR NOT AND XOR NOT AND XOR NOT
+classical 4 4 2 4 4 2 4 4 2
+73/ 80
+Point & Permute
+Problem: In the worst case, the correct label can be found in the
+last row of the garbled table
+Inefficient due to up to 3 useless decryption operations
+How to make the decryption process more efficient?
+Point & Permute
+74/ 80
+Point & Permute
+For each Wire Ww two labels will be generated: L0
+w & L1
+w
+In point & permute the labels are genarated as follows L0,s0
+w
+w &
+L1,s1
+w
+w
+s0
+w ∈{0, 1}is called the sorting bit & is chosen randomly
+s1
+= s0
+w
+w ⊕1
+Instead of shuffling the table it will be sorted by the random bits
+Bob may immediately find the correct line to decrypt
+No security loss as the sorting bit is independent of a real value
+75/ 80
+Garbled Circuits: Performance
+Technique Rows Enc-calls
+Garbler Evaluator
+AND XOR NOT AND XOR NOT AND XOR NOT
+classical point-and-permute 4 4 4 4 2 4 2 4 4 2 4 2 4 4 2
+1 1 1
+76/ 80
+Garbled Row Reduction
+Based on point & permute
+Top row of a garbled table is known as it is sorted by the sorting
+bits
+Choose the output label in the top row such that it results in a
+zero-bitstring with length N
+As the top row of the resulting garbled table is known to be 0 it
+does not need to be transmitted to Bob
+Transmitted table size is reduced by 1 for each gate
+77/ 80
+Garbled Circuits: Performance
+Technique Rows Enc-calls
+Garbler Evaluator
+AND XOR NOT AND XOR NOT AND XOR NOT
+classical point-and-permute GRR3 free-XOR GRR3 + free-XOR 4 4 4 4 3 3 4 0 3 0 2 4 2 4 1 4 0 4 0 4 4 2 4 2 4 2 0 0 0 0 4 4 2
+1 1 1
+1 1 1
+1 0 0
+1 0 0
+78/ 80
+Survey
+79/ 80
+Markus Krämer
+University of Bonn | Institute of Computer Science 4
+kraemerm@cs.uni-bonn.de

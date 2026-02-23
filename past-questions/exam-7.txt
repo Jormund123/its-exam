@@ -1,0 +1,219 @@
+Rheinische Friedrich-Wilhelms-Universität Bonn
+Master Course Computer Science
+Written Exam
+Semester: Winter 2022 Exam Period: 1. ☐ 2. x
+Module Name: IT Security
+Module Number: MA-INF 3236 Date of Exam: 13.03.2023
+Examiner: Prof. Dr. Michael Meier
+To be filled by the Student:
+Last name:
+First name:
+Matriculation number:
+Course of Study
+Master in Computer Science Master in Education☐ secondary subject other
+To be filled by the Examiner:
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 Σ
+10 10 10 10 1.0 10 10 10 10 10 10 10 10 10 10 150
+To be filled by the Examiner:
+Grading:
+*Grades: very good (1,0; 1,3) good (1,7; 2,0; 2,3) satisfactory (2,7; 3,0; 3,3) sufficient (3,7; 4,0) not
+sufficient (5,0)
+Date:
+Signature of Examiner
+Name: Matriculation number:
+Task 1: (Wireless Security - Basics and Jamming)
+a)
+3+3+4 points
+Name the three antenna types presented in the lecture. Point out one of those types that
+is used more frequently by attackers that aim to attack wireless communication. Give two
+reasons why this type is usually preferred over the others.
+b) Explain how the relay attack works with regards to passive keyless entry systems. What
+security strategy is circumvented by this kind of attack?
+c) Name a protocol aware jamming attack and a protocol oblivious jamming attack on
+802.11a Wi-Fi. Explain the differences between a protocol aware jamming attack and a
+protocol oblivious jamming attack with regards to 802.11a Wi-Fi.
+3
+Task 2: (Wireless Security - Wi-Fi Security) 4+2+4 points
+a) Decide for each of the following statements, which are true and which are false. Mark them
+accordingly using 'T' for true and 'F' for false.
+_ An access point of a Wi-Fi network secured by MAC-address filtering only accepts
+connections by devices using a MAC address matching to its pre-set list of MAC
+addresses.
+_ Open System Authentication describes a method, where any client can connect to a
+Wi-Fi network without knowledge of any secrets.
+_ WPA, the successor of WEP, while still using the broken RC4 was a major redesign, of
+which WPA2 adopted most aspects.
+_ WEP supports the different keylengths 32 bits, 40 bits, and 104 bits.
+b) What weakness of RC4 does the FMS attack exploit?
+c) You are eavesdropping all nearby Wi-Fi packets. You notice a WEP encrypted
+communication between two devices. What packet types can you use to perform the FMS
+attack as presented in the lecture? Explain what makes these packets usable.
+Task 3: (Wireless Security - Device Identification)
+a)
+3+3+4 points
+Give an example for why utilizing device identification techniques can benefit a defensive
+actor as discussed in the lecture. In what way can the defensive actor use identifying data
+in your example?
+b) Name a collectible characteristic of a wireless transmission to be used as indirect device
+identifying data (DID) and explain why it qualifies as an indirect DID.
+c) Assume you want to know, whether a target device is still sending and in range of your
+antenna. It is communicating to a stationary receiver that is always accessible and
+responsive. Its communication is completely encrypted, however, so you have no access
+to the header or content of the sent packets.
+Name a passive device identification technique presented in the lecture that you could be
+using in that scenario. Why does it work? What drawbacks does your suggested technique
+have?
+Task 4: (Side Channel Attacks)
+a)
+4+3+3 points
+In the Rowhammer attack, an attacker flips a bit at some memory address, without the
+computer noticing. Give two examples where flipping a single bit compromises the security
+of the system and describe how the security is compromised.
+b) Compared to brute forcing a cryptographic algorithm, what advantage do side channels
+provide?
+c) Why does measuring power consumption of a CPU leak information? Give two examples
+where measuring the power consumption leaks information.
+Task 5: (Fuzzing) 2+4+4 points
+a) When is instrumentation used and what is done during the instrumentation step?
+b) Which kind of vulnerabilities does the AddressSanitizer detect and how is it done?
+c) Given the following list of labels and the empty Diagram:
+Please assign the numbers to the list of labels, so that the diagram represents the
+Coverage Guided Fuzzing Algorithm.
+1
+() Seed Files 2
+() Mutation
+3
+() Selection
+() Code Coverage Evaluation 4
+() Solution
+() Crash
+No
+5
+Yes
+6
+Task 6: (Centralized Key Management) 6+4 points
+For a secure group communication, a secret key can be established for a user pair by the
+Needham-Schroeder protocol.
+a) Write down the Needham-Schroeder protocol.
+b) Explain the weakness of the protocol in case of a stolen session key.
+Task 7: (Distributed Group Key Management)
+K1.0
+Ko.0
+K1.1
+(m972/2 4+4+2 points
+K2.0 K2.1 K2.2 K2.3
+น2 Us U4
+Figure 1: Key tree
+The key tree in figure 1 is used for the key management of a group G with the user
+i∈{1,2,3,4}.
+น
+a) The TGDH (Tree Based Group Diffie Hellman) protocol is used for the key management.
+Write down the group key calculation of the user u1.
+b) For comparison write down the group key calculation of the user u₁ if in a group of four
+users the ITW (Imgemarsson-Tang-Wong) protocol is used.
+c) How many messages are exchanged by the TGDH and the ITW protocol if the user us joins
+the group?
+Task 8: (E-Voting System)
+a) Write down the basic mechanisms of an e-voting system.
+b) Describe the four steps of an e-voting system.
+2+8 points
+Task 9: (Public Key Infrastructure) tebnegiftsini 1ee 9+1 points
+Serial
+Number
+1 Serial
+Number
+3 Serial
+Number
+4
+Issuer P Issuer P Issuer N
+NotBefore 16/08/2017 NotBefore 16/10/2017 NotBefore 15/11/2017
+NotAfter 30/05/2022 NotAfter 31/11/2018 NotAfter 30/08/2020
+Subject P Subject N Subject A
+Table 1: Certificates of a PKI
+The user A signs a document at 01/11/2017, 16/09/2018 and 16/01/2019. More details about
+the certificates is given in table 1.
+a) Determine the result of the verification on 20/09/2019 based on the shell, hybrid and chain
+model.
+b) What is the reason for the distribution of certificate revocation lists?
+Task 10: (Threat Intelligence) 3+3+3+1 points
+a) Name the key concepts of information security an define each in one sentence.
+b) Name and map the main motivation for three Threat Actor type..
+c)
+d)
+Explain one step (of your choice) of the "Intrusion Kill Chain". Name the step before and
+after.
+Is scanning the target's public server for open ports a suitable technique for footprinting?
+Give a reason.
+Task 11: (Web Security)
+a) Name the three phases of an Single Sign-On (SSO) protocol.
+1.5+6+2.5 points
+b) Draw arrows for every communication step between different parties as in the Malicious
+Endpoint (Broken User Authentication) attack in chronologically correct order, i.e., the
+earlier the higher. The tip of the arrow should point to the party receiving the initial
+message of that communication step.
+c) Mark your arrows with the number of the phase they belong to.
+Victim SP
+(https://honestSp.com)
+Honest IdP
+(https://honestidP.com)
+regEndp authEndp
+Attacker IdP
+(https://attackerldP.com)
+Discovery tokenEndp
+Task 12: (Privacy Enhancing Technologies)
+a)
+2+1+1+6 points
+Explain the difference between univariate and multivariate microaggregation.
+b) Define k-anonymity as discussed in the lecture.
+c) Define attribute disclosure as discussed in the lecture.
+d) Decide for each of the following statements, which are true and which are false. Mark
+them accordingly using 'T' for true and 'F' for false.
+_ Considering the GDPR, data is not subject to a purpose limitation.
+_ Encryption is an anonymization technique.
+_ In local recoding a given value might be replaced with different values.
+_ Quasi identifiers always allow to uniquely identify a natural person.
+_ A successful membership disclosure attack can infer that an individual is
+represented in a dataset with high probability.
+_Hashing a dataset twice turns it anonymous.
+Task 13: (Anonymization)
+a) Define the semi-honest adversary.
+b) Define the prosecutor attacker model.
+c) Which goals should be reached by an oblivious transfer?
+d) Describe the advantage of GRR3 and how it is reached.
+2+2+2+4 points
+Task 14: (Anomaly Detection) 2+5+3 points
+a) Decide for each of the following statements, which are true and which are false. Mark them
+accordingly using 'T' for true and 'F' for false.
+_The Mahalanobis distance is a multivariate metric for calculating the distance
+between a point and a distribution.
+_DBSCAN requires the user to specify the number of clusters in the data.
+b) Give the algorithm for a Support Vector Machine (SVM). Clearly state inputs and outputs of
+the algorithm.
+c) Consider the dataset shown in the figure below. Explain if an SVM is capable of separating
+normal and anomalous data points. Describe a method you can utilize to make the dataset
+suitable for an SVM to easily separate the normal and anomalous points.
+-10
+Task 15: (Statistics)
+a)
+4+6 points
+Decide for each of the following statements, which are true and which are false. Mark them accordingly using 'T' for true and 'F' for false.
+_ Given positive ratios x1,..., x their harmonic mean is H(x1,.. X") =
+_The Spearman Correlation Coefficient computes the correlation of a nominal
+feature.
+_ The Principle Component Analysis embeds a given point cloud into a space of higher dimension.
+_ In the t-test, we have to assume that the two given groups are approximately
+normally distributed.
+b) A new virus scanner detects malware with a recall Rec = TP/(TP+FN) of 100% and a
+specificity Spec = TN/(TN+FP) of 99.9%. A cloud service provider operates a server with
+10,050,000 unencrypted files. We assume that 50,000 files are infected. The virus scanner
+scans all unencrypted files.
+Fill out the confusion matrix and compute the accuracy of the virus scanner.
+File is infected
+File is reported by the
+scanner
+Tp
+File is not infected
+Fp
+File is not reported by the
+scanner
+FN TN

@@ -1,0 +1,101 @@
+Vorschau
+Perfomance Test 1
+Datum: 13. Sep 2021, 16:21 Maximale Punktezahl: 20.102
+Frage 1 - Jamming Attacks (2 Punkte)
+Which of the following attacks are protocol aware jamming attacks?
+Barrage Jamming
+Preamble Corruption
+Pilot Jamming
+Control Information Jamming
+Frage 2 - Security by Proximity (2 Punkte)
+Why is "Security by Proximity" a flawed security concept?
+The received signal power at a receiver is not solely controlled by the sender.
+Protocol aware jamming is an attack specifically designed to break PKES.
+Inconsistent bit error rates make proximity based protocols too unreliable for practical security.
+Relay attacks can fake physical proximity.
+Most of the time it is infeasible to prevent an attacker from getting too close to your system.
+Frage 3 - Effects of physical layer attacks (2.04 Punkte)
+Assign the following effects to the three given physical layer attack techniques.
+Frage 4 - Narrow-band jamming mitigation (2 Punkte)
+Fill in the gaps of the text (using drag and drop).
+To counteract narrow-band jamming attacks wireless systems can employ several mitigation techniques.
+Frage 5 - Padding Oracle (4 Punkte)
+Perform a padding oracle attack on the cipher under http://itsecexam.tonejc.de:8421/Exam1/281 .
+The instructions are on the webpage. Write the decrypted plaintext here
+Frage 6 - RSA I (1 Punkt)
+When computing RSA digital signatures, modular exponentiation needs to be performed. Which method is used in a straightforward implementation?
+Exponentiate and reduce
+Divide and Multiply
+Double and Add
+Square and Multiply
+Cryptography.Math.ModExp
+Frage 7 - RSA II (2.04 Punkte)
+Which side channel attacks can be used for the above method? Select all that apply.
+Timing attack
+Power analysis
+Chosen plaintext attack
+Chosen ciphertext attack
+Bias detection using machine learning
+Cache timing
+Frage 8 - key concepts of information security (1.002 Punkte)
+What are the key concepts of information security?
+Privacy
+Confidentiality
+Integrity
+Encryption
+Availablility
+Throughput
+Frage 9 - Threat Actors I (1 Punkt)
+Which Threat Actor is primary motivated by financial gain?
+Nation State
+Hacktivist
+Cybercriminal
+Thrill Seeker
+Frage 10 - Threat Actors II (1 Punkt)
+Which Threat Actor would most probably deface a website?
+Nation State
+Hacktivist
+Cybercriminal
+Thrill Seeker
+Frage 11 - Indicators of Compromise (1.02 Punkte)
+To which type of Threat Intelligence do Indicators of Compromise belong?
+Operational
+Tactical
+Strategic
+Frage 12 - Footprinting (1 Punkt)
+What is footprinting?
+Following an attacker's steps to reconstruct the attack.
+Scanning a system for Indicators of Compromise.
+Obtaining information about a target through third-party sources.
+Placing a tracking pixel in a website's footer.
+Symbol Modification
+Signal Strength Modification
+Overshadowing
+Amplification
+Annihilation
+Attenuation
+Bit Flipping
+Noise Jamming
+Preamble Corruption
+____ works by transmitting only narrow-band signals
+and ____
+The common secret needed to be exchanged prior to the communication
+is the ____ .
+This transmission loses spectral efficiency by ____ .
+____ works by
+____ the transmission onto a much wider frequency range
+but adjusting the ____ .
+The common secret needed to be exchanged prior to the communication
+is the ____ .
+This transmission loses spectral efficiency by ____
+resulting in ____ being transmitted.
+FHSS
+hopping between the transmission channels
+hopping sequence
+remaining silent on all other channels
+DSSS
+spreading
+signal power closer to noise level
+spreading code
+using less transmission power than available/allowed
+less overall data bits

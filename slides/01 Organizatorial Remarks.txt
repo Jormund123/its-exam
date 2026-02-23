@@ -1,0 +1,138 @@
+IT Security
+OrganizatorialRemarks
+BenSwierzy
+swierzy@cs.uni-bonn.de
+UniversityofBonn|InstituteofComputerScience4
+LectureITSecurity| UniBonn| WT2025/26
+About me
+BenSwierzy
+2016–2019 B.Sc. inComputerScienceinBonn
+2019–2021 M.Sc. inComputerScienceinBonn
+since2022 Researcher
+ITSecurityOrganizer&Lecturer
+Interests SoftwareFingerprinting,WebSecurity,ReverseEngineering,
+InternetMeasurements,Cryptography,...
+1/16
+Who are you?
+Howmanyareyou?
+WhoofyougraduatedinBonn?
+WhoofyouisenrolledintheBachelor?
+WhoofyouisenrolledinComputerScience?
+WhoofyouisenrolledintheCyberSecurityMaster?
+WhoofyouisenrolledinMathematics?
+2/16
+OVERVIEW
+Lecture Overview
+PartI:Lectures
+PartII:ActiveResearchTopics
+3/16
+Lectures
+PracticalChallengesin HumanFactorsof Securityand Privacy
+AppliedBinaryExploitation
+SideChannelAttacks
+SecurityofDistributedandResource-constrainedSystems
+SecurityinDigitalSupplyChains
+MalwareAnalysis
+4/16
+Research Topics
+Fuzzing
+VersionDetection
+ReproducibleBuilds
+CyberReasoningSystems
+TopologicalDataAnalysis
+WirelessDeviceIdentification
+AnonymizationandPrivacy
+WebAuthenticationSchemes
+IdentityDataandPasswords
+5/16
+SCHEDULE, MAILING LIST & EXAM
+Schedule
+Lecture
+OnSite: Thu12:15–13:45inHSZ-HS7
+Livestream: n/a
+ExerciseSession
+OnSite: Wed14:15–15:45inHSZ-HS7
+Livestream: n/a
+6/16
+Website
+https://net.cs.uni-bonn.de/wg/itsec/teaching/wt-202526/it-security/
+7/16
+Mailing List
+Purposesofthemailinglist
+Correctionsandremarks
+Organisatorialinformation
+Youcanaskquestions
+Lecturerscananswerquestions
+Youcananswerquestions
+Pleasedonotsendattachmentsonthemailinglist!
+8/16
+Lecture Slides & Exercise Sheets
+LectureslidesandexercisesheetsarepublishedonSciebo
+Link: https://uni-bonn.sciebo.de/s/A5mMYyjHAaf8sLo
+Password:
+9/16
+Exam Admission
+Thegettheadmissiontotheexam,thefollowingstepsaremandatory.
+Inagroupofatmostthreestudentsyouneedtosolveexercisesheets.
+Foradmissiontotheexamyouneedtoachieve
+≥50%pointson
+≥70%oftheexercisesheets
+Therewillbenomorethan14(13)exercisesheets.
+Thus,youneedto”pass”atleast10sheetsdefinitelybeadmitted
+Moreover,youhavetoregistertotheexamintime. TheMasterOfficewilltellyou
+thedatesoftheregistrationperiod.
+Directlyafterthislecture: GroupSpeeddating!
+10/16
+Exam Dates (likely)
+FirstExam: 23rdFeb2025,12:30am,HSZ-HS1
+SecondExam: 16thMar2025,9:30am,MA176-HSII+IV
+Note: Thetimesarenotyetfullyconfirmed.
+11/16
+Important:
+Exercise Technology
+Exercises & Admission
+Thegettheadmissiontotheexam,thefollowingstepsaremandatory.
+Ifnecessary,requestorrenewyourCSAccount:
+https://startup.informatik.uni-bonn.de/?lang=en
+Dothatnow!
+Inordertotakepartintheexercisesession,createorjoinagroup(withyourpeers)
+today! https://flavius.cs.uni-bonn.de
+Note: Only reachable from within the university network
+Afterwards,youwillfindtheweeklyexercisesinFlaviusundtheCSGitLab(notthe
+Info4Gitlab). https://gitlab.cs.uni-bonn.de
+Thefirstsheetispublishedtodayafterthelecture(asmergerequest).
+12/16
+THE FLAVIUS WORKFLOW
+Flavius Workflow
+13/16
+Flavius Workflow
+13/16
+Flavius Workflow
+13/16
+Flavius Workflow
+13/16
+Flavius Workflow
+13/16
+Flavius Workflow
+13/16
+Flavius Workflow
+13/16
+Flavius Workflow
+13/16
+Flavius Workflow
+13/16
+Flavius Workflow
+13/16
+Most Important:
+In case of technical problems,
+message me as soon as possible.
+FAQ
+https://net.cs.uni-bonn.de/wg/itsec/teaching/wt-202526/it-security/
+14/16
+Lightning Surveys
+LightningSurveys
+foreverylecture
+foreveryexercisesheet
+Yourparticipationwillimprovethequalityof
+thislectureinthefuture!
+15/16

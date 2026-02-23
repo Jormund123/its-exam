@@ -1,0 +1,39 @@
+IT Security 2025/2026
+Exercise Sheet 9
+– Reproducible Builds –
+Timo Pohl
+Publication: 11.12.2025
+Deadline: 16.12.2025 14:00
+Lightning Survey
+Exercise 1 (Reproducible Builds in General, 1+1+1+2+2 points).
+Answer the following questions into task1.txt.
+a) Consider the SLSA supply chain diagram above. Which part of the supply chain does the
+reproducible builds concept aim to protect against?
+Source Threats Build Threats Usage Threats
+b) Write down the formal definition of “reproducibility” as given in the lecture.
+c) What is the main difference between “remote artifact reproduction” and “adversarial re-
+building”? Answer in at most two sentences.
+d) What are the four levels of binary equivalence?
+e) Define a generic software attestation in at most 3 sentences. Emphasize the three main
+components of a software attestation, and the exact guarantee that a software attestation
+provides, with regards to these components.
+Exercise 2 (Multiple Choice, 0.5+1+0.5+0.5+0.5 points).
+Write your answers into task2.yml.
+a) What level of binary equivalence was chosen as appropriate in the Python cache file poi-
+soning case study?
+Level 1 Level 2 Level 3 Level 4
+1
+b) What was the main obstacles we faced when making Python cache files reproducible?
+(1) Cache file metadata
+(2) Cache file headers
+(3) Timestamps in the byte code
+(4) Obfuscated source code
+For each of the following tools, decide whether it can be used to research “remote artifact
+reproduction”, “adversarial rebuilding”, or both of them.
+c) reprotest
+remote artifact reproduction adversarial rebuilding
+remote artifact reproduction adversarial rebuilding
+e) diffoscope
+remote artifact reproduction adversarial rebuilding
+d) OSS rebuild
+2
